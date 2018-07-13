@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">U22TeamA</string>
+    <string name="app_name">お問い合わせ</string>
+    <string name="tv_contact">お問い合わせ</string>
+    <string name="tv_item">カテゴリー</string>
+
+    <string name="tv_content">内容</string>
+    <string name="bt_confirming">確認</string>
+    <string name="bt_send">送信</string>
+    <string name="bt_correction">訂正</string>
 </resources>
