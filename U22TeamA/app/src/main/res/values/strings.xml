@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">U22TeamA</string>
+    <string-array name="spinner_DetailedDesignatedSearch">
+        <item>詳細検索</item>
+    </string-array>
+    <string name="tv_SearchInfo">検索</string>
 </resources>
