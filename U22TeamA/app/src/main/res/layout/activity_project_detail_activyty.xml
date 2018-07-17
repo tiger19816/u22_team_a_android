@@ -99,7 +99,7 @@
         android:layout_height="28dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/tv_yean"
+        android:text="@string/tv_project_detail_activity_yean"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintStart_toEndOf="@+id/spinner"
