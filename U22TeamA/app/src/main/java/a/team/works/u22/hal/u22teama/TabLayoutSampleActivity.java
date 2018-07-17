@@ -27,7 +27,7 @@ public class TabLayoutSampleActivity extends AppCompatActivity implements ViewPa
         //xmlからViewPagerを取得
         ViewPager viewPager = findViewById(R.id.pager);
         //ページタイトル配列
-        final String[] pageTitle = {"MYPage", "清掃情報"};
+        final String[] pageTitle = {getString(R.string.tv_mypage_title), getString(R.string.tv_mypage_info)};
 
         //表示Pageに必要な項目を設定
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {

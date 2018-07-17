@@ -1,10 +1,19 @@
 <resources>
-    <string name="app_name">U22TeamA</string>
+    <string name="app_name">清掃アプリ</string>
 
+    <!--MYPAGE　string.xml　-->
     <string-array name="list">
-    <item></item>
-    <item>B型</item>
-    <item>O型</item>
-    <item>AB型</item>
+    <item>全て</item>
+    <item>MY投稿</item>
+    <item>MY協賛</item>
     </string-array>
+    <string name="tv_mypage_title">会員情報</string>
+    <string name="tv_mypage_change">変更</string>
+    <string name="tv_mypage_name">氏名</string>
+    <string name="tv_mypage_birth">生年月日</string>
+    <string name="tv_mypage_address">住所</string>
+    <string name="tv_mypage_sex">性別</string>
+    <string name="tv_mypage_age">年齢</string>
+    <string name="tv_mypage_phone">電話番号</string>
+    <string name="tv_mypage_info">清掃情報</string>
 </resources>

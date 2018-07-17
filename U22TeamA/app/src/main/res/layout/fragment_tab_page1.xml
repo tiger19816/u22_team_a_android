@@ -14,14 +14,14 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:gravity="center_horizontal"
-            android:text="会員情報"
+            android:text="@string/tv_mypage_title"
             android:textSize="25sp"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="変更"
+            android:text="@string/tv_mypage_change"
             android:textSize="20sp" />
     </FrameLayout>
 
@@ -34,10 +34,10 @@ android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="氏名"
+            android:text="@string/tv_mypage_name"
             android:textSize="20sp" />
 
-        <EditText
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -54,10 +54,10 @@ android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="生年月日"
+            android:text="@string/tv_mypage_birth"
             android:textSize="20sp" />
 
-        <EditText
+        <TextView
             android:layout_width="301dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -73,10 +73,10 @@ android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="住所"
+            android:text="@string/tv_mypage_address"
             android:textSize="20sp"/>
 
-        <EditText
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -92,10 +92,10 @@ android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="性別"
+            android:text="@string/tv_mypage_sex"
             android:textSize="20sp"/>
 
-        <EditText
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -111,10 +111,10 @@ android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="年齢"
+            android:text="@string/tv_mypage_age"
             android:textSize="20sp"/>
 
-        <EditText
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -130,10 +130,10 @@ android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="電話番号"
+            android:text="@string/tv_mypage_phone"
             android:textSize="20sp"/>
 
-        <EditText
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
