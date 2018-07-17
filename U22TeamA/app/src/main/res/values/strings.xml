@@ -21,6 +21,7 @@
     <string name="tv_category">カテゴリー</string>
     <string name="tv_content">内容</string>
     <string name="tv_investmentAmount">投資金額</string>
+    <string name="item">Item</string>
     <string-array name="spinner_category">
         <item>汚れ</item>
         <item>ごみ</item>
