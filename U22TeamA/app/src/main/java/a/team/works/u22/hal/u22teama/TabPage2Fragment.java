@@ -1,12 +1,14 @@
 package a.team.works.u22.hal.u22teama;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,12 +52,12 @@ public class TabPage2Fragment extends Fragment{
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();//ここ
-        inflater.inflate(R.menu.option_menu_sample, menu);
-        return true;
-    }
+
+//    public void onSearchButtonClick(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, view, menuInfo);
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.context_menu_sample, menu);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

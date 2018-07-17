@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">U22TeamA</string>
+
+    <string-array name="list">
+    <item></item>
+    <item>B型</item>
+    <item>O型</item>
+    <item>AB型</item>
+    </string-array>
 </resources>
