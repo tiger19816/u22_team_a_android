@@ -11,4 +11,15 @@
         <item>200</item>
         <item>300</item>
     </string-array>
+    <string name="tv_title">タイトル</string>
+    <string name="tv_photo">写真</string>
+    <string name="tv_place">場所</string>
+    <string name="tv_category">カテゴリー</string>
+    <string name="tv_content">内容</string>
+    <string name="tv_investmentAmount">投資金額</string>
+    <string-array name="spinner_category">
+        <item>汚れ</item>
+        <item>ごみ</item>
+    </string-array>
 </resources>
+
