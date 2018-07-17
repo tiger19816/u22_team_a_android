@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NewProjectPostsConfirmationScreenActivity" />
+        <activity android:name=".ProjectSearchActivity" />
+        <activity android:name=".ProjectDetailActivyty" />
+        <activity android:name=".NewProjectPostsScreenActivity" />
     </application>
 
 </manifest>
