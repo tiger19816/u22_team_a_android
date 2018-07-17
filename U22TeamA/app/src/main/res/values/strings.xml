@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">U22TeamA</string>
+    <string-array name="spinner_DetailedDesignatedSearch">
+        <item>詳細検索</item>
+    </string-array>
+    <string name="tv_SearchInfo">検索</string>
+    <string name="tv_yean">￥</string>
+    <string name="tv_fundRaising">現在 :</string>
+    <string name="tv_place">場所 :</string>
+    <string name="tv_content">内容 :</string>
+    <string name="tv_oder_date">依頼日 :</string>
+    <string name="bt_fundRaising">寄付する</string>
+    <string-array name="Place">
+        <item>100</item>
+        <item>200</item>
+        <item>300</item>
+    </string-array>
     <string name="tv_title">タイトル</string>
     <string name="tv_photo">写真</string>
     <string name="tv_place">場所</string>
