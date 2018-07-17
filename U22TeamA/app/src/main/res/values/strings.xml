@@ -62,5 +62,20 @@
     <string name="tv_contact_name">お名前</string>
 
     <string name="tv_contact_result">以下の内容で送信します。</string>
+
+    <!--ログイン画面-->
+    <string name="tv_Login_Id">ログインID</string>
+    <string name="tv_Login_PassWord">パスワード</string>
+    <string name="tv_Login_Button">ログイン</string>
+    <!--新規登録画面-->
+    <string name="tv_Title_Registration">アカウント登録</string>
+    <string name="tv_New_Registration_Name">氏名</string>
+    <string name="tv_New_Registration_Birthday">生年月日</string>
+    <string name="tv_New_Registration_Address">住所</string>
+    <string name="tv_New_Registration_Sex">性別</string>
+    <string name="tv_New_Registration_Password">パスワード</string>
+    <string name="tv_New_Registration_Credit_Card_Number">クレジットカード番号</string>
+    <string name="tv_New_Registration_Phone_Number">電話番号</string>
+    <string name="tv_New_Registration">登録する</string>
 </resources>
 

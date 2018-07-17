@@ -129,7 +129,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/et_Content"
         app:layout_constraintEnd_toEndOf="parent"
-        android:entries="@array/spinner_category"
+        android:entries="@array/spinner_activity_new_project_posts_category"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_Category"
         app:layout_constraintStart_toStartOf="@+id/guideline"
