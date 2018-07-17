@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">清掃アプリ</string>
-
-    <!--MYPAGE　string.xml　-->
+    <!--MYPAGE画面-->
     <string-array name="list">
     <item>全て</item>
     <item>MY投稿</item>
@@ -51,5 +50,17 @@
         <item>汚れ</item>
         <item>ごみ</item>
     </string-array>
+    <!--お問い合わせ画面-->
+    <string name="tv_contact_title">お問い合わせ</string>
+    <string name="tv_contact_item">カテゴリー</string>
+
+    <string name="tv_contact_content">内容</string>
+    <string name="bt_contact_confirming">確認</string>
+    <string name="bt_contact_send">送信</string>
+    <string name="bt_contact_correction">訂正</string>
+
+    <string name="tv_contact_name">お名前</string>
+
+    <string name="tv_contact_result">以下の内容で送信します。</string>
 </resources>
 

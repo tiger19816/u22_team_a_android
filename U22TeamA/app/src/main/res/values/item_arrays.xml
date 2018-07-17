@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_items">
+        <item>------</item>
+        <item>お客様同士のトラブル</item>
+        <item>機能についての質問</item>
+        <item>違反行為の通報</item>
+        <item>その他</item>
+
+    </string-array>
+</resources>
