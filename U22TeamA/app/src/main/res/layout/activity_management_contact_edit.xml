@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="お名前" />
+            android:text="@string/tv_name" />
 
         <EditText
             android:id="@+id/edName"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="カテゴリー" />
+            android:text="@string/tv_item" />
 
         <EditText
             android:id="@+id/edItem"
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:text="内容" />
+        android:text="@string/tv_content" />
 
     <EditText
         android:id="@+id/edContent"

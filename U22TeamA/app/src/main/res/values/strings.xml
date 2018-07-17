@@ -7,4 +7,8 @@
     <string name="bt_confirming">確認</string>
     <string name="bt_send">送信</string>
     <string name="bt_correction">訂正</string>
+
+    <string name="tv_name">お名前</string>
+
+    <string name="tv_result">以下の内容で送信します。</string>
 </resources>

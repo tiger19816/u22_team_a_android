@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="以下の内容で送信します。" />
+            android:text="@string/tv_result" />
 
         <Button
             android:id="@+id/btCorrection"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="お名前：" />
+                android:text="@string/tv_name" />
 
             <EditText
                 android:id="@+id/edName"
