@@ -21,7 +21,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/tv_title"
+        android:text="@string/tv_activity_new_project_posts_title"
         app:layout_constraintBaseline_toBaselineOf="@+id/ed_Title"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
@@ -51,7 +51,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/tv_photo"
+        android:text="@string/tv_activity_new_project_posts_photo"
         app:layout_constraintEnd_toStartOf="@+id/im_CheckPhots"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/tv_place"
+        android:text="@string/tv_activity_new_project_posts_place"
         app:layout_constraintBaseline_toBaselineOf="@+id/et_Place"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
@@ -111,7 +111,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/tv_category"
+        android:text="@string/tv_activity_new_project_posts_category"
         app:layout_constraintEnd_toStartOf="@+id/spinner_Category"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +143,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/tv_content"
+        android:text="@string/tv_activity_new_project_posts_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/et_Content"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
@@ -172,7 +172,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/tv_investmentAmount"
+        android:text="@string/tv_activity_new_project_posts_investmentAmount"
         app:layout_constraintBaseline_toBaselineOf="@+id/et_InvestmentAmount"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />

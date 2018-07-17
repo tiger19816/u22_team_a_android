@@ -1,30 +1,40 @@
 <resources>
     <string name="app_name">U22TeamA</string>
-    <string-array name="spinner_DetailedDesignatedSearch">
+    <!--プロジェクト検索画面-->
+    <string-array name="spinner_activity_project_search_DetailedDesignatedSearch">
         <item>詳細検索</item>
     </string-array>
-    <string name="tv_SearchInfo">検索</string>
-    <string name="tv_yean">￥</string>
-    <string name="tv_fundRaising">現在 :</string>
-    <string name="tv_place">場所 :</string>
-    <string name="tv_content">内容 :</string>
-    <string name="tv_oder_date">依頼日 :</string>
-    <string name="bt_fundRaising">寄付する</string>
-    <string-array name="Place">
+    <string name="tv_activity_project_search_SearchInfo">検索</string>
+    <!--プロジェクト詳細、寄付画面-->
+    <string name="tv_project_detail_activity_yean">￥</string>
+    <string name="tv_project_detail_activity_fundRaising">現在 :</string>
+    <string name="tv_project_detail_activity_place">場所 :</string>
+    <string name="tv_project_detail_activity_content">内容 :</string>
+    <string name="tv_project_detail_activity_oder_date">依頼日 :</string>
+    <string name="bt_project_detail_activity_fundRaising">寄付する</string>
+    <string-array name="project_detail_activity_Place">
         <item>100</item>
         <item>200</item>
         <item>300</item>
     </string-array>
-    <string name="tv_title">タイトル</string>
-    <string name="tv_photo">写真</string>
-    <string name="tv_place">場所</string>
-    <string name="tv_category">カテゴリー</string>
-    <string name="tv_content">内容</string>
-    <string name="tv_investmentAmount">投資金額</string>
-    <string name="item">Item</string>
-    <string-array name="spinner_category">
+    <!--新規プロジェクト投稿確認画面-->
+    <string name="tv_activity_new_project_posts_confirmation_title">タイトル</string>
+    <string name="tv_activity_new_project_posts_confirmation_photo">写真</string>
+    <string name="tv_activity_new_project_posts_confirmation_place">場所</string>
+    <string name="tv_activity_new_project_posts_confirmation_category">カテゴリー</string>
+    <string name="tv_activity_new_project_posts_confirmation_content">内容</string>
+    <string name="tv_activity_new_project_posts_confirmation_investmentAmount">投資金額</string>
+    <!--新規プロジェクト投稿画面-->
+    <string name="tv_activity_new_project_posts_title">タイトル</string>
+    <string name="tv_activity_new_project_posts_photo">写真</string>
+    <string name="tv_activity_new_project_posts_place">場所</string>
+    <string name="tv_activity_new_project_posts_category">カテゴリー</string>
+    <string name="tv_activity_new_project_posts_content">内容</string>
+    <string name="tv_activity_new_project_posts_investmentAmount">投資金額</string>
+    <string-array name="spinner_activity_new_project_posts_category">
         <item>汚れ</item>
         <item>ごみ</item>
     </string-array>
+
 </resources>
 
