@@ -37,7 +37,7 @@
         android:layout_marginLeft="68dp"
         android:layout_marginStart="68dp"
         android:layout_marginTop="8dp"
-        android:text="@string/tv_place"
+        android:text="@string/tv_project_detail_activity_place"
         app:layout_constraintBottom_toTopOf="@+id/tv_Content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
@@ -50,7 +50,7 @@
         android:layout_marginBottom="68dp"
         android:layout_marginLeft="68dp"
         android:layout_marginStart="68dp"
-        android:text="@string/tv_content"
+        android:text="@string/tv_project_detail_activity_content"
         app:layout_constraintBottom_toTopOf="@+id/tv_OrderDate"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -61,7 +61,7 @@
         android:layout_marginBottom="24dp"
         android:layout_marginLeft="64dp"
         android:layout_marginStart="64dp"
-        android:text="@string/tv_oder_date"
+        android:text="@string/tv_project_detail_activity_oder_date"
         app:layout_constraintBottom_toTopOf="@+id/tv_FundRaising"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="68dp"
         android:layout_marginStart="68dp"
-        android:text="@string/tv_fundRaising"
+        android:text="@string/tv_project_detail_activity_fundRaising"
         app:layout_constraintBottom_toTopOf="@+id/tv_yean"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -79,7 +79,7 @@
         android:id="@+id/bt_FundRaising"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bt_fundRaising"
+        android:text="@string/bt_project_detail_activity_fundRaising"
         tools:layout_editor_absoluteX="147dp"
         tools:layout_editor_absoluteY="458dp" />
 
@@ -89,7 +89,7 @@
         android:layout_height="31dp"
         android:layout_marginLeft="104dp"
         android:layout_marginStart="104dp"
-        android:entries="@array/Place"
+        android:entries="@array/project_detail_activity_Place"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_FundRaising" />
 
