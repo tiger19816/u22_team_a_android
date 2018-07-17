@@ -7,5 +7,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style
+        name="AlertDialogStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+
+
+
+    </style>
+
+    <item type="dimen" name="dialog_min_width_major">90%</item>
+    <item type="dimen" name="dialog_min_width_minor">95%</item>
 
 </resources>

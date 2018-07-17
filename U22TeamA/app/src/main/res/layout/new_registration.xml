@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<!--
+    <ScrollView
+        android:id="@+id/ScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="0dp">
+-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="tv_Title_Registration"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_New_Registration_Name"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/input_name"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_New_Registration_Birthday"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/input_birthday"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_New_Registration_Address"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/input_address"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_New_Registration_Phone_Number"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/input_phone_number"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_New_Registration_Sex"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/input_sex"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_New_Registration_Credit_Card_Number"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/input_credit_card_number"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_New_Registration_Password"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/Registration"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:text="@string/tv_New_Registration"
+                    android:onClick="onRegistration"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+ <!--   </ScrollView>   -->
+
+
+</LinearLayout>
