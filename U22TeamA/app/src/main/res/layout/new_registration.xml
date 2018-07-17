@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="tv_Title_Registration"
+            android:text="@string/tv_Title_Registration"
             android:textSize="25sp" />
     </LinearLayout>
 
