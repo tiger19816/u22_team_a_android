@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Login</string>
-    <string name="tv_LoginId">ログインID</string>
+    <string name="tv_Login_Id">ログインID</string>
     <string name="tv_Login_PassWord">パスワード</string>
-    <string name="tv_LoginButton">ログイン</string>
+    <string name="tv_Login_Button">ログイン</string>
 
     <string name="tv_Title_Registration">アカウント登録</string>
     <string name="tv_New_Registration_Name">氏名</string>
