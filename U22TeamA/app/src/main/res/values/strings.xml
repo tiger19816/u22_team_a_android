@@ -1,5 +1,21 @@
 <resources>
-    <string name="app_name">U22TeamA</string>
+    <string name="app_name">清掃アプリ</string>
+
+    <!--MYPAGE　string.xml　-->
+    <string-array name="list">
+    <item>全て</item>
+    <item>MY投稿</item>
+    <item>MY協賛</item>
+    </string-array>
+    <string name="tv_mypage_title">会員情報</string>
+    <string name="tv_mypage_change">変更</string>
+    <string name="tv_mypage_name">氏名</string>
+    <string name="tv_mypage_birth">生年月日</string>
+    <string name="tv_mypage_address">住所</string>
+    <string name="tv_mypage_sex">性別</string>
+    <string name="tv_mypage_age">年齢</string>
+    <string name="tv_mypage_phone">電話番号</string>
+    <string name="tv_mypage_info">清掃情報</string>
     <!--プロジェクト検索画面-->
     <string-array name="spinner_activity_project_search_DetailedDesignatedSearch">
         <item>詳細検索</item>
@@ -35,6 +51,5 @@
         <item>汚れ</item>
         <item>ごみ</item>
     </string-array>
-
 </resources>
 
