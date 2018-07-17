@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">お問い合わせ</string>
-    <string name="tv_contact">お問い合わせ</string>
-    <string name="tv_item">カテゴリー</string>
+    <string name="tv_contact_title">お問い合わせ</string>
+    <string name="tv_contact_item">カテゴリー</string>
 
-    <string name="tv_content">内容</string>
-    <string name="bt_confirming">確認</string>
-    <string name="bt_send">送信</string>
-    <string name="bt_correction">訂正</string>
+    <string name="tv_contact_content">内容</string>
+    <string name="bt_contact_confirming">確認</string>
+    <string name="bt_contact_send">送信</string>
+    <string name="bt_contact_correction">訂正</string>
 
-    <string name="tv_name">お名前</string>
+    <string name="tv_contact_name">お名前</string>
 
-    <string name="tv_result">以下の内容で送信します。</string>
+    <string name="tv_contact_result">以下の内容で送信します。</string>
 </resources>
