@@ -8,15 +8,6 @@ android:orientation="vertical">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tvTabText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:gravity="center_horizontal"
-            android:text="@string/tv_mypage_title"
-            android:textSize="25sp"/>
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
