@@ -88,13 +88,35 @@
                 android:text="@string/tv_New_Registration_Sex"
                 android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/input_sex"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
+            <!--<EditText-->
+                <!--android:id="@+id/input_sex"-->
+                <!--android:layout_width="230dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:inputType="text" />-->
+        <RadioGroup
+            android:id="@+id/RadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
+        <RadioButton
+            android:id="@+id/bt_men"
+            android:text="男"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/bt_women"
+                android:text="女"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+        </RadioGroup>
+
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_New_Registration_Credit_Card_Number"

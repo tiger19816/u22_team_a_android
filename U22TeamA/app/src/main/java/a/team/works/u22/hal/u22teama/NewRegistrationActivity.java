@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
@@ -28,7 +29,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
                 final EditText text_Birthday =  findViewById(R.id.input_birthday);
                 final EditText text_Address =  findViewById(R.id.input_address);
                 final EditText text_Phone_Number =  findViewById(R.id.input_phone_number);
-                final EditText text_Sex =  findViewById(R.id.input_sex);
+                final RadioGroup text_Sex =  findViewById(R.id.RadioGroup);
                 final EditText text_Credit_Card_Number =  findViewById(R.id.input_credit_card_number);
                 final EditText text_Password =  findViewById(R.id.input_password);
 
@@ -36,7 +37,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
                 CharSequence input_birthday = text_Birthday.getText();
                 CharSequence input_address = text_Address.getText();
                 CharSequence input_phone_number = text_Phone_Number.getText();
-                CharSequence input_sex = text_Sex.getText();
+                CharSequence String text = radioButton.getText().toString();;
                 CharSequence input_credit_card_number = text_Credit_Card_Number.getText();
                 CharSequence input_password = text_Password.getText();
 
