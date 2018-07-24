@@ -4,51 +4,52 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class NewProjectPostsScreenActivityInfomation {
-    private EditText edTitle;
-    private EditText edPlace;
+import java.io.Serializable;
+
+public class NewProjectPostsScreenActivityInfomation implements Serializable {
+    private String edTitle;
+    private String edPlace;
     private String  StrspinnerCate;
-    private EditText edSConte;
-    private EditText edInvestmentAmount;
+    private String edSConte;
+    private String edInvestmentAmount;
 
 //コンストラクト
     public  NewProjectPostsScreenActivityInfomation(){
-        edTitle.setText("");
-        edPlace.setText("");
+        edTitle ="";
+        edPlace ="";
         StrspinnerCate ="";
-        edSConte.setText("");
-        edInvestmentAmount.setText("");
+        edSConte ="";
+        edInvestmentAmount ="";
 
     }
 
 // Set
-    public void setEdTitel(EditText edTitle) {
+    public void setEdTitel(String edTitle) {
         this.edTitle = edTitle;
     }
 
-    public void setEtPlace(EditText edPlace) {
+    public void setEtPlace(String edPlace) {
         this.edPlace = edPlace;
     }
 
     public void setSpinnerCate(String spinnerCate) {
         this.StrspinnerCate = spinnerCate;
     }
-
-    public void setEdSConte(EditText edSConte) {
+    public void setEdSConte(String edSConte) {
         this.edSConte = edSConte;
     }
 
-    public void setEdInvestmentAmount(EditText edInvestmentAmount) {
+    public void setEdInvestmentAmount(String edInvestmentAmount) {
         this.edInvestmentAmount = edInvestmentAmount;
     }
 
 // Get
     public String getEdTitle() {
-        return edTitle.toString();
+        return edTitle;
     }
 
     public String getEdPlace() {
-        return edPlace.toString();
+        return edPlace;
     }
 
     public String getSpinnerCate() {
@@ -56,10 +57,10 @@ public class NewProjectPostsScreenActivityInfomation {
     }
 
     public String getEdSConte() {
-        return edSConte.toString();
+        return edSConte;
     }
 
     public String getEdInvestmentAmount() {
-        return edInvestmentAmount.toString();
+        return edInvestmentAmount;
     }
 }

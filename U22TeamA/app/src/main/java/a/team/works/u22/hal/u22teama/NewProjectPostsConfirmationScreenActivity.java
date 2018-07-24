@@ -17,13 +17,19 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project_posts_confirmation_screen);
 
+        //戻るボタン
+        android.support.v7.app.ActionBar actionbar = getSupportActionBar();
+        actionbar.setHomeButtonEnabled(true);
+        actionbar.setDisplayHomeAsUpEnabled(true);
+
+
         Intent intent=getIntent();
         NewProjectPostsScreenActivityInfomation NPPSAI = (NewProjectPostsScreenActivityInfomation)intent.getSerializableExtra("value");
 
-        TextView tvTitle = findViewById(R.id.tv_Title);
-        TextView tvPlace = findViewById(R.id.tv_Place);
-        TextView tvCategory = findViewById(R.id.tv_Category);
-        TextView tvContent = findViewById(R.id.tv_Content);
+        TextView tvTitle = findViewById(R.id.tv_CheckTitle);
+        TextView tvPlace = findViewById(R.id.tv_CheckPlace);
+        TextView tvCategory = findViewById(R.id.tv_CheckCategory);
+        TextView tvContent = findViewById(R.id.tv_CheckContent);
         TextView tvCheckInvestmentAmount = findViewById(R.id.tv_CheckInvestmentAmount);
 
         tvTitle.setText(NPPSAI.getEdTitle());
@@ -61,27 +67,18 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             /**
+             * 戻るボタンが押された時
+             */
+            case android.R.id.home:
+                finish();
+                return true;
+
+
+            /**
              * 保存ボタンが押された時の処理
              */
-            case R.id.menuNewProjectPostsScreenActivitySave:
+            case R.id.item_send:
 
-                //収納用クラスに値収納
-                NewProjectPostsScreenActivityInfomation NPPSAI = new NewProjectPostsScreenActivityInfomation();
-                EditText edTitle = findViewById(R.id.ed_Title);
-                NPPSAI.setEdTitel(edTitle);
-
-                EditText etPlace = findViewById(R.id.et_Place);
-                NPPSAI.setEtPlace(etPlace);
-
-                Spinner spinnerCate = findViewById(R.id.spinner_Category);
-                NPPSAI.setSpinnerCate((String)spinnerCate.getSelectedItem());
-
-                EditText etSConte = findViewById(R.id.et_Content);
-                NPPSAI.setEdSConte(etSConte);
-
-                EditText etInvestmentAmount = findViewById(R.id.et_InvestmentAmount);
-                NPPSAI.setEdInvestmentAmount(etInvestmentAmount);
-                //値を送る
 
 
                 MovePage();
@@ -91,7 +88,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
     }
 
     public void MovePage() {
-        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, .class);
+        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, TabPage2Fragment.class);
         startActivity(intent);
     }
 }
