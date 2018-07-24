@@ -11,4 +11,5 @@ public class LoginActivity  extends AppCompatActivity {
         setContentView(R.layout.login);
 
     }
+    private static final String LOGIN_URL = GetUrl.LoginUrl;
 }
