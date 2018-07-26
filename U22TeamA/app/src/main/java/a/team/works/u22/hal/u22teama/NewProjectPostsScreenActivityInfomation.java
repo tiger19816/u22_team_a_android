@@ -1,6 +1,8 @@
 package a.team.works.u22.hal.u22teama;
 
+import android.graphics.Bitmap;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -8,8 +10,9 @@ import java.io.Serializable;
 
 public class NewProjectPostsScreenActivityInfomation implements Serializable {
     private String edTitle;
+    private String imgUrl;
     private String edPlace;
-    private String  StrspinnerCate;
+    private String StrspinnerCate;
     private String edSConte;
     private String edInvestmentAmount;
 
@@ -17,6 +20,7 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
     public  NewProjectPostsScreenActivityInfomation(){
         edTitle ="";
         edPlace ="";
+        imgUrl = "";
         StrspinnerCate ="";
         edSConte ="";
         edInvestmentAmount ="";
@@ -35,6 +39,7 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
     public void setSpinnerCate(String spinnerCate) {
         this.StrspinnerCate = spinnerCate;
     }
+
     public void setEdSConte(String edSConte) {
         this.edSConte = edSConte;
     }
@@ -43,7 +48,11 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
         this.edInvestmentAmount = edInvestmentAmount;
     }
 
-// Get
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    // Get
     public String getEdTitle() {
         return edTitle;
     }
@@ -62,5 +71,9 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
 
     public String getEdInvestmentAmount() {
         return edInvestmentAmount;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
     }
 }

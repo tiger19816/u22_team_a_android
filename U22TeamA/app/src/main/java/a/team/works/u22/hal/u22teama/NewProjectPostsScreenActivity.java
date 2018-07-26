@@ -12,6 +12,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.media.ExifInterface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -79,7 +80,8 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     //Exifインスタンス取得
     ExifInterface exif;
 
-
+    //画像の名前を格納
+    String ImgName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -327,6 +329,12 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         }
     }
 
+    /**
+     * 撮影された画像を保存する
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == this.CAMERA_REQUEST_CODE) {
@@ -340,7 +348,9 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                     try {
                         //取得した画像をファイルに保存（※保存完了が反映するまで少し時間がかかります）
                         mediaStorage = Environment.getExternalStorageDirectory();
-                        mediaFile = new File(mediaStorage.getAbsolutePath() + "/" + Environment.DIRECTORY_DCIM + "/Camera", getFileName());
+                        ImgName = getFileName();
+                        mediaFile = new File(mediaStorage.getAbsolutePath() + "/" + Environment.DIRECTORY_DCIM + "/Camera", ImgName);
+                       System.out.println(mediaFile);
                         FileOutputStream outStream = new FileOutputStream(mediaFile);
                         _bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
                         exifWrite(mediaFile);
@@ -408,24 +418,36 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
 
                 //収納用クラスに値収納
                 NewProjectPostsScreenActivityInfomation NPPSAI = new NewProjectPostsScreenActivityInfomation();
+
                 EditText edTitle = findViewById(R.id.ed_Title);
-                NPPSAI.setEdTitel(edTitle.getText().toString());
-
                 EditText etPlace = findViewById(R.id.et_Place);
-                NPPSAI.setEtPlace(etPlace.getText().toString());
-
                 Spinner spinnerCate = findViewById(R.id.spinner_Category);
-                NPPSAI.setSpinnerCate((String)spinnerCate.getSelectedItem());
-
-                EditText etSConte = findViewById(R.id.et_Content);
-                NPPSAI.setEdSConte(etSConte.getText().toString());
-
+                EditText etContent = findViewById(R.id.et_Content);
                 EditText etInvestmentAmount = findViewById(R.id.et_InvestmentAmount);
-                NPPSAI.setEdInvestmentAmount(etInvestmentAmount.getText().toString());
-                //値を送る
-
-
-                MovePage(NPPSAI);
+               //すべての項目が入力されているかの確認
+                if("".equals(edTitle.getText().toString())) {
+                    Toast.makeText(NewProjectPostsScreenActivity.this,"タイトルが入力されていません", Toast.LENGTH_SHORT).show();
+                }else if(_bitmap == null) {
+                    Toast.makeText(NewProjectPostsScreenActivity.this,"写真を撮影してください", Toast.LENGTH_SHORT).show();
+                }else if("".equals(etPlace.getText().toString())){
+                    Toast.makeText(NewProjectPostsScreenActivity.this,"場所が入力されていません", Toast.LENGTH_SHORT).show();
+                }else if("選択してください".equals(spinnerCate.getSelectedItem())) {
+                    Toast.makeText(NewProjectPostsScreenActivity.this,"カテゴリーが選択されていません", Toast.LENGTH_SHORT).show();
+                }else if("".equals(etContent.getText().toString())) {
+                    Toast.makeText(NewProjectPostsScreenActivity.this,"内容が入力されていません", Toast.LENGTH_SHORT).show();
+                }else if("".equals(etInvestmentAmount.getText().toString())) {
+                    Toast.makeText(NewProjectPostsScreenActivity.this,"募金額が入力されていません", Toast.LENGTH_SHORT).show();
+                }else{
+                    //NewProhectPostsScreenActivityInfomationに値を格納
+                    NPPSAI.setEdTitel(edTitle.getText().toString());
+                    NPPSAI.setImgUrl(mediaFile.toString());
+                    NPPSAI.setEtPlace(etPlace.getText().toString());
+                    NPPSAI.setSpinnerCate((String) spinnerCate.getSelectedItem());
+                    NPPSAI.setEdSConte(etContent.getText().toString());
+                    NPPSAI.setEdInvestmentAmount(etInvestmentAmount.getText().toString());
+                    //値を送る
+                    MovePage(NPPSAI);
+                }
                 break;
         }
         return true;
