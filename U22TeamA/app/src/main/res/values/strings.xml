@@ -73,6 +73,9 @@
     <string name="tv_New_Registration_Birthday">生年月日</string>
     <string name="tv_New_Registration_Address">住所</string>
     <string name="tv_New_Registration_Sex">性別</string>
+    <string name="tv_New_Registration_men">男</string>
+    <string name="tv_New_Registration_women">女</string>
+    <string name="tv_New_Registration_mail">メールアドレス</string>
     <string name="tv_New_Registration_Password">パスワード</string>
     <string name="tv_New_Registration_Credit_Card_Number">クレジットカード番号</string>
     <string name="tv_New_Registration_Phone_Number">電話番号</string>
