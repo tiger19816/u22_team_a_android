@@ -62,6 +62,8 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     //カメラで撮影した画像のURI
     private Uri imageUri;
 
+
+
     //インテント
     Intent _intent;
 
@@ -94,6 +96,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
             }, 1000);
+            return;
         }
         else {
             //ストレージのアクセスの許可を求める
@@ -114,9 +117,9 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     //位置情報へのアクセス許可の確認
     public void RequestLocationPermission() {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-            }, 1000);
+                String[] permissions ={Manifest.permission.ACCESS_FINE_LOCATION};
+                ActivityCompat.requestPermissions(this, permissions, 1000);
+            return;         //add
         }
         else {
             locationStart();
@@ -158,7 +161,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                 locationStart();
             }
             else {
-                // それでも拒否された時の対応
+                // 拒否された時の対応
                 Toast.makeText(this, "これ以上なにもできません", Toast.LENGTH_SHORT).show();
             }
         }
