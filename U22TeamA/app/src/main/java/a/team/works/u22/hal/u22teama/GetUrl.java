@@ -6,6 +6,7 @@ package a.team.works.u22.hal.u22teama;
   */
 public class GetUrl {
     private static  final String fixedUrl = "http://10.0.2.2:8080/U22Verification/";
-    public static final String LoginUrl = fixedUrl + "LoginServlet";
+     public static final String LoginUrl = fixedUrl + "LoginServlet";
+     public static final String MyPostsUrl = fixedUrl + "JoinProjectServlet";
 
 }
