@@ -91,6 +91,13 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
 
         ivDisplay = findViewById(R.id.iv_CheckPhots);
 
+        //パーミッションチェックコードの追記
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {  // （1）
+            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};  // （2）
+            ActivityCompat.requestPermissions(this, permissions, 1000);  // （3）
+            return;  // （4）
+        }
+
         //ストレージへのアクセス許可の確認
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{
@@ -119,6 +126,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 String[] permissions ={Manifest.permission.ACCESS_FINE_LOCATION};
                 ActivityCompat.requestPermissions(this, permissions, 1000);
+                Log.d("message","一段階目おｋ");
             return;         //add
         }
         else {
@@ -129,26 +137,31 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         }
     }
 
-    public void locationStart() {
+    public boolean locationStart() {
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (locationManager != null && locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        Log.e("LocationManager",locationManager.toString());
+        if (locationManager != null && (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))) {
+            //if( 位置情報モード != null && (GPS利用可能 || ネットワークが利用可能))
             Log.d("debug", "location manager Enabled");
-        }
-        else {
+        }else {
             // GPSを設定するように促す
+            Log.e("GPSNotOn","GPS画面表示");
+            Toast.makeText(this, "GPSの機能をオンにしてください", Toast.LENGTH_SHORT).show();
             Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(settingsIntent);
-            Log.d("debug", "not gpsEnable, startActivity");
+            Log.d("debug", "not g   psEnable, startActivity");
+            return false;
         }
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
 
             Log.d("debug", "checkSelfPermission false");
-            return;
+            return false;
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 50, this);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 50, this);
+        return true;
     }
 
     @Override
@@ -312,23 +325,27 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         //インテントのアクションを指定する
         _intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
 
+
+
         //カメラへのアクセス許可の確認
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.CAMERA,
-            }, 1000);
-        }
-        else {
-            //カメラのアクセスの許可を求める
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1000);
+        if(locationStart()) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{
+                        Manifest.permission.CAMERA,
+                }, 1000);
+            } else {
+                //カメラのアクセスの許可を求める
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1000);
+                }
+                //拒否された場合
+                else {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,}, 1000);
+                }
+                //標準搭載されているカメラアプリのアクティビティを起動する
+                startActivityForResult(_intent, CAMERA_REQUEST_CODE);
             }
-            //拒否された場合
-            else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,}, 1000);
-            }
-            //標準搭載されているカメラアプリのアクティビティを起動する
-            startActivityForResult(_intent, CAMERA_REQUEST_CODE);
         }
     }
 
@@ -362,6 +379,9 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                         float[] latLong = new float[2];
                         exif.getLatLong(latLong);
                         String info = String.format("%f,%f", latLong[0],latLong[1]);
+                        Log.e("mediaFile",mediaFile.toString());
+                        Log.e("mediaFile", ImgName);
+                        Log.e("info", info);
 
                     }
                     catch (FileNotFoundException e) {
@@ -469,6 +489,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         startActivity(intent);
     }
 
-
-
 }
+
+
