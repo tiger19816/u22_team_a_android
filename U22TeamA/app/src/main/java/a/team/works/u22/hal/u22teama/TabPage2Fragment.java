@@ -199,7 +199,7 @@ public class TabPage2Fragment extends Fragment{
 
                 String[] from = {"postTitle" , "postPhoto" , "postStatus"};
                 int[] to = {R.id.tvPostTitle , R.id.tvPostPhoto , R.id.tvPostStatus};
-                final SimpleAdapter adapter = new SimpleAdapter(TabPage2Fragment.this , _list , R.layout.row_posts , from , to);
+                final SimpleAdapter adapter = new SimpleAdapter(getActivity() , _list , R.layout.row_posts , from , to);
                 adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
                     @Override
                     public boolean setViewValue(View view, Object data, String textRepresentation) {
@@ -222,7 +222,7 @@ public class TabPage2Fragment extends Fragment{
                         return false;
                     }
                 });
-                ListView lvPostList = findViewById(R.id.lvPostList);
+                ListView lvPostList = getActivity().findViewById(R.id.lvPostList);
                 lvPostList.setAdapter(adapter);
                 lvPostList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override

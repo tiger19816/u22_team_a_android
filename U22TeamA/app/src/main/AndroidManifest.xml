@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--ここを編集で最初のスタート画面変更可能-->
-        <activity android:name=".NewProjectPostsScreenActivity" >
+        <activity android:name=".TabLayoutSampleActivity" >
         <!--ここまで-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,6 @@
         <activity android:name=".ProjectSearchActivity" />
         <activity android:name=".ProjectDetailActivyty" />
         <activity android:name=".NewRegistrationActivity"/>
-        <activity android:name=".NewProjectPostsScreenActivity" />
         <activity android:name=".MypageChangeActivity"></activity>
     </application>
 
