@@ -55,7 +55,7 @@ public class TabPage2Fragment extends Fragment{
     private static final String ARG_PARAM = "page";
     private String mParam;
     private TabPage1Fragment.OnFragmentInteractionListener mListener;
-    private static final String LOGIN_URL = GetUrl.MyPostsUrl;
+    private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/JoinProjectServlet";
     private String _id = "1";
 
     /**
@@ -78,7 +78,6 @@ public class TabPage2Fragment extends Fragment{
         if (getArguments() != null) {
             mParam = getArguments().getString(ARG_PARAM);
         }
-
 
         //非同期処理を開始する。
         PostsTaskReceiver receiver = new PostsTaskReceiver();
@@ -185,7 +184,7 @@ public class TabPage2Fragment extends Fragment{
             try {
                 JSONObject rootJSON = new JSONObject(result);
 
-                JSONArray datas = rootJSON.getJSONArray("postsList");
+                JSONArray datas = rootJSON.getJSONArray("LIST");
 
                 //投稿情報
                 for (int i = 0; i < datas.length(); i++) {
