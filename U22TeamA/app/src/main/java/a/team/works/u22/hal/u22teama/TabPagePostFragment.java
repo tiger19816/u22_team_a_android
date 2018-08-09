@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -55,7 +56,7 @@ public class TabPagePostFragment extends Fragment{
     private static final String ARG_PARAM = "page";
     private String mParam;
     private OnFragmentInteractionListener mListener;
-    private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/JoinProjectServlet";
+    private static final String LOGIN_URL = GetUrl.MyPostsUrl;
     private String _flag = "1";
 
     /**
@@ -198,7 +199,7 @@ public class TabPagePostFragment extends Fragment{
                 }
 
                 String[] from = {"postTitle" , "postPhoto" , "postMoney" , "postDate" , "postStatus"};
-                int[] to = {R.id.tvPostTitle , R.id.tvPostPhoto , R.id.tvPostMoney , R.id.tvPostDate , R.id.tvPostStatus};
+                int[] to = {R.id.tvPostTitle , R.id.ivPostPhoto , R.id.tvPostMoney , R.id.tvPostDate , R.id.tvPostStatus};
                 final SimpleAdapter adapter = new SimpleAdapter(getActivity() , _list , R.layout.row_posts , from , to);
                 adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
                     @Override
@@ -210,9 +211,10 @@ public class TabPagePostFragment extends Fragment{
                                 TextView tvPostTitle = (TextView) view;
                                 tvPostTitle.setText(strData);
                                 return true;
-                            case R.id.tvPostPhoto:
-                                TextView tvPostPhoto = (TextView) view;
-                                tvPostPhoto.setText(strData);
+                            case R.id.ivPostPhoto:
+
+                                ImageView ivPostPhoto = (ImageView) view;
+                                ivPostPhoto.setImageResource(R.drawable.firstgundam);
                                 return true;
                             case R.id.tvPostMoney:
                                 TextView tvPostMoney = (TextView) view;
@@ -224,7 +226,7 @@ public class TabPagePostFragment extends Fragment{
                                 return true;
                             case R.id.tvPostStatus:
                                 TextView tvPostStatus = (TextView) view;
-                                tvPostStatus.setText(strData);
+                                tvPostStatus.setText("あなたの投稿金は" + strData + "円です");
                                 return true;
                         }
                         return false;

@@ -21,6 +21,7 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout_sample);
+        setTitle( "清掃情報一覧" );
 
         //xmlからTabLayoutの取得
         TabLayout  tabLayout = findViewById(R.id.tabs);

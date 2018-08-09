@@ -197,7 +197,7 @@ public class TabPage2Fragment extends Fragment{
                 }
 
                 String[] from = {"postTitle" , "postPhoto" , "postStatus"};
-                int[] to = {R.id.tvPostTitle , R.id.tvPostPhoto , R.id.tvPostStatus};
+                int[] to = {R.id.tvPostTitle , R.id.ivPostPhoto , R.id.tvPostStatus};
                 final SimpleAdapter adapter = new SimpleAdapter(getActivity() , _list , R.layout.row_posts , from , to);
                 adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
                     @Override
@@ -209,9 +209,9 @@ public class TabPage2Fragment extends Fragment{
                                 TextView tvPostTitle = (TextView) view;
                                 tvPostTitle.setText(strData);
                                 return true;
-                            case R.id.tvPostPhoto:
-                                TextView tvPostPhoto = (TextView) view;
-                                tvPostPhoto.setText(strData);
+                            case R.id.ivPostPhoto:
+                                TextView ivPostPhoto = (TextView) view;
+                                ivPostPhoto.setText(strData);
                                 return true;
                             case R.id.tvPostStatus:
                                 TextView tvPostStatus = (TextView) view;
