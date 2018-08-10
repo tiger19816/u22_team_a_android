@@ -105,10 +105,10 @@ public class TabPageAssistFragment extends Fragment{
         @Override
         public String doInBackground(String... params) {
             String urlStr = params[0];
-            String id = params[1];
+            String flag = params[1];
 
             //POSTで送りたいデータ
-            String postData = "id=" + id;
+            String postData = "flag=" + flag;
 
             HttpURLConnection con = null;
             InputStream is = null;
@@ -218,15 +218,15 @@ public class TabPageAssistFragment extends Fragment{
                                 return true;
                             case R.id.tvPostMoney:
                                 TextView tvPostMoney = (TextView) view;
-                                tvPostMoney.setText(strData);
+                                tvPostMoney.setText("協賛金：" + strData + "円");
                                 return true;
                             case R.id.tvPostDate:
                                 TextView tvPostDate = (TextView) view;
-                                tvPostDate.setText(strData);
+                                tvPostDate.setText("協賛日：" + strData);
                                 return true;
                             case R.id.tvPostStatus:
                                 TextView tvPostStatus = (TextView) view;
-                                tvPostStatus.setText("あなたの協賛金は" + strData + "円です");
+                                tvPostStatus.setText("状態：" + strData);
                                 return true;
                         }
                         return false;
