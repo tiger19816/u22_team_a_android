@@ -36,6 +36,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
      * AndroidエミュレータからPC内のサーバ(Eclipse上)にアクセスする場合は、localhost(127.0.0.1)ではなく、10.0.2.2にアクセスする。
      */
     private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/NewRegistrationServlet";
+    private static final String MYPAGE_URL = "http://10.0.2.2:8080/u22_team_a_web/MypageChangeCompleteServlet";
 
     int displayInt = 0;
     String displayChar = "";
@@ -59,11 +60,6 @@ public class NewRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.new_registration);
 
         final String TAG = "DialogTest";
-
-
-        /**
-         *
-         */
 
         ((Button) findViewById(R.id.Registration)).setOnClickListener(new View.OnClickListener() {
 
@@ -117,11 +113,16 @@ public class NewRegistrationActivity extends AppCompatActivity {
                         }
                         break;
                 }
+
+
+
                 if (flag != 0) {
                     Toast.makeText(NewRegistrationActivity.this, R.string.msg_items, Toast.LENGTH_SHORT).show();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(NewRegistrationActivity.this, R.style.AlertDialogStyle);
                     new AlertDialog.Builder(NewRegistrationActivity.this);
+
+
 
                     builder.setTitle("確認");
                     builder.setMessage("氏名：" + input_name + "\n"
@@ -152,6 +153,9 @@ public class NewRegistrationActivity extends AppCompatActivity {
                             RegistrationTaskReceiver receiver = new RegistrationTaskReceiver();
                             //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
                             receiver.execute(LOGIN_URL, strName, strBirthday, strAddress, strPhoneNumber, strSex, strCreditCardNumber, strMail, strPassword);
+
+                            RegistrationTaskReceiver mypage_receiver = new RegistrationTaskReceiver();
+                            mypage_receiver.execute(MYPAGE_URL, strName, strBirthday, strAddress, strPhoneNumber, strSex, strCreditCardNumber, strMail, strPassword);
 
 
                         }
@@ -198,6 +202,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
 
             //POSTで送りたいデータ
             String postData = "name=" + name + "&birthday=" + birthday + "&address=" + address + "&phoneNumber=" + phoneNumber + "&sex=" + sex + "&creditNumber=" + creditNumber + "&mail=" + mail + "&password=" + password;
+            String postDataMypage = "name=" + name + "&birthday=" + birthday + "&address=" + address + "&phoneNumber=" + phoneNumber + "&sex=" + sex + "&creditNumber=" + creditNumber + "&mail=" + mail + "&password=" + password;
 
             HttpURLConnection con = null;
             InputStream is = null;
@@ -226,6 +231,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
 
                     //送信する値をByteデータに変換する（UTF-8）
                     os.write(postData.getBytes("UTF-8"));
+                    os.write(postDataMypage.getBytes("UTF-8"));
                     os.flush();
                 } catch (IOException ex) {
                     Log.e(DEBUG_TAG, "POST送信エラー", ex);
