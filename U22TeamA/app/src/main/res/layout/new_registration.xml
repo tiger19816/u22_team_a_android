@@ -23,119 +23,130 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/tv_Title_Registration"
+            android:text="@string/tv_title_registration"
             android:textSize="25sp" />
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_new_registration_name"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/input_name"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_horizontal">
+            android:inputType="text" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_New_Registration_Name"
+                android:inputType="date"
+                android:text="@string/tv_new_registration_birthday"
                 android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/input_name"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-
+            <LinearLayout
+                  android:layout_width="230dp"
+                  android:layout_height="60dp"
+                  android:layout_gravity="center_horizontal"
+                  android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_New_Registration_Birthday"
-                android:textSize="15sp" />
-
-            <EditText
                 android:id="@+id/input_birthday"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_New_Registration_Address"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/input_address"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"/>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_New_Registration_Phone_Number"
-                android:textSize="15sp" />
+            <Button
+                android:id="@+id/button"
+                android:layout_width="45dp"
+                android:layout_height="32dp"
+                android:onClick="onUpdateButtonClick"
+                android:text="選択"
+                android:textSize="10sp" />
 
-            <EditText
-                android:id="@+id/input_phone_number"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:maxLength="11" />
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_New_Registration_Sex"
-                android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_new_registration_address"
+            android:textSize="15sp" />
 
-            <!--<EditText-->
-                <!--android:id="@+id/input_sex"-->
-                <!--android:layout_width="230dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:inputType="text" />-->
+        <EditText
+            android:id="@+id/input_address"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_new_registration_phone_number"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/input_phone_number"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLength="11" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_new_registration_sex"
+            android:textSize="15sp" />
+
         <RadioGroup
             android:id="@+id/RadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/bt_men"
-            android:text="@string/tv_New_Registration_men"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"/>
+            <RadioButton
+                android:id="@+id/bt_men"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/tv_new_registration_men" />
 
 
-        <RadioButton
-            android:id="@+id/bt_women"
-            android:text="@string/tv_New_Registration_women"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            <RadioButton
+                android:id="@+id/bt_women"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tv_new_registration_women" />
 
         </RadioGroup>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_New_Registration_Credit_Card_Number"
-            android:maxLength="16"
+            android:text="@string/tv_new_registration_credit_card_number"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/input_credit_card_number"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="number"
+            android:maxLength="16" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_New_Registration_Password"
+            android:text="@string/tv_new_registration_password"
             android:textSize="15sp" />
 
 
@@ -149,7 +160,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_New_Registration_mail"
+            android:text="@string/tv_new_registration_mail"
             android:textSize="15sp" />
 
 
@@ -160,20 +171,20 @@
             android:inputType="text" />
 
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/Registration"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:text="@string/tv_New_Registration"
-                    android:onClick="onRegistration"/>
+            <Button
+                android:id="@+id/Registration"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:onClick="onRegistration"
+                android:text="@string/tv_new_registration" />
 
-            </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
  <!--   </ScrollView> -->
 </LinearLayout>

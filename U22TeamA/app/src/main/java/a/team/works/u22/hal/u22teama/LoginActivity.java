@@ -48,11 +48,14 @@ public class LoginActivity  extends AppCompatActivity {
         //パスワードの取得。
         EditText etPassword = findViewById(R.id.etPassWord);
         String strPassword = etPassword.getText().toString();
-
-        //非同期処理を開始する。
-        LoginTaskReceiver receiver = new LoginTaskReceiver();
-        //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(LOGIN_URL, strId, strPassword);
+        if ("".equals(strId) || "".equals(strPassword)) {
+            Toast.makeText(LoginActivity.this, R.string.msg_items, Toast.LENGTH_SHORT).show();
+        } else {
+            //非同期処理を開始する。
+            LoginTaskReceiver receiver = new LoginTaskReceiver();
+            //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+            receiver.execute(LOGIN_URL, strId, strPassword);
+        }
     }
 
     /**
