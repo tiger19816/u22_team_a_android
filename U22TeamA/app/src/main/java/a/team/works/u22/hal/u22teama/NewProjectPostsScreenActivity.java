@@ -59,17 +59,15 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     //onActivityResultメソッドで受け取るコード
     private static final int CAMERA_REQUEST_CODE = 1;
 
-    //カメラで撮影した画像のURI
-    private Uri imageUri;
-
-
-
     //インテント
     Intent _intent;
 
     //カメラ画像を保存するディレクトリ
     static File mediaStorage;
     static File mediaFile;
+    private String StrImgName;
+    final static String StrFileName  ="U22";
+
 
     //画像を表示する部分
     ImageView ivDisplay;
@@ -82,8 +80,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     //Exifインスタンス取得
     ExifInterface exif;
 
-    //画像の名前を格納
-    String ImgName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,8 +88,8 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         ivDisplay = findViewById(R.id.iv_CheckPhots);
 
         //パーミッションチェックコードの追記
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {  // （1）
-            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};  // （2）
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {  // （1）
+            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};  // （2）
             ActivityCompat.requestPermissions(this, permissions, 1000);  // （3）
             return;  // （4）
         }
@@ -364,12 +360,27 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
 
                     //撮影した画像を取得
                     _bitmap = (Bitmap) data.getExtras().get("data");
+                    //撮影した画像の名前を日付から確定
+                    StrImgName = getFileName();
 
                     try {
                         //取得した画像をファイルに保存（※保存完了が反映するまで少し時間がかかります）
-                        mediaStorage = Environment.getExternalStorageDirectory();
-                        ImgName = getFileName();
-                        mediaFile = new File(mediaStorage.getAbsolutePath() + "/" + Environment.DIRECTORY_DCIM + "/Camera", ImgName);
+                        mediaStorage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+
+                        //フォルダーがあるかの確認、なければ作成する。
+                        mediaFile = new File(mediaStorage.getAbsolutePath() + "/" + StrFileName);
+
+                        //フォルダーの確認
+                        if(!mediaFile.exists()){
+                            Log.e("create", "in");
+                            boolean result = mediaFile.mkdirs();
+                            if(! result){
+                                Log.e("error", "brack");
+                                break;
+                            }
+                        }
+
+                        mediaFile = new File(mediaFile.getPath() + "/" + StrImgName);
                        System.out.println(mediaFile);
                         FileOutputStream outStream = new FileOutputStream(mediaFile);
                         _bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
@@ -380,7 +391,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                         exif.getLatLong(latLong);
                         String info = String.format("%f,%f", latLong[0],latLong[1]);
                         Log.e("mediaFile",mediaFile.toString());
-                        Log.e("mediaFile", ImgName);
                         Log.e("info", info);
 
                     }
@@ -464,6 +474,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                     //NewProhectPostsScreenActivityInfomationに値を格納
                     NPPSAI.setEdTitel(edTitle.getText().toString());
                     NPPSAI.setImgUrl(mediaFile.toString());
+                    NPPSAI.setImgName(StrImgName);
                     NPPSAI.setEtPlace(etPlace.getText().toString());
                     NPPSAI.setSpinnerCate((String) spinnerCate.getSelectedItem());
                     NPPSAI.setEdSConte(etContent.getText().toString());

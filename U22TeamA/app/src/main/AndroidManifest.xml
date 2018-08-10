@@ -14,6 +14,11 @@
     <!-- カメラ起動のための -->
     <uses-permission android:name="android.permission.CAMERA"/>
 
+    <!--ネットワークアクセス -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
 
 
     <application
@@ -22,9 +27,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <!--ここを編集で最初のスタート画面変更可能-->
-        <activity android:name=".TabLayoutSampleActivity" >
+        <activity android:name=".NewProjectPostsScreenActivity" >
+
         <!--ここまで-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,6 +43,7 @@
         <activity android:name=".ProjectSearchActivity" />
         <activity android:name=".ProjectDetailActivyty" />
         <activity android:name=".NewRegistrationActivity"/>
+        <activity android:name=".TabLayoutSampleActivity" />
         <activity android:name=".MypageChangeActivity"></activity>
     </application>
 

@@ -11,19 +11,23 @@ import java.io.Serializable;
 public class NewProjectPostsScreenActivityInfomation implements Serializable {
     private String edTitle;
     private String imgUrl;
+    private String imgName;
     private String edPlace;
     private String StrspinnerCate;
     private String edSConte;
     private String edInvestmentAmount;
+    private byte[] byteImg;
 
 //コンストラクト
     public  NewProjectPostsScreenActivityInfomation(){
         edTitle ="";
         edPlace ="";
         imgUrl = "";
+        imgName = "";
         StrspinnerCate ="";
         edSConte ="";
         edInvestmentAmount ="";
+        byteImg = new byte[10240];
 
     }
 
@@ -52,6 +56,14 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
         this.imgUrl = imgUrl;
     }
 
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
+    }
+
+    public void setByteImg(byte[] byteImg) {
+        this.byteImg = byteImg;
+    }
+
     // Get
     public String getEdTitle() {
         return edTitle;
@@ -75,5 +87,13 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
 
     public String getImgUrl() {
         return imgUrl;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public byte[] getByteImg() {
+        return byteImg;
     }
 }
