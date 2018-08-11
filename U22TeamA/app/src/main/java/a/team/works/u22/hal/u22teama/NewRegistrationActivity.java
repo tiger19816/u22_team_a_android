@@ -28,6 +28,7 @@ import android.app.DatePickerDialog;
 import java.util.Calendar;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.ScrollView;
 
 public class NewRegistrationActivity extends AppCompatActivity {
 
@@ -35,11 +36,13 @@ public class NewRegistrationActivity extends AppCompatActivity {
      * ログインする先のURLを入れる定数.
      * AndroidエミュレータからPC内のサーバ(Eclipse上)にアクセスする場合は、localhost(127.0.0.1)ではなく、10.0.2.2にアクセスする。
      */
-    private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/NewRegistrationServlet";
-    private static final String MYPAGE_URL = "http://10.0.2.2:8080/u22_team_a_web/MypageChangeCompleteServlet";
+    private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/RegistrationServlet";
+ //   private static final String MYPAGE_URL = "http://10.0.2.2:8080/u22_team_a_web/MypageChangeCompleteServlet";
 
     int displayInt = 0;
     String displayChar = "";
+    String Sex ="";
+    String birthday ="";
     private int year;
     private int month;
     private int day;
@@ -50,10 +53,11 @@ public class NewRegistrationActivity extends AppCompatActivity {
     CharSequence input_address;
     CharSequence input_phone_number;
     CharSequence input_credit_card_number;
+    CharSequence input_credit_card_security_code;
     CharSequence input_mail;
     CharSequence input_password;
-
-
+    CharSequence input_credit_card_expiration_year;
+    CharSequence input_credit_card_expiration_month;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +75,12 @@ public class NewRegistrationActivity extends AppCompatActivity {
                 final EditText text_Phone_Number = findViewById(R.id.input_phone_number);
                 final RadioGroup text_sex = findViewById(R.id.RadioGroup);
                 final EditText text_Credit_Card_Number = findViewById(R.id.input_credit_card_number);
+                final EditText text_Credit_Card_Security_Code = findViewById(R.id.input_credit_card_security_code);
+                final EditText text_Credit_Card_Expiration_Year = findViewById(R.id.input_credit_card_expiration_year);
+                final EditText text_Credit_Card_Expiration_Month = findViewById(R.id.input_credit_card_expiration_month);
                 final EditText text_mail = findViewById(R.id.input_mail);
                 final EditText text_Password = findViewById(R.id.input_password);
+
 
                 if (ErrorCheck(text_Name)) {
                     input_name = text_Name.getText();
@@ -89,6 +97,15 @@ public class NewRegistrationActivity extends AppCompatActivity {
                 if (ErrorCheck(text_Credit_Card_Number)) {
                     input_credit_card_number = text_Credit_Card_Number.getText();
                 }
+                if (ErrorCheck(text_Credit_Card_Security_Code)){
+                    input_credit_card_security_code = text_Credit_Card_Security_Code.getText();
+                }
+                if(ErrorCheck(text_Credit_Card_Expiration_Year)){
+                    input_credit_card_expiration_year = text_Credit_Card_Expiration_Year.getText();
+                }
+                if(ErrorCheck(text_Credit_Card_Expiration_Year)){
+                    input_credit_card_expiration_month = text_Credit_Card_Expiration_Month.getText();
+                }
                 if (ErrorCheck(text_mail)) {
                     input_mail = text_mail.getText();
                 }
@@ -102,13 +119,13 @@ public class NewRegistrationActivity extends AppCompatActivity {
                 switch (radioId) {
                     case R.id.bt_men:
                         if (rbtSex.isChecked()) {
-                            displayInt = 0;
+                            Sex = "0";
                             displayChar = "男";
                         }
                         break;
                     case R.id.bt_women:
                         if (rbtSex.isChecked()) {
-                            displayInt = 1;
+                            Sex = "1";
                             displayChar = "女";
                         }
                         break;
@@ -130,7 +147,8 @@ public class NewRegistrationActivity extends AppCompatActivity {
                             + "住所：" + input_address + "\n"
                             + "電話番号：" + input_phone_number + "\n"
                             + "性別：" + displayChar + "\n"
-                            + "クレジット番号：" + input_credit_card_number + "\n"
+                            + "クレジット番号：" + input_credit_card_number + input_credit_card_security_code +"\n"
+                            + "有効期限：" + input_credit_card_expiration_year +"年"+ input_credit_card_expiration_month +"月 \n"
                             + "メールアドレス：" + input_mail + "\n"
                             + "パスワード：" + input_password + "");
 
@@ -141,21 +159,23 @@ public class NewRegistrationActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
 
                             String strName = text_Name.getText().toString();
-                            String strBirthday = text_Birthday.getText().toString();
+                            String strBirthday = birthday.toString();
                             String strAddress = text_Address.getText().toString();
                             String strPhoneNumber = text_Phone_Number.getText().toString();
                             String strCreditCardNumber = text_Credit_Card_Number.getText().toString();
-                            String strSex = displayChar;
+                            String strCreditCardSecurityCode = text_Credit_Card_Security_Code.getText().toString();
+                            String strCreditCardExpiration_Date = "20" + text_Credit_Card_Expiration_Year.getText().toString() + "-" + text_Credit_Card_Expiration_Month.getText().toString() + "-01";
+                            String strSex = Sex;
                             String strMail = text_mail.getText().toString();
                             String strPassword = text_Password.getText().toString();
 
                             //非同期処理を開始する。
                             RegistrationTaskReceiver receiver = new RegistrationTaskReceiver();
                             //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-                            receiver.execute(LOGIN_URL, strName, strBirthday, strAddress, strPhoneNumber, strSex, strCreditCardNumber, strMail, strPassword);
+                            receiver.execute(LOGIN_URL, strName, strBirthday, strAddress, strPhoneNumber, strSex, strCreditCardNumber,strCreditCardSecurityCode,strCreditCardExpiration_Date, strMail, strPassword);
 
-                            RegistrationTaskReceiver mypage_receiver = new RegistrationTaskReceiver();
-                            mypage_receiver.execute(MYPAGE_URL, strName, strBirthday, strAddress, strPhoneNumber, strSex, strCreditCardNumber, strMail, strPassword);
+                 //           RegistrationTaskReceiver mypage_receiver = new RegistrationTaskReceiver();
+                 //           mypage_receiver.execute(MYPAGE_URL, strName, strBirthday, strAddress, strPhoneNumber, strSex, strCreditCardNumber, strMail, strPassword);
 
 
                         }
@@ -197,12 +217,14 @@ public class NewRegistrationActivity extends AppCompatActivity {
             String phoneNumber = params[4];
             String sex = params[5];
             String creditNumber = params[6];
-            String mail = params[7];
-            String password = params[8];
+            String creditSecurityCode = params[7];
+            String creditExpirationDate = params[8];
+            String mail = params[9];
+            String password = params[10];
 
             //POSTで送りたいデータ
-            String postData = "name=" + name + "&birthday=" + birthday + "&address=" + address + "&phoneNumber=" + phoneNumber + "&sex=" + sex + "&creditNumber=" + creditNumber + "&mail=" + mail + "&password=" + password;
-            String postDataMypage = "name=" + name + "&birthday=" + birthday + "&address=" + address + "&phoneNumber=" + phoneNumber + "&sex=" + sex + "&creditNumber=" + creditNumber + "&mail=" + mail + "&password=" + password;
+            String postData = "name=" + name + "&birthday=" + birthday + "&address=" + address + "&phoneNumber=" + phoneNumber + "&sex=" + sex + "&creditNumber=" + creditNumber + "&creditSecurityCode="+ creditSecurityCode + "&creditExpirationDate=" + creditExpirationDate + "&mail=" + mail + "&password=" + password;
+    //        String postDataMypage = "name=" + name + "&birthday=" + birthday + "&address=" + address + "&phoneNumber=" + phoneNumber + "&sex=" + sex + "&creditNumber=" + creditNumber + "&mail=" + mail + "&password=" + password;
 
             HttpURLConnection con = null;
             InputStream is = null;
@@ -231,7 +253,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
 
                     //送信する値をByteデータに変換する（UTF-8）
                     os.write(postData.getBytes("UTF-8"));
-                    os.write(postDataMypage.getBytes("UTF-8"));
+           //         os.write(postDataMypage.getBytes("UTF-8"));
                     os.flush();
                 } catch (IOException ex) {
                     Log.e(DEBUG_TAG, "POST送信エラー", ex);
@@ -281,7 +303,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
             if (isRegistration) {
                 Toast.makeText(NewRegistrationActivity.this, "完了", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(NewRegistrationActivity.this, "失敗", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewRegistrationActivity.this, "既に登録されています。", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -301,11 +323,14 @@ public class NewRegistrationActivity extends AppCompatActivity {
      * 日付選択ボタンが押された時のイベント処理用メソッド。
      */
     public void onUpdateButtonClick(View view) {
-        int nowYear = year;
-        int nowMonth = month - 1;
-        int nowDayOfMonth = day;
 
-        DatePickerDialog dialog = new DatePickerDialog(NewRegistrationActivity.this, new DatePickerDialogDateSetListener(), nowYear, nowMonth, nowDayOfMonth);
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        int Year = 1960;
+        int Month = 0;
+        int DayOfMonth = 1;
+
+
+        DatePickerDialog dialog = new DatePickerDialog(NewRegistrationActivity.this, new DatePickerDialogDateSetListener(), Year, Month, DayOfMonth);
         dialog.show();
     }
 
@@ -325,7 +350,8 @@ public class NewRegistrationActivity extends AppCompatActivity {
             if (s_day.length() == 1) {
                 s_day = "0" + s_day;
             }
-            String msg = +s_year + "年" + s_month + "月" + s_day + "日";
+            String msg = +s_year + "年" + s_month + "月"+ s_day +"日";
+            birthday = + s_year + "-" + s_month + "-" + s_day;
             //          Toast.makeText(NewRegistrationActivity.this, msg, Toast.LENGTH_SHORT).show();
             year = s_year;
             month = Integer.parseInt(s_month);

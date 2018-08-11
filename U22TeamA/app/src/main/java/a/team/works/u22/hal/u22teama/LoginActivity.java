@@ -26,7 +26,7 @@ import java.net.URL;
 
 public class LoginActivity  extends AppCompatActivity {
 
-    private static final String LOGIN_URL ="http://10.0.2.2:8080/U22Verification/LoginServlet";
+    private static final String LOGIN_URL ="http://10.0.2.2:8080/u22_team_a_web/UserLoginServlet";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +157,7 @@ public class LoginActivity  extends AppCompatActivity {
             if (isLogin) {
                 Toast.makeText(LoginActivity.this, "成功", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(LoginActivity.this, "失敗", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "メールアドレス又はパスワードが間違っています。", Toast.LENGTH_SHORT).show();
             }
         }
 

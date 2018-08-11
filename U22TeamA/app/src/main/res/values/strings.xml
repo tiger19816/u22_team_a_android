@@ -79,6 +79,8 @@
     <string name="tv_new_registration_mail">メールアドレス</string>
     <string name="tv_new_registration_password">パスワード</string>
     <string name="tv_new_registration_credit_card_number">クレジットカード番号</string>
+    <string name="tv_new_registration_credit_card_security_code">セキュリティ番号</string>
+    <string name="tv_new_registration_credit_card_expiration_date">有効期限</string>
     <string name="tv_new_registration_phone_number">電話番号</string>
     <string name="tv_new_registration">登録する</string>
     <string name="msg_items">未入力の項目があります。</string>
