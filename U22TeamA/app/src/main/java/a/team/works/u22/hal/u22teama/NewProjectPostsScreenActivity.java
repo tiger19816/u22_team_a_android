@@ -49,6 +49,9 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
 
     LocationManager locationManager;
 
+    //Preferences のキー名
+    final private String preferencesKey = "";
+
     //緯度
     String latitude;
     //軽度
@@ -58,7 +61,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     String latitudeRef;
 
     //UserId
-    private String userId;
+    private int userId;
 
     //onActivityResultメソッドで受け取るコード
     private static final int CAMERA_REQUEST_CODE = 1;
@@ -90,8 +93,8 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         setContentView(R.layout.activity_new_project_posts_screen);
 
         // アプリ標準の Preferences を取得する
-        SharedPreferences sp = getSharedPreferences("" , 0);
-        userId = sp.getString("userId", "userId");
+        SharedPreferences sp = getSharedPreferences(preferencesKey , 0);
+        userId = sp.getInt("id", 999);
 
         ivDisplay = findViewById(R.id.iv_CheckPhots);
 
@@ -484,10 +487,11 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                     NPPSAI.setImgUrl(mediaFile.toString());
                     NPPSAI.setImgName(StrImgName);
                     NPPSAI.setEtPlace(etPlace.getText().toString());
-                    NPPSAI.setSpinnerCate((String) spinnerCate.getSelectedItem());
+                    NPPSAI.setSpinnerCate(String.valueOf(spinnerCate.getSelectedItemPosition()));
+                    Log.e("Spinner",NPPSAI.getSpinnerCate());
                     NPPSAI.setEdSConte(etContent.getText().toString());
                     NPPSAI.setEdInvestmentAmount(etInvestmentAmount.getText().toString());
-                    NPPSAI.setUserId(userId);
+                    NPPSAI.setUserId(String.valueOf(userId));
                     //値を送る
                     MovePage(NPPSAI);
                 }

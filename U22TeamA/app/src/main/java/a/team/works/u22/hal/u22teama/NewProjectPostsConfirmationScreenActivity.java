@@ -36,7 +36,12 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
     private  Bitmap image;
     private  NewProjectPostsScreenActivityInfomation NPPSAI;
     final static private String TAG = "HttpPost";
+
+    // 検証用
     final static private String URL = "http://192.168.100.100:8080/u22_team_a_web/NewProjectPostsConfirmationScreenActivityServlet";
+    //サーバー用
+    //final static private String URL = GetUrl.LoginUrl;
+    //final static private String URL = GetUrl.MyPostsUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,12 +85,14 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         }
+        //Spinner（array）の値をすべて取得
+        String[] category = getResources().getStringArray(R.array.spinner_activity_new_project_posts_category);
 
         //値の貼り付け
         tvTitle.setText(NPPSAI.getEdTitle());
         ivImage.setImageBitmap(image);
         tvPlace.setText(NPPSAI.getEdPlace());
-        tvCategory.setText(NPPSAI.getSpinnerCate());
+        tvCategory.setText(category[Integer.parseInt(NPPSAI.getSpinnerCate())]);
         tvContent.setText(NPPSAI.getEdSConte());
         tvCheckInvestmentAmount.setText(NPPSAI.getEdInvestmentAmount());
 
@@ -166,8 +173,9 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                 task.addText("category", NPPSAI.getSpinnerCate());
                 task.addText("content", NPPSAI.getEdSConte());
                 task.addText("InvestmentAmount", NPPSAI.getEdInvestmentAmount());
+                task.addText("userId", NPPSAI.getUserId());
                 //
-                //        //画像をbyte型に変換 + 格納
+                //画像をbyte型に変換 + 格納
                 task.addImage("filename", img2byte(image));
 
                 // リスナーをセットする
@@ -179,7 +187,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                 task.execute();
 
                 Log.e("item_Send", "送信処理中");
-                //MovePage();
+                MovePage();
                 break;
         }
         return true;
