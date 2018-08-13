@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.io.Serializable;
 
 public class NewProjectPostsScreenActivityInfomation implements Serializable {
+    private String userId;
     private String edTitle;
     private String imgUrl;
     private String imgName;
@@ -20,6 +21,7 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
 
 //コンストラクト
     public  NewProjectPostsScreenActivityInfomation(){
+        userId = "";
         edTitle ="";
         edPlace ="";
         imgUrl = "";
@@ -32,6 +34,11 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
     }
 
 // Set
+
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
     public void setEdTitel(String edTitle) {
         this.edTitle = edTitle;
     }
@@ -95,5 +102,9 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
 
     public byte[] getByteImg() {
         return byteImg;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }

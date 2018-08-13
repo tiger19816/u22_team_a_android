@@ -15,6 +15,7 @@ import android.media.ExifInterface;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -56,6 +57,9 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     String longitudeRef;
     String latitudeRef;
 
+    //UserId
+    private String userId;
+
     //onActivityResultメソッドで受け取るコード
     private static final int CAMERA_REQUEST_CODE = 1;
 
@@ -84,6 +88,10 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project_posts_screen);
+
+        // アプリ標準の Preferences を取得する
+        SharedPreferences sp = getSharedPreferences("" , 0);
+        userId = sp.getString("userId", "userId");
 
         ivDisplay = findViewById(R.id.iv_CheckPhots);
 
@@ -479,6 +487,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                     NPPSAI.setSpinnerCate((String) spinnerCate.getSelectedItem());
                     NPPSAI.setEdSConte(etContent.getText().toString());
                     NPPSAI.setEdInvestmentAmount(etInvestmentAmount.getText().toString());
+                    NPPSAI.setUserId(userId);
                     //値を送る
                     MovePage(NPPSAI);
                 }
