@@ -86,13 +86,14 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
             }
         }
         //Spinner（array）の値をすべて取得
+
         String[] category = getResources().getStringArray(R.array.spinner_activity_new_project_posts_category);
 
         //値の貼り付け
         tvTitle.setText(NPPSAI.getEdTitle());
         ivImage.setImageBitmap(image);
         tvPlace.setText(NPPSAI.getEdPlace());
-        tvCategory.setText(category[Integer.parseInt(NPPSAI.getSpinnerCate())]);
+        tvCategory.setText(category[Integer.parseInt(NPPSAI.getSpinnerCate())   ]);
         tvContent.setText(NPPSAI.getEdSConte());
         tvCheckInvestmentAmount.setText(NPPSAI.getEdInvestmentAmount());
 
@@ -174,6 +175,8 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                 task.addText("content", NPPSAI.getEdSConte());
                 task.addText("InvestmentAmount", NPPSAI.getEdInvestmentAmount());
                 task.addText("userId", NPPSAI.getUserId());
+                task.addText("latitude",NPPSAI.getLatitude());
+                task.addText("longitude",NPPSAI.getLongitude());
                 //
                 //画像をbyte型に変換 + 格納
                 task.addImage("filename", img2byte(image));

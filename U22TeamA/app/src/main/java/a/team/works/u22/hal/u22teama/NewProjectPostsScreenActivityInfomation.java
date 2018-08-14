@@ -18,6 +18,8 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
     private String edSConte;
     private String edInvestmentAmount;
     private byte[] byteImg;
+    private String latitude;
+    private String longitude;
 
 //コンストラクト
     public  NewProjectPostsScreenActivityInfomation(){
@@ -30,6 +32,8 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
         edSConte ="";
         edInvestmentAmount ="";
         byteImg = new byte[10240];
+        latitude = "";
+        longitude = "";
 
     }
 
@@ -39,6 +43,7 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
     public void setEdTitel(String edTitle) {
         this.edTitle = edTitle;
     }
@@ -69,6 +74,14 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
 
     public void setByteImg(byte[] byteImg) {
         this.byteImg = byteImg;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     // Get
@@ -106,5 +119,13 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
     }
 }

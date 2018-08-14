@@ -54,7 +54,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
 
     //緯度
     String latitude;
-    //軽度
+    //経度
     String longtude;
 
     String longitudeRef;
@@ -297,8 +297,8 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
             //位置情報をExifにセット
             exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, latitude); //緯度
             exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE_REF, latitudeRef); //緯度の符号（北か南か）
-            exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, longtude); //軽度
-            exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, longitudeRef);
+            exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, longtude); //経度
+            exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, longitudeRef);//経度の符号（東か西か)
 
             //保存
             exif.saveAttributes();
@@ -488,10 +488,16 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                     NPPSAI.setImgName(StrImgName);
                     NPPSAI.setEtPlace(etPlace.getText().toString());
                     NPPSAI.setSpinnerCate(String.valueOf(spinnerCate.getSelectedItemPosition()));
-                    Log.e("Spinner",NPPSAI.getSpinnerCate());
                     NPPSAI.setEdSConte(etContent.getText().toString());
                     NPPSAI.setEdInvestmentAmount(etInvestmentAmount.getText().toString());
                     NPPSAI.setUserId(String.valueOf(userId));
+
+                    //緯度経度を小数点有りで入力
+                    float[] latLong = new float[2];
+                    exif.getLatLong(latLong);
+                    NPPSAI.setLatitude(String.valueOf(latLong[0]));
+                    NPPSAI.setLongitude(String.valueOf(latLong[1]));
+
                     //値を送る
                     MovePage(NPPSAI);
                 }
