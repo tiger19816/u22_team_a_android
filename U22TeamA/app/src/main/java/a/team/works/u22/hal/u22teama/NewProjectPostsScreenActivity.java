@@ -439,7 +439,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                     Location.distanceBetween(Double.parseDouble(String.valueOf(saveLatLong[0])), Double.parseDouble(String.valueOf(saveLatLong[1])), Double.parseDouble(String.valueOf(latLong[0])), Double.parseDouble(String.valueOf(latLong[1])), resultLocation);
 
                     //エリアを指定する（メートル）
-                    float area = Float.parseFloat("800");
+                    float area = Float.parseFloat("400");
 
                     if(resultLocation[0] <= area){
                         System.out.println("エリア内");
