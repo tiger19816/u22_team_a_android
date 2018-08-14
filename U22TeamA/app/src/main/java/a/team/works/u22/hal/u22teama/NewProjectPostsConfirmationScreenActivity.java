@@ -197,8 +197,9 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
     }
 
     public void MovePage() {
-        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, TabPage2Fragment.class);
+        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, ProjectDetailActivyty.class);
         startActivity(intent);
+
     }
 
 

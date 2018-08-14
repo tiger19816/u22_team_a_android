@@ -3,10 +3,12 @@ package a.team.works.u22.hal.u22teama;
 import android.Manifest;
 import android.app.Activity;
 import android.app.assist.AssistContent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -506,8 +508,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         return true;
     }
 
-
-
     /**
      * ページ移動
      *
@@ -518,7 +518,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         intent.putExtra("value", info);
         startActivity(intent);
     }
-
 }
 
 
