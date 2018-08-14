@@ -394,17 +394,10 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                         }
 
                         mediaFile = new File(mediaFile.getPath() + "/" + StrImgName);
-                       System.out.println(mediaFile);
                         FileOutputStream outStream = new FileOutputStream(mediaFile);
                         _bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
                         exifWrite(mediaFile);
                         outStream.close();
-
-                        float[] latLong = new float[2];
-                        exif.getLatLong(latLong);
-                        String info = String.format("%f,%f", latLong[0],latLong[1]);
-                        Log.e("mediaFile",mediaFile.toString());
-                        Log.e("info", info);
 
                     }
                     catch (FileNotFoundException e) {
@@ -414,7 +407,54 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                         e.printStackTrace();
                     }
 
-                    ivDisplay.setImageBitmap(_bitmap);
+                    //一時保存用
+                    //緯度
+                    String saveLatitude = latitude;
+                    //経度
+                    String saveLongtude = longtude;
+                    //東西南北表記用
+                    String saveLongitudeRef = latitudeRef;
+                    String saveLatitudeRef = longitudeRef;
+
+
+                    float[] saveLatLong = new float[2];
+                    exif.getLatLong(saveLatLong);
+
+                    RequestLocationPermission();
+
+                    float[] latLong = new float[2];
+                    exif.getLatLong(latLong);
+
+                    Log.e("S0",String.valueOf(saveLatLong[0]));
+
+                    Log.e("S1",String.valueOf(saveLatLong[1]));
+
+                    Log.e("L0",String.valueOf(latLong[0]));
+
+                    Log.e("L1",String.valueOf(latLong[1]));
+
+
+                    //2地点間の距離を測定。
+                    float[] resultLocation = new float[3];
+                    Location.distanceBetween(Double.parseDouble(String.valueOf(saveLatLong[0])), Double.parseDouble(String.valueOf(saveLatLong[1])), Double.parseDouble(String.valueOf(latLong[0])), Double.parseDouble(String.valueOf(latLong[1])), resultLocation);
+
+                    //エリアを指定する（メートル）
+                    float area = Float.parseFloat("800");
+
+                    if(resultLocation[0] <= area){
+                        System.out.println("エリア内");
+                        ivDisplay.setImageBitmap(_bitmap);
+                        latitude = saveLatitude;
+                        longtude = saveLongtude;
+                        latitudeRef = saveLatitudeRef;
+                        longtude = saveLongitudeRef;
+
+                    }
+                    else {
+                        System.out.println("エリア外");
+                    }
+
+
                     break;
                 case RESULT_CANCELED:    //撮影が途中で中止
                     Toast.makeText(NewProjectPostsScreenActivity.this, "撮影が中止されました。", Toast.LENGTH_SHORT).show();
@@ -484,6 +524,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                 }else if("".equals(etInvestmentAmount.getText().toString())) {
                     Toast.makeText(NewProjectPostsScreenActivity.this,"募金額が入力されていません", Toast.LENGTH_SHORT).show();
                 }else{
+
                     //NewProhectPostsScreenActivityInfomationに値を格納
                     NPPSAI.setEdTitel(edTitle.getText().toString());
                     NPPSAI.setImgUrl(mediaFile.toString());
