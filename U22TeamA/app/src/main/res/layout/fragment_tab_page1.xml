@@ -15,7 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="@string/bt_mypage_change"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:onClick="onChangeClick"/>
     </FrameLayout>
 
     <LinearLayout
@@ -102,7 +103,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_weight="1"
-            android:inputType="textUri" />
+            android:inputType="textUri"
+            android:text="男"/>
     </LinearLayout>
 
     <LinearLayout
