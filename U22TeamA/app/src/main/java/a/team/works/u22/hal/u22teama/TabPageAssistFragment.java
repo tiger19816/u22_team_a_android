@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -50,22 +51,22 @@ import java.util.Map;
  *
  * @author Taiga Hirai
  */
-public class TabPage2Fragment extends Fragment{
+public class TabPageAssistFragment extends Fragment{
 
     private static final String ARG_PARAM = "page";
     private String mParam;
-    private TabPage1Fragment.OnFragmentInteractionListener mListener;
-    private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/JoinProjectServlet";
-    private String _id = "1";
+    private TabPagePostFragment.OnFragmentInteractionListener mListener;
+    private static final String LOGIN_URL = GetUrl.MyPostsUrl;
+    private String _flag = "2";
 
     /**
      * コンストラクタ.
      */
-    public TabPage2Fragment() {
+    public TabPageAssistFragment() {
     }
 
-    public static TabPage2Fragment newInstance(int page) {
-        TabPage2Fragment fragment = new TabPage2Fragment();
+    public static TabPageAssistFragment newInstance(int page) {
+        TabPageAssistFragment fragment = new TabPageAssistFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM, page);
         fragment.setArguments(args);
@@ -80,16 +81,16 @@ public class TabPage2Fragment extends Fragment{
         }
 
         //非同期処理を開始する。
-        PostsTaskReceiver receiver = new PostsTaskReceiver();
+        AssistsTaskReceiver receiver = new AssistsTaskReceiver();
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(LOGIN_URL , _id );
+        receiver.execute(LOGIN_URL , _flag );
     }
 
 
     /**
      * 非同期通信を行うAsyncTaskクラスを継承したメンバクラス.
      */
-    private class PostsTaskReceiver extends AsyncTask<String, Void, String> {
+    private class AssistsTaskReceiver extends AsyncTask<String, Void, String> {
 
         private static final String DEBUG_TAG = "RestAccess";
         private List<Map<String, Object>> _list = new ArrayList<Map<String, Object>>();
@@ -104,10 +105,10 @@ public class TabPage2Fragment extends Fragment{
         @Override
         public String doInBackground(String... params) {
             String urlStr = params[0];
-            String id = params[1];
+            String flag = params[1];
 
             //POSTで送りたいデータ
-            String postData = "id=" + id;
+            String postData = "flag=" + flag;
 
             HttpURLConnection con = null;
             InputStream is = null;
@@ -185,19 +186,20 @@ public class TabPage2Fragment extends Fragment{
                 JSONObject rootJSON = new JSONObject(result);
 
                 JSONArray datas = rootJSON.getJSONArray("postsList");
-
                 //投稿情報
                 for (int i = 0; i < datas.length(); i++) {
                     JSONObject data = datas.getJSONObject(i);
                     Map map = new HashMap<String , Object>();
                     map.put("postTitle" , data.getString("postTitle"));
                     map.put("postPhoto" , data.getString("postPhoto"));
+                    map.put("postMoney" , data.getString("postMoney"));
+                    map.put("postDate" , data.getString("postDate"));
                     map.put("postStatus" , data.getString("postStatus"));
                     _list.add(map);
                 }
 
-                String[] from = {"postTitle" , "postPhoto" , "postStatus"};
-                int[] to = {R.id.tvPostTitle , R.id.ivPostPhoto , R.id.tvPostStatus};
+                String[] from = {"postTitle" , "postPhoto" , "postMoney" , "postDate" , "postStatus"};
+                int[] to = {R.id.tvPostTitle , R.id.ivPostPhoto , R.id.tvPostMoney , R.id.tvPostDate , R.id.tvPostStatus};
                 final SimpleAdapter adapter = new SimpleAdapter(getActivity() , _list , R.layout.row_posts , from , to);
                 adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
                     @Override
@@ -210,23 +212,32 @@ public class TabPage2Fragment extends Fragment{
                                 tvPostTitle.setText(strData);
                                 return true;
                             case R.id.ivPostPhoto:
-                                TextView ivPostPhoto = (TextView) view;
-                                ivPostPhoto.setText(strData);
+                                ImageView ivPostPhoto = (ImageView) view;
+                                //ここ変更必要
+                                ivPostPhoto.setImageResource(R.drawable.firstgundam);
+                                return true;
+                            case R.id.tvPostMoney:
+                                TextView tvPostMoney = (TextView) view;
+                                tvPostMoney.setText("協賛金：" + strData + "円");
+                                return true;
+                            case R.id.tvPostDate:
+                                TextView tvPostDate = (TextView) view;
+                                tvPostDate.setText("協賛日：" + strData);
                                 return true;
                             case R.id.tvPostStatus:
                                 TextView tvPostStatus = (TextView) view;
-                                tvPostStatus.setText(strData);
+                                tvPostStatus.setText("状態：" + strData);
                                 return true;
                         }
                         return false;
                     }
                 });
-                ListView lvPostList = getActivity().findViewById(R.id.lvPostList);
-                lvPostList.setAdapter(adapter);
-                lvPostList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                ListView lvAssistList = getActivity().findViewById(R.id.lvAssistList);
+                lvAssistList.setAdapter(adapter);
+                lvAssistList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(String.valueOf(TabPage2Fragment.this));
+                        Intent intent = new Intent(String.valueOf(TabPageAssistFragment.this));
 //                        Map<String, String> map = (Map<String, String>) marker.getTag();
                         intent.putExtra("id", "kbzg701");
                         startActivity(intent);
@@ -262,7 +273,7 @@ public class TabPage2Fragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tab_page2, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_page_assist, container, false);
 
         return view;
     }
@@ -276,8 +287,8 @@ public class TabPage2Fragment extends Fragment{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof TabPage1Fragment.OnFragmentInteractionListener) {
-            mListener = (TabPage1Fragment.OnFragmentInteractionListener) context;
+        if (context instanceof TabPagePostFragment.OnFragmentInteractionListener) {
+            mListener = (TabPagePostFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");

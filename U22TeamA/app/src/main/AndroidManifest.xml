@@ -4,6 +4,16 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <!-- ExifInterface使うための -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- カメラ起動のための -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +22,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TabLayoutSampleActivity">
+        <!--ここを編集で最初のスタート画面変更可能-->
+        <activity android:name=".NewProjectPostsScreenActivity" >
+        <!--ここまで-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,9 +34,9 @@
         <activity android:name=".NewProjectPostsConfirmationScreenActivity" />
         <activity android:name=".ProjectSearchActivity" />
         <activity android:name=".ProjectDetailActivyty" />
-        <activity android:name=".NewProjectPostsScreenActivity" />
-        <activity android:name=".MypageChangeActivity"/>
         <activity android:name=".NewRegistrationActivity"/>
+        <activity android:name=".NewProjectPostsScreenActivity" />
+        <activity android:name=".MypageChangeActivity"></activity>
     </application>
 
 </manifest>

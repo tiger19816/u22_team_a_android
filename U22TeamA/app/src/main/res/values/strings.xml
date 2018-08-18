@@ -18,6 +18,8 @@
     <string name="tv_mypage_mail">メールアドレス</string>
     <string name="tv_mypage_phone">電話番号</string>
     <string name="tv_mypage_info">清掃情報</string>
+    <string name="tv_mypage_assist">MY協賛</string>
+    <string name="tv_mypage_post">MY投稿</string>
     <!--プロジェクト検索画面-->
     <string-array name="spinner_activity_project_search_DetailedDesignatedSearch">
         <item>詳細検索</item>
@@ -50,6 +52,7 @@
     <string name="tv_activity_new_project_posts_content">内容</string>
     <string name="tv_activity_new_project_posts_investmentAmount">投資金額</string>
     <string-array name="spinner_activity_new_project_posts_category">
+        <item>選択してください</item>
         <item>汚れ</item>
         <item>ごみ</item>
     </string-array>
@@ -80,5 +83,8 @@
     <string name="tv_New_Registration_Credit_Card_Number">クレジットカード番号</string>
     <string name="tv_New_Registration_Phone_Number">電話番号</string>
     <string name="tv_New_Registration">登録する</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
 
