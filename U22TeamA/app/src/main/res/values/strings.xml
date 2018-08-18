@@ -37,6 +37,12 @@
         <item>200</item>
         <item>300</item>
     </string-array>
+
+    <string name="bt_donation">寄付する</string>
+    <string name="tv_set_donation">寄付金額</string>
+    <string name="check_message">下記内容で寄付しますか？</string>
+    <string name="tv_gratitude">ありがとうございました</string>
+
     <!--新規プロジェクト投稿確認画面-->
     <string name="tv_activity_new_project_posts_confirmation_title">タイトル</string>
     <string name="tv_activity_new_project_posts_confirmation_photo">写真</string>
