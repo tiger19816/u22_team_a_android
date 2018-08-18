@@ -179,5 +179,4 @@ public class LoginActivity  extends AppCompatActivity {
             }
         }
     }
-    private static final String LOGIN_URL = GetUrl.LoginUrl;
 }

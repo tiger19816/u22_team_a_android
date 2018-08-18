@@ -41,7 +41,6 @@
         <activity android:name=".ProjectSearchActivity" />
         <activity android:name=".ProjectDetailActivyty" />
         <activity android:name=".NewRegistrationActivity"/>
-        <activity android:name=".NewProjectPostsScreenActivity" />
         <activity android:name=".MypageChangeActivity"></activity>
     </application>
 
