@@ -54,7 +54,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent=getIntent();
-        NPPSAI = (NewProjectPostsScreenActivityInfomation)intent.getSerializableExtra("value");
+        NewProjectPostsScreenActivityInfomation NPPSAI = (NewProjectPostsScreenActivityInfomation)intent.getSerializableExtra("value");
 
         //Viewの取得
         TextView tvTitle = findViewById(R.id.tv_CheckTitle);
@@ -66,6 +66,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
 
         //デバイス内から画像を見つける
         ParcelFileDescriptor parcelFileDescriptor = null;
+
         try{
             Uri uri;
             uri =  Uri.parse("file://"+ NPPSAI.getImgUrl() +"/");
@@ -89,17 +90,18 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
 
         String[] category = getResources().getStringArray(R.array.spinner_activity_new_project_posts_category);
 
+
         //値の貼り付け
         tvTitle.setText(NPPSAI.getEdTitle());
         ivImage.setImageBitmap(image);
         tvPlace.setText(NPPSAI.getEdPlace());
         tvCategory.setText(category[Integer.parseInt(NPPSAI.getSpinnerCate())   ]);
+
         tvContent.setText(NPPSAI.getEdSConte());
         tvCheckInvestmentAmount.setText(NPPSAI.getEdInvestmentAmount());
 
 
     }
-
 
 
      /**
@@ -128,7 +130,6 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         }
         return imgByte;
     }
-
     /**
      * オプションメニュー表示の秘密の言葉
      *
@@ -140,6 +141,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.option_menu_activity_new_project_posts_confirmation_screan_activity, menu);
+
         return true;
     }
 
@@ -165,7 +167,6 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
              */
             case R.id.item_send:
 
-
                 NewProjectsConfirmationScreenActivityTaskReceiver task = new NewProjectsConfirmationScreenActivityTaskReceiver(URL);
 
                 //POSTデータ作成のためのデータ格納
@@ -190,6 +191,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                 task.execute();
 
                 Log.e("item_Send", "送信処理中");
+
                 MovePage();
                 break;
         }
@@ -197,6 +199,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
     }
 
     public void MovePage() {
+
         Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, ProjectDetailActivyty.class);
         startActivity(intent);
 
@@ -391,8 +394,6 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                 }
             }
         }
-
-
     }
 }
 

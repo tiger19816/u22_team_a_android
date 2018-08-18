@@ -38,8 +38,6 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
     }
 
 // Set
-
-
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -83,7 +81,7 @@ public class NewProjectPostsScreenActivityInfomation implements Serializable {
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
-
+  
     // Get
     public String getEdTitle() {
         return edTitle;

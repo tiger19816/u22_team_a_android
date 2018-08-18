@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="a.team.works.u22.hal.u22teama">
 
-
     <!-- ExifInterface使うための -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -22,19 +21,15 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <!--ここを編集で最初のスタート画面変更可能-->
         <activity android:name=".NewProjectPostsScreenActivity" >
-
         <!--ここまで-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,7 +41,7 @@
         <activity android:name=".ProjectSearchActivity" />
         <activity android:name=".ProjectDetailActivyty" />
         <activity android:name=".NewRegistrationActivity"/>
-        <activity android:name=".TabLayoutSampleActivity" />
+        <activity android:name=".NewProjectPostsScreenActivity" />
         <activity android:name=".MypageChangeActivity"></activity>
     </application>
 

@@ -14,7 +14,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="@string/bt_mypage_update"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:onClick="onChangeClickComplete"/>
     </FrameLayout>
 
     <LinearLayout
@@ -96,32 +97,40 @@
             android:layout_marginRight="25dp"
             android:textSize="20sp" />
 
-        <TextView
+        <RadioGroup
+            android:id="@+id/radio_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/radio_male"
-            android:textSize="20sp" />
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/radio_male"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_weight="1"
-            android:checked="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_male"
+                android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/radio_female"
-            android:textSize="20sp" />
+            <RadioButton
+                android:id="@+id/radio_male"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="1"
+                android:checked="true"/>
 
-        <RadioButton
-            android:id="@+id/radio_female"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_weight="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_female"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radio_female"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="1" />
+
+        </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
