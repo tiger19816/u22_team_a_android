@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <!-- 位置情報取得のための -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -23,11 +22,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- ここを編集で最初のスタート画面変更可能 -->
-        <activity android:name=".TabLayoutCleanActivity">
-
-            <!-- ここまで -->
+        <!--ここを編集で最初のスタート画面変更可能-->
+        <activity android:name=".NewProjectPostsScreenActivity" >
+        <!--ここまで-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,8 +34,9 @@
         <activity android:name=".NewProjectPostsConfirmationScreenActivity" />
         <activity android:name=".ProjectSearchActivity" />
         <activity android:name=".ProjectDetailActivyty" />
-        <activity android:name=".NewRegistrationActivity" />
-        <activity android:name=".MypageChangeActivity" />
+        <activity android:name=".NewRegistrationActivity"/>
+        <activity android:name=".NewProjectPostsScreenActivity" />
+        <activity android:name=".MypageChangeActivity"></activity>
     </application>
 
 </manifest>

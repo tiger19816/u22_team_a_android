@@ -97,7 +97,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
             ActivityCompat.requestPermissions(this, permissions, 1000);  // （3）
             return;  // （4）
         }
-
         //ストレージへのアクセス許可の確認
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{
@@ -126,7 +125,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 String[] permissions ={Manifest.permission.ACCESS_FINE_LOCATION};
                 ActivityCompat.requestPermissions(this, permissions, 1000);
-                Log.d("message","一段階目おｋ");
             return;         //add
         }
         else {
@@ -157,6 +155,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
 
             Log.d("debug", "checkSelfPermission false");
+
             return false;
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 50, this);
@@ -475,7 +474,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         }
         return true;
     }
-
 
 
     /**
