@@ -70,21 +70,25 @@
     <string name="tv_contact_result">以下の内容で送信します。</string>
 
     <!--ログイン画面-->
-    <string name="tv_Login_Id">ログインID</string>
-    <string name="tv_Login_PassWord">パスワード</string>
-    <string name="tv_Login_Button">ログイン</string>
+    <string name="tv_login_id">ログインID</string>
+    <string name="tv_login_password">パスワード</string>
+    <string name="tv_login_button">ログイン</string>
+    <string name="login_msg_items"></string>
     <!--新規登録画面-->
-    <string name="tv_Title_Registration">アカウント登録</string>
-    <string name="tv_New_Registration_Name">氏名</string>
-    <string name="tv_New_Registration_Birthday">生年月日</string>
-    <string name="tv_New_Registration_Address">住所</string>
-    <string name="tv_New_Registration_Sex">性別</string>
-    <string name="tv_New_Registration_Password">パスワード</string>
-    <string name="tv_New_Registration_Credit_Card_Number">クレジットカード番号</string>
-    <string name="tv_New_Registration_Phone_Number">電話番号</string>
-    <string name="tv_New_Registration">登録する</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_title_registration">アカウント登録</string>
+    <string name="tv_new_registration_name">氏名</string>
+    <string name="tv_new_registration_birthday">生年月日</string>
+    <string name="tv_new_registration_address">住所</string>
+    <string name="tv_new_registration_sex">性別</string>
+    <string name="tv_new_registration_men">男</string>
+    <string name="tv_new_registration_women">女</string>
+    <string name="tv_new_registration_mail">メールアドレス</string>
+    <string name="tv_new_registration_password">パスワード</string>
+    <string name="tv_new_registration_credit_card_number">クレジットカード番号</string>
+    <string name="tv_new_registration_credit_card_security_code">セキュリティ番号</string>
+    <string name="tv_new_registration_credit_card_expiration_date">有効期限</string>
+    <string name="tv_new_registration_phone_number">電話番号</string>
+    <string name="tv_new_registration">登録する</string>
+    <string name="msg_items">未入力の項目があります。</string>
 </resources>
 
