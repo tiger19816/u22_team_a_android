@@ -127,7 +127,7 @@ public class TabPage2Fragment extends Fragment{
                 con.setReadTimeout(10000);
                 con.setConnectTimeout(20000);
 
-                con.setDoOutput(true);
+                con.connect();
 
                 //POSTデータ送信処理。InputStream処理よりも先に記述する。
                 OutputStream os = null;
@@ -183,7 +183,6 @@ public class TabPage2Fragment extends Fragment{
         public void onPostExecute(String result) {
             try {
                 JSONObject rootJSON = new JSONObject(result);
-
                 JSONArray datas = rootJSON.getJSONArray("postsList");
 
                 //投稿情報
