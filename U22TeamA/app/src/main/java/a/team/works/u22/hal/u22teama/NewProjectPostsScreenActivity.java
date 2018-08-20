@@ -52,7 +52,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     LocationManager locationManager;
 
     //Preferences のキー名
-    final private String preferencesKey = "";
+    final private String preferencesKey = "prefUserId";
 
     //緯度
     String latitude;

@@ -156,7 +156,7 @@ public class LoginActivity  extends AppCompatActivity {
                 String name = rootJSON.getString("name");
                 userId = rootJSON.getInt("userId");
 
-                SharedPreferences prefUserId = getSharedPreferences("prefUserId",MODE_WORLD_WRITEABLE);
+                SharedPreferences prefUserId = getSharedPreferences("prefUserId",0);//MODE_WORLD_WRITEABLE
                 Editor e = prefUserId.edit();
                 e.putInt("id",userId);
                 e.commit();
