@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -37,7 +38,6 @@
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -47,25 +47,29 @@
         android:id="@+id/tv_Phoths"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/tv_activity_new_project_posts_photo"
-        app:layout_constraintEnd_toStartOf="@+id/im_CheckPhots"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_CheckPhots"
+        app:layout_constraintEnd_toStartOf="@+id/iv_CheckPhots"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="111dp" />
+        app:layout_constraintTop_toTopOf="@+id/iv_CheckPhots" />
 
     <ImageView
-        android:id="@+id/im_CheckPhots"
+        android:id="@+id/iv_CheckPhots"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
+        android:onClick="onClickCameraStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_Phoths"
@@ -76,6 +80,7 @@
     <TextView
         android:id="@+id/tv_Place"
         android:layout_width="wrap_content"
+
         android:layout_height="19dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -94,14 +99,13 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/im_CheckPhots" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_CheckPhots" />
 
     <TextView
         android:id="@+id/tv_Category"
@@ -111,26 +115,26 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/tv_activity_new_project_posts_category"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_Category"
         app:layout_constraintEnd_toStartOf="@+id/spinner_Category"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.575"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="216dp" />
+        app:layout_constraintTop_toTopOf="@+id/spinner_Category" />
 
     <Spinner
         android:id="@+id/spinner_Category"
         android:layout_width="257dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/et_Content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
         android:entries="@array/spinner_activity_new_project_posts_category"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tv_Category"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/et_Place" />
@@ -151,18 +155,19 @@
     <EditText
         android:id="@+id/et_Content"
         android:layout_width="0dp"
-        android:layout_height="177dp"
+        android:layout_height="119dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:gravity="top"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        tools:layout_editor_absoluteY="264dp" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_Category" />
 
     <TextView
         android:id="@+id/tvInvestmentAmount"
@@ -188,8 +193,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
