@@ -23,10 +23,14 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 public class LoginActivity  extends AppCompatActivity {
 
-    private static final String LOGIN_URL ="http://10.0.2.2:8080/u22_team_a_web/UserLoginServlet";
+    private static final String LOGIN_URL = GetUrl.LoginUrl;
+
+    int userId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,6 @@ public class LoginActivity  extends AppCompatActivity {
      * @param view 画面部品。
      */
     public void onUserLoginClick(View view) {
-
         //ユーザーIDの取得。
         EditText etId = findViewById(R.id.etLoginId);
         String strId = etId.getText().toString();
@@ -151,6 +154,13 @@ public class LoginActivity  extends AppCompatActivity {
                 JSONObject rootJSON = new JSONObject(result);
                 isLogin = rootJSON.getBoolean("result");
                 String name = rootJSON.getString("name");
+                userId = rootJSON.getInt("userId");
+
+                SharedPreferences prefUserId = getSharedPreferences("prefUserId",MODE_WORLD_WRITEABLE);
+                Editor e = prefUserId.edit();
+                e.putInt("id",userId);
+                e.commit();
+
             } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
