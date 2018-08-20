@@ -28,7 +28,7 @@ import android.content.SharedPreferences.Editor;
 
 public class LoginActivity  extends AppCompatActivity {
 
-    private static final String LOGIN_URL ="http://10.0.2.2:8080/u22_team_a_web/UserLoginServlet";
+    private static final String LOGIN_URL = GetUrl.LoginUrl;
 
     int userId = 0;
 
@@ -190,5 +190,4 @@ public class LoginActivity  extends AppCompatActivity {
             }
         }
     }
-    private static final String LOGIN_URL = GetUrl.LoginUrl;
 }
