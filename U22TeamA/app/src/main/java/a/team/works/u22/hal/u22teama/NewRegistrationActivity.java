@@ -29,8 +29,7 @@ import java.util.Calendar;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.ScrollView;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
+
 
 public class NewRegistrationActivity extends AppCompatActivity {
 
@@ -49,7 +48,6 @@ public class NewRegistrationActivity extends AppCompatActivity {
     private int month;
     private int day;
     int flag;
-    int userId = 0;
     CharSequence input_name;
     CharSequence input_birthday;
     CharSequence input_address;
@@ -298,13 +296,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
             try {
                 JSONObject rootJSON = new JSONObject(result);
                 isRegistration = rootJSON.getBoolean("result");
-                userId = rootJSON.getInt("userId");
                 String name = rootJSON.getString("name");
-
-                SharedPreferences prefUserId = getSharedPreferences("prefUserId",MODE_WORLD_WRITEABLE);
-                Editor e = prefUserId.edit();
-                e.putInt("id",userId);
-                e.commit();
 
             } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
