@@ -29,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--ここを編集で最初のスタート画面変更可能-->
-        <activity android:name=".NewProjectPostsScreenActivity" >
+        <activity android:name=".LoginActivity" >
         <!--ここまで-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

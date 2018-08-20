@@ -153,7 +153,6 @@ public class LoginActivity  extends AppCompatActivity {
             try {
                 JSONObject rootJSON = new JSONObject(result);
                 isLogin = rootJSON.getBoolean("result");
-                String name = rootJSON.getString("name");
                 userId = rootJSON.getInt("userId");
 
                 SharedPreferences prefUserId = getSharedPreferences("prefUserId",0);//MODE_WORLD_WRITEABLE
