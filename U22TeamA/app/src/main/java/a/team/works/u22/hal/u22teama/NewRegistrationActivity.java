@@ -29,6 +29,8 @@ import java.util.Calendar;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.ScrollView;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 public class NewRegistrationActivity extends AppCompatActivity {
 
@@ -47,7 +49,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
     private int month;
     private int day;
     int flag;
-
+    int userId = 0;
     CharSequence input_name;
     CharSequence input_birthday;
     CharSequence input_address;
@@ -58,6 +60,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
     CharSequence input_password;
     CharSequence input_credit_card_expiration_year;
     CharSequence input_credit_card_expiration_month;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -289,14 +292,20 @@ public class NewRegistrationActivity extends AppCompatActivity {
 
             return result;
         }
-
         @Override
         public void onPostExecute(String result) {
             Boolean isRegistration = false;
             try {
                 JSONObject rootJSON = new JSONObject(result);
                 isRegistration = rootJSON.getBoolean("result");
+                userId = rootJSON.getInt("userId");
                 String name = rootJSON.getString("name");
+
+                SharedPreferences prefUserId = getSharedPreferences("prefUserId",MODE_WORLD_WRITEABLE);
+                Editor e = prefUserId.edit();
+                e.putInt("id",userId);
+                e.commit();
+
             } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
@@ -334,7 +343,6 @@ public class NewRegistrationActivity extends AppCompatActivity {
         dialog.show();
     }
 
-
     /**
      * 日付選択ダイアログ表示ボタンが押された時の処理が記述されたメンバクラス。
      */
@@ -361,6 +369,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
             et_birthday.setText(msg);
         }
     }
+
     public boolean ErrorCheck(EditText str){
         flag = 0;
         if(!"".equals(str.getText().toString())){
