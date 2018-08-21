@@ -80,6 +80,7 @@
     <string name="tv_login_id">ログインID</string>
     <string name="tv_login_password">パスワード</string>
     <string name="tv_login_button">ログイン</string>
+    <string name="tv_login_new_registration">新規登録</string>
     <string name="login_msg_items"></string>
     <!--新規登録画面-->
     <string name="tv_title_registration">アカウント登録</string>

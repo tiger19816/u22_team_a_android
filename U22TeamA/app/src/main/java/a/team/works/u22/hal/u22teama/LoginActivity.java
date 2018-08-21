@@ -38,6 +38,11 @@ public class LoginActivity  extends AppCompatActivity {
         setContentView(R.layout.login);
     }
 
+    public void onNewRegistrationClick(View view) {
+        Intent intent = new Intent(getApplication(), NewRegistrationActivity.class);
+        startActivity(intent);
+    }
+
     /**
      * ログインボタンが押された時の処理.
      *
