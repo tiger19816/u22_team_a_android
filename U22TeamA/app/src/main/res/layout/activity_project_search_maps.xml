@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProjectSearchMapsActivity" >
+
+    <!-- ここからコンテンツを記述!! -->
+
+    <LinearLayout
+        android:id="@+id/llProjectMapMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <fragment
+                android:id="@+id/projectMaps"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btSurroundingProject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bt_surrounding_project"
+                    android:layout_centerInParent="true"
+                    android:visibility="invisible"
+                    android:onClick="onButtonClick" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <ListView
+            android:id="@+id/lvProjectList"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
+    </LinearLayout>
+    <!-- ここまでにコンテンツを記述!! -->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabOpenList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:layout_marginRight="10dp"
+        android:onClick="onFabOpenListClick"
+        android:src="@drawable/ic_action_list"
+        app:layout_anchor="@id/lvProjectList"
+        app:layout_anchorGravity="top|right"/>
+</android.support.design.widget.CoordinatorLayout>

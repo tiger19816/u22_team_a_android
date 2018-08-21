@@ -25,6 +25,7 @@
         <item>詳細検索</item>
     </string-array>
     <string name="tv_activity_project_search_SearchInfo">検索</string>
+    <string name="bt_surrounding_project">この周辺のプロジェクトを検索</string>
     <!--プロジェクト詳細、寄付画面-->
     <string name="tv_project_detail_activity_yean">￥</string>
     <string name="tv_project_detail_activity_fundRaising">現在 :</string>
