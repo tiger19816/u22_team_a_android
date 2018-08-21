@@ -58,6 +58,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
     CharSequence input_password;
     CharSequence input_credit_card_expiration_year;
     CharSequence input_credit_card_expiration_month;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -236,7 +237,6 @@ public class NewRegistrationActivity extends AppCompatActivity {
 
                 //GET通信かPOST通信かを指定する。
                 con.setRequestMethod("POST");
-
                 //自動リダイレクトを許可するかどうか。
                 con.setInstanceFollowRedirects(false);
 
@@ -289,7 +289,6 @@ public class NewRegistrationActivity extends AppCompatActivity {
 
             return result;
         }
-
         @Override
         public void onPostExecute(String result) {
             Boolean isRegistration = false;
@@ -297,6 +296,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
                 JSONObject rootJSON = new JSONObject(result);
                 isRegistration = rootJSON.getBoolean("result");
                 String name = rootJSON.getString("name");
+
             } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
@@ -334,7 +334,6 @@ public class NewRegistrationActivity extends AppCompatActivity {
         dialog.show();
     }
 
-
     /**
      * 日付選択ダイアログ表示ボタンが押された時の処理が記述されたメンバクラス。
      */
@@ -361,6 +360,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
             et_birthday.setText(msg);
         }
     }
+
     public boolean ErrorCheck(EditText str){
         flag = 0;
         if(!"".equals(str.getText().toString())){
@@ -369,6 +369,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
         flag++;
         return false;
     }
+
     public boolean ErrorCheck(TextView str){
         flag = 0;
         if(!"".equals(str.getText().toString())){
