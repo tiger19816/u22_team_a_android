@@ -3,18 +3,14 @@ package a.team.works.u22.hal.u22teama;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,9 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import a.team.works.u22.hal.u22teama.R;
-
-public class ProjectDetailActivyty extends AppCompatActivity {
+public class ProjectDetailActivity extends AppCompatActivity {
     private static final String LOGIN_URL = "http://192.168.42.27:8080/u22_team_a_web/TestServlet";
     private static String projectId = "1";
 
@@ -37,7 +31,7 @@ public class ProjectDetailActivyty extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project_detail_activyty);
+        setContentView(R.layout.activity_project_detail_activity);
 
         //Intent intent = getIntent();
         //projectId = (intent.getStringExtra("projectId"));
@@ -169,7 +163,7 @@ public class ProjectDetailActivyty extends AppCompatActivity {
             Spinner spn = (Spinner)findViewById(R.id.spinner);
             String item = (String)spn.getSelectedItem();
 
-            Intent intent = new Intent(ProjectDetailActivyty.this, DonationCheckActivity.class);
+            Intent intent = new Intent(ProjectDetailActivity.this, DonationCheckActivity.class);
             intent.putExtra("projectNo",projectId);
             intent.putExtra("donationMoney",item);
             startActivity(intent);

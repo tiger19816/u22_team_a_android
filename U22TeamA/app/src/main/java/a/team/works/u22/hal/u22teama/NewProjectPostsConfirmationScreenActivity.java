@@ -12,10 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.Map.Entry;
 
@@ -25,10 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Map;
 
 public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity implements HttpPostListener{
 
@@ -200,7 +195,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
 
     public void MovePage() {
 
-        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, ProjectDetailActivyty.class);
+        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, ProjectDetailActivity.class);
         startActivity(intent);
 
     }
