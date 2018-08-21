@@ -36,7 +36,7 @@ public class ContentResultActivity  extends AppCompatActivity {
      * ログインする先のURLを入れる定数.
      * AndroidエミュレータからPC内のサーバ(Eclipse上)にアクセスする場合は、localhost(127.0.0.1)ではなく、10.0.2.2にアクセスする。
      */
-    private static final String LOGIN_URL = "http://10.0.2.2:8080/U22Verification/LoginServlet";
+    private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/ContactServlet";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
