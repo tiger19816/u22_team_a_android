@@ -31,7 +31,8 @@ import a.team.works.u22.hal.u22teama.R;
 
 public class ProjectDetailActivyty extends AppCompatActivity {
     private static final String LOGIN_URL = "http://192.168.42.27:8080/u22_team_a_web/TestServlet";
-    private static String projectId = "1";
+    private static String projectNo = "1";
+    private static String memberNo = "1";
 
 
     @Override
@@ -47,7 +48,7 @@ public class ProjectDetailActivyty extends AppCompatActivity {
         btn.setOnClickListener(new ButtonClickListener());
 
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(LOGIN_URL, projectId);
+        receiver.execute(LOGIN_URL, projectNo);
     }
 
     /**
@@ -67,10 +68,10 @@ public class ProjectDetailActivyty extends AppCompatActivity {
         @Override
         public String doInBackground(String... params) {
             String urlStr = params[0];
-            String id = params[1];
+            String no = params[1];
 
             //POSTで送りたいデータ
-            String postData = "id=" + id;
+            String postData = "no=" + no;
 
             HttpURLConnection con = null;
             InputStream is = null;
@@ -170,7 +171,8 @@ public class ProjectDetailActivyty extends AppCompatActivity {
             String item = (String)spn.getSelectedItem();
 
             Intent intent = new Intent(ProjectDetailActivyty.this, DonationCheckActivity.class);
-            intent.putExtra("projectNo",projectId);
+            intent.putExtra("projectNo",projectNo);
+            intent.putExtra("memberNo",memberNo);
             intent.putExtra("donationMoney",item);
             startActivity(intent);
         }
