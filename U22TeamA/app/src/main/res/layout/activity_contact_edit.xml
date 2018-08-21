@@ -10,7 +10,7 @@
         android:id="@+id/tvContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tv_contact"
+        android:text="@string/tv_contact_title"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/tv_content" />
+            android:text="@string/tv_contact_content" />
 
         <EditText
             android:id="@+id/edContent"
@@ -38,6 +38,6 @@
         android:id="@+id/btConfirming"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bt_confirming" />
+        android:text="@string/bt_contact_confirming" />
 
 </LinearLayout>

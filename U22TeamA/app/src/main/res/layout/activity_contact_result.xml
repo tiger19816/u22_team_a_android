@@ -16,14 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/tv_result" />
+            android:text="@string/tv_contact_result" />
 
         <Button
             android:id="@+id/btCorrection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/bt_correction" />
+            android:text="@string/bt_contact_correction" />
 
     </LinearLayout>
 
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/tv_name" />
+                android:text="@string/tv_contact_name" />
 
             <EditText
                 android:id="@+id/edName"
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/tv_content" />
+                android:text="@string/tv_contact_content" />
 
             <EditText
                 android:id="@+id/edContent2"
@@ -80,6 +80,6 @@
         android:id="@+id/btSend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bt_send" />
+        android:text="@string/bt_contact_send" />
 
 </LinearLayout>

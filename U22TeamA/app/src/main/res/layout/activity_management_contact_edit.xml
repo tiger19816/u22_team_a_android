@@ -14,8 +14,7 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/tv_name" />
+            android:text="@string/tv_contact_name" />
 
         <EditText
             android:id="@+id/edName"
@@ -36,8 +35,7 @@
             android:id="@+id/tvItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/tv_item" />
+            android:text="@string/tv_contact_item" />
 
         <EditText
             android:id="@+id/edItem"
@@ -58,8 +56,7 @@
         android:id="@+id/tvContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:text="@string/tv_content" />
+        android:text="@string/tv_contact_content" />
 
     <EditText
         android:id="@+id/edContent"

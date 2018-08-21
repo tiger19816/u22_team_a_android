@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_search"
+            android:title="@string/left_nav_item_search" />
+        <item
+            android:id="@+id/nav_reservation"
+            android:title="予約リスト" />
+        <item
+            android:id="@+id/nav_history"
+            android:title="履歴" />
+        <item
+            android:id="@+id/nav_my_page"
+            android:title="MyPage" />
+    </group>
+
+    <item tools:ignore="MenuTitle">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:title="ログアウト" />
+        </menu>
+    </item>
+
+</menu>
