@@ -99,7 +99,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2"
         app:layout_constraintVertical_bias="0.0" />
-
+<!--
     <TextView
         android:id="@+id/textView"
         android:layout_width="213dp"
@@ -111,6 +111,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="アカウントを作成すると、利用規約、およびCookieの使用を含むプライバシーポリシーに同意したことになります。"
+        android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -118,5 +119,5 @@
         app:layout_constraintTop_toBottomOf="@+id/button3"
         app:layout_constraintVertical_bias="0.052" />
 
-
+-->
 </android.support.constraint.ConstraintLayout>
