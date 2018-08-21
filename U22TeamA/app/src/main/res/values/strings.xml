@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">清掃アプリ</string>
+    <!-- 左のメニュー用 -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="left_nav_title">メニュー</string>
+    <string name="left_nav_item_search">プロジェクト検索</string>
     <!--MYPAGE画面-->
     <string-array name="list">
         <item>全て</item>

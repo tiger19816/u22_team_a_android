@@ -165,7 +165,7 @@ public class LoginActivity  extends AppCompatActivity {
             }
             if (isLogin) {
                 Toast.makeText(LoginActivity.this, "成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, ProjectSearchActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ProjectSearchMapsActivity.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(LoginActivity.this, "メールアドレス又はパスワードが間違っています。", Toast.LENGTH_SHORT).show();
