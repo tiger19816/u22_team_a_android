@@ -1,17 +1,16 @@
 package a.team.works.u22.hal.u22teama;
 
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,47 +22,26 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 
-public class LoginActivity  extends AppCompatActivity {
+public class ProjectDetailActivity extends AppCompatActivity {
+    private static final String LOGIN_URL = "http://192.168.42.27:8080/u22_team_a_web/TestServlet";
+    private static String projectId = "1";
 
-    private static final String LOGIN_URL = GetUrl.LoginUrl;
-
-    int userId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-    }
+        setContentView(R.layout.activity_project_detail_activity);
 
-    public void onNewRegistrationClick(View view) {
-        Intent intent = new Intent(getApplication(), NewRegistrationActivity.class);
-        startActivity(intent);
-    }
+        //Intent intent = getIntent();
+        //projectId = (intent.getStringExtra("projectId"));
+        LoginTaskReceiver receiver = new LoginTaskReceiver();
 
-    /**
-     * ログインボタンが押された時の処理.
-     *
-     * @param view 画面部品。
-     */
-    public void onUserLoginClick(View view) {
-        //ユーザーIDの取得。
-        EditText etId = findViewById(R.id.etLoginId);
-        String strId = etId.getText().toString();
+        Button btn = findViewById(R.id.bt_FundRaising);
+        btn.setOnClickListener(new ButtonClickListener());
 
-        //パスワードの取得。
-        EditText etPassword = findViewById(R.id.etPassWord);
-        String strPassword = etPassword.getText().toString();
-        if ("".equals(strId) || "".equals(strPassword)) {
-            Toast.makeText(LoginActivity.this, R.string.msg_items, Toast.LENGTH_SHORT).show();
-        } else {
-            //非同期処理を開始する。
-            LoginTaskReceiver receiver = new LoginTaskReceiver();
-            //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-            receiver.execute(LOGIN_URL, strId, strPassword);
-        }
+        //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+        receiver.execute(LOGIN_URL, projectId);
     }
 
     /**
@@ -84,10 +62,9 @@ public class LoginActivity  extends AppCompatActivity {
         public String doInBackground(String... params) {
             String urlStr = params[0];
             String id = params[1];
-            String password = params[2];
 
             //POSTで送りたいデータ
-            String postData = "id=" + id + "&password=" + password;
+            String postData = "id=" + id;
 
             HttpURLConnection con = null;
             InputStream is = null;
@@ -99,21 +76,16 @@ public class LoginActivity  extends AppCompatActivity {
 
                 //GET通信かPOST通信かを指定する。
                 con.setRequestMethod("POST");
-
                 //自動リダイレクトを許可するかどうか。
                 con.setInstanceFollowRedirects(false);
-
                 //時間制限。（ミリ秒単位）
                 con.setReadTimeout(10000);
                 con.setConnectTimeout(20000);
-
-                con.connect();
-
+                con.setDoOutput(true);
                 //POSTデータ送信処理。InputStream処理よりも先に記述する。
                 OutputStream os = null;
                 try {
                     os = con.getOutputStream();
-
                     //送信する値をByteデータに変換する（UTF-8）
                     os.write(postData.getBytes("UTF-8"));
                     os.flush();
@@ -157,23 +129,17 @@ public class LoginActivity  extends AppCompatActivity {
             Boolean isLogin = false;
             try {
                 JSONObject rootJSON = new JSONObject(result);
-                isLogin = rootJSON.getBoolean("result");
-                userId = rootJSON.getInt("userId");
-
-                SharedPreferences prefUserId = getSharedPreferences("prefUserId",0);//MODE_WORLD_WRITEABLE
-                Editor e = prefUserId.edit();
-                e.putInt("id",userId);
-                e.commit();
-
+                String postDate = rootJSON.getString("postDate");
+                TextView etPostDate = findViewById(R.id.tv_OrderDateInfo);
+                etPostDate.setText(postDate);
+                String place = rootJSON.getString("place");
+                TextView etPlace = findViewById(R.id.tv_PlaceInfo);
+                etPlace.setText(place);
+                String content = rootJSON.getString("content");
+                TextView etContent = findViewById(R.id.tv_ContentInfo);
+                etContent.setText(content);
             } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
-            }
-            if (isLogin) {
-                Toast.makeText(LoginActivity.this, "成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, ProjectSearchMapsActivity.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(LoginActivity.this, "メールアドレス又はパスワードが間違っています。", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -188,11 +154,19 @@ public class LoginActivity  extends AppCompatActivity {
             return sb.toString();
         }
 
-        private class DialogButtonClickListener implements DialogInterface.OnClickListener {
+    }
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
+    private class  ButtonClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            Spinner spn = (Spinner)findViewById(R.id.spinner);
+            String item = (String)spn.getSelectedItem();
+
+            Intent intent = new Intent(ProjectDetailActivity.this, DonationCheckActivity.class);
+            intent.putExtra("projectNo",projectId);
+            intent.putExtra("donationMoney",item);
+            startActivity(intent);
         }
     }
 }

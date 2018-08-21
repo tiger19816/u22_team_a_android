@@ -15,19 +15,20 @@ import android.os.Bundle;
  *
  * @author Taiga Hirai
  */
-public class TabLayoutSampleActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, TabPage1Fragment.OnFragmentInteractionListener, TabPage2Fragment.OnFragmentInteractionListener {
+public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, TabPageAssistFragment.OnFragmentInteractionListener, TabPagePostFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout_sample);
+        setTitle( "清掃情報一覧" );
 
         //xmlからTabLayoutの取得
         TabLayout  tabLayout = findViewById(R.id.tabs);
         //xmlからViewPagerを取得
         ViewPager viewPager = findViewById(R.id.pager);
         //ページタイトル配列
-        final String[] pageTitle = {getString(R.string.tv_mypage_title), getString(R.string.tv_mypage_info)};
+        final String[] pageTitle = {getString(R.string.tv_mypage_post), getString(R.string.tv_mypage_assist)};
 
         //表示Pageに必要な項目を設定
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -44,11 +45,11 @@ public class TabLayoutSampleActivity extends AppCompatActivity implements ViewPa
                 //各タブに設定するFragmentを選択する。
                 switch (position) {
                     case 0:
-                        return TabPage1Fragment.newInstance(position + 1);
+                        return TabPagePostFragment.newInstance(position + 1);
                     case 1:
-                        return TabPage2Fragment.newInstance(position + 1);
+                        return TabPageAssistFragment.newInstance(position + 1);
                     default:
-                        return TabPage1Fragment.newInstance(position + 1);
+                        return TabPagePostFragment.newInstance(position + 1);
                 }
             }
 

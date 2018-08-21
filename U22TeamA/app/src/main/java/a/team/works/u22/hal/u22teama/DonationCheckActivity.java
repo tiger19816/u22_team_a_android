@@ -34,6 +34,7 @@ public class DonationCheckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_donation_check);
 
         Intent intent = getIntent();
+
         projectNo = (intent.getStringExtra("projectNo"));
         memberNo = (intent.getStringExtra("memberNo"));
         String targetMoney = (intent.getStringExtra("targetMoney"));
@@ -52,7 +53,9 @@ public class DonationCheckActivity extends AppCompatActivity {
         public void onClick(View v){
             LoginTaskReceiver receiver = new LoginTaskReceiver();
             //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+
             receiver.execute(LOGIN_URL, projectNo, memberNo, donationMoney);
+
 
             DonationGratitudeDialog dialog = new DonationGratitudeDialog();
 
@@ -88,7 +91,6 @@ public class DonationCheckActivity extends AppCompatActivity {
             HttpURLConnection con = null;
             InputStream is = null;
             String result = "";
-
             try {
                 URL url = new URL(urlStr);
                 con = (HttpURLConnection) url.openConnection();

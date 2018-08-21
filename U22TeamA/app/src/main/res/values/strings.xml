@@ -1,25 +1,36 @@
 <resources>
     <string name="app_name">清掃アプリ</string>
+    <!-- 左のメニュー用 -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="left_nav_title">メニュー</string>
+    <string name="left_nav_item_search">プロジェクト検索</string>
     <!--MYPAGE画面-->
     <string-array name="list">
-    <item>全て</item>
-    <item>MY投稿</item>
-    <item>MY協賛</item>
+        <item>全て</item>
+        <item>MY投稿</item>
+        <item>MY協賛</item>
     </string-array>
     <string name="tv_mypage_title">会員情報</string>
-    <string name="tv_mypage_change">変更</string>
+    <string name="bt_mypage_change">変更</string>
+    <string name="bt_mypage_update">変更完了</string>
     <string name="tv_mypage_name">氏名</string>
     <string name="tv_mypage_birth">生年月日</string>
     <string name="tv_mypage_address">住所</string>
     <string name="tv_mypage_sex">性別</string>
-    <string name="tv_mypage_age">年齢</string>
+    <string name="radio_male">男</string>
+    <string name="radio_female">女</string>
+    <string name="tv_mypage_mail">メールアドレス</string>
     <string name="tv_mypage_phone">電話番号</string>
     <string name="tv_mypage_info">清掃情報</string>
+    <string name="tv_mypage_assist">MY協賛</string>
+    <string name="tv_mypage_post">MY投稿</string>
     <!--プロジェクト検索画面-->
     <string-array name="spinner_activity_project_search_DetailedDesignatedSearch">
         <item>詳細検索</item>
     </string-array>
     <string name="tv_activity_project_search_SearchInfo">検索</string>
+    <string name="bt_surrounding_project">この周辺のプロジェクトを検索</string>
     <!--プロジェクト詳細、寄付画面-->
     <string name="tv_project_detail_activity_yean">￥</string>
     <string name="tv_project_detail_activity_fundRaising">現在 :</string>
@@ -53,6 +64,7 @@
     <string name="tv_activity_new_project_posts_content">内容</string>
     <string name="tv_activity_new_project_posts_investmentAmount">投資金額</string>
     <string-array name="spinner_activity_new_project_posts_category">
+        <item>選択してください</item>
         <item>汚れ</item>
         <item>ごみ</item>
     </string-array>
@@ -70,18 +82,26 @@
     <string name="tv_contact_result">以下の内容で送信します。</string>
 
     <!--ログイン画面-->
-    <string name="tv_Login_Id">ログインID</string>
-    <string name="tv_Login_PassWord">パスワード</string>
-    <string name="tv_Login_Button">ログイン</string>
+    <string name="tv_login_id">ログインID</string>
+    <string name="tv_login_password">パスワード</string>
+    <string name="tv_login_button">ログイン</string>
+    <string name="tv_login_new_registration">新規登録</string>
+    <string name="login_msg_items"></string>
     <!--新規登録画面-->
-    <string name="tv_Title_Registration">アカウント登録</string>
-    <string name="tv_New_Registration_Name">氏名</string>
-    <string name="tv_New_Registration_Birthday">生年月日</string>
-    <string name="tv_New_Registration_Address">住所</string>
-    <string name="tv_New_Registration_Sex">性別</string>
-    <string name="tv_New_Registration_Password">パスワード</string>
-    <string name="tv_New_Registration_Credit_Card_Number">クレジットカード番号</string>
-    <string name="tv_New_Registration_Phone_Number">電話番号</string>
-    <string name="tv_New_Registration">登録する</string>
+    <string name="tv_title_registration">アカウント登録</string>
+    <string name="tv_new_registration_name">氏名</string>
+    <string name="tv_new_registration_birthday">生年月日</string>
+    <string name="tv_new_registration_address">住所</string>
+    <string name="tv_new_registration_sex">性別</string>
+    <string name="tv_new_registration_men">男</string>
+    <string name="tv_new_registration_women">女</string>
+    <string name="tv_new_registration_mail">メールアドレス</string>
+    <string name="tv_new_registration_password">パスワード</string>
+    <string name="tv_new_registration_credit_card_number">クレジットカード番号</string>
+    <string name="tv_new_registration_credit_card_security_code">セキュリティ番号</string>
+    <string name="tv_new_registration_credit_card_expiration_date">有効期限</string>
+    <string name="tv_new_registration_phone_number">電話番号</string>
+    <string name="tv_new_registration">登録する</string>
+    <string name="msg_items">未入力の項目があります。</string>
 </resources>
 
