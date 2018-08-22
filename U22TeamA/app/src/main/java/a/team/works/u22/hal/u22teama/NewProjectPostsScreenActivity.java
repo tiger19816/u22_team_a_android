@@ -17,6 +17,7 @@ import android.media.ExifInterface;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -333,6 +334,11 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     //カメラ起動ボタンが押されたとき
     public void onClickCameraStart(View view) {
 
+        ImageView imageView = findViewById(R.id.iv_CheckPhots);
+
+        enableWaitHandler(1000L,imageView);
+
+
         //インテントの生成
         _intent = new Intent();
 
@@ -563,6 +569,22 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         Intent intent = new Intent(NewProjectPostsScreenActivity.this, NewProjectPostsConfirmationScreenActivity.class);
         intent.putExtra("value", info);
         startActivity(intent);
+    }
+
+    /**
+     * タップ対策
+     * @param stopTime
+     * @param view
+     */
+    public void enableWaitHandler(long stopTime, final View view) {
+
+        view.setEnabled(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.setEnabled(true);
+            }
+        }, stopTime);
     }
 }
 
