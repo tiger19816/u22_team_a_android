@@ -23,7 +23,7 @@ package a.team.works.u22.hal.u22teama;
         import java.net.URL;
 
 public class DonationCheckActivity extends AppCompatActivity {
-    private static final String LOGIN_URL = "http://192.168.42.27:8080/u22_team_a_web/DonationServlet";
+    private static final String LOGIN_URL = "http://192.168.42.27:8080/u22_team_a_web/DonationSetServlet";
     private static String projectNo = "1";
     private static String memberNo = "1";
     private static String donationMoney;

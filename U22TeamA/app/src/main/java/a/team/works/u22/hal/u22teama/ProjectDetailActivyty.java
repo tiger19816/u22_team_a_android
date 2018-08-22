@@ -34,7 +34,7 @@ import java.net.URL;
 import a.team.works.u22.hal.u22teama.R;
 
 public class ProjectDetailActivyty extends AppCompatActivity {
-    private static final String LOGIN_URL = "http://192.168.42.27:8080/u22_team_a_web/TestServlet";
+    private static final String LOGIN_URL = "http://192.168.42.27:8080/u22_team_a_web/ProjectInfoServlet";
     private static String projectNo = "1";
     private static String memberNo = "1";
 
