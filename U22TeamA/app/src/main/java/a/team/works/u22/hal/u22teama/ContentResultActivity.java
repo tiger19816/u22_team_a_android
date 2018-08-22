@@ -46,7 +46,7 @@ public class ContentResultActivity  extends AppCompatActivity {
 Intent intent = getIntent();
 Bundle extras = intent.getExtras();
 String content= extras.getString("content");
-     EditText edContent = findViewById(R.id.edContent2);
+     EditText edContent = findViewById(R.id.edContent);
 edContent.setText(content);
 
         Button button = findViewById(R.id.btSend);
@@ -64,7 +64,7 @@ edContent.setText(content);
             //仮引数
             String strId = "0";
 
-            EditText edContent = findViewById(R.id.edContent2);
+            EditText edContent = findViewById(R.id.edContent);
             String content = edContent.getText().toString();
 
             //非同期処理を開始する。

@@ -4,7 +4,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="left_nav_title">メニュー</string>
-    <string name="left_nav_item_search">プロジェクト検索</string>
+    <string name="left_nav_mypage">マイページ</string>
+    <string name="left_nav_project_search">プロジェクト検索</string>
+    <string name="left_nav_project_contribution">プロジェクト投稿</string>
+    <string name="left_nav_join_project">参加プロジェクト</string>
+    <string name="left_nav_contact">お問い合わせ</string>
     <!--MYPAGE画面-->
     <string-array name="list">
         <item>全て</item>
