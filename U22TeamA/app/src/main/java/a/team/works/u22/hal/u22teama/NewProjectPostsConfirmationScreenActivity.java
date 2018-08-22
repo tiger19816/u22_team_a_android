@@ -41,6 +41,9 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project_posts_confirmation_screen);
 
+        //タイトル変更
+        setTitle( "新規プロジェクト投稿確認" );
+
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -196,7 +199,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
 
     public void MovePage() {
 
-        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, ProjectDetailActivity.class);
+        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, TabLayoutCleanActivity.class);
         startActivity(intent);
 
     }

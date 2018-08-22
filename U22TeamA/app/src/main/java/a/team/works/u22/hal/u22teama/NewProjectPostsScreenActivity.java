@@ -96,9 +96,17 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project_posts_screen);
 
+        //タイトル変更
+        setTitle( "新規プロジェクト投稿" );
+
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //戻るボタン
+        android.support.v7.app.ActionBar actionbar = getSupportActionBar();
+        actionbar.setHomeButtonEnabled(true);
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
         // アプリ標準の Preferences を取得する
         SharedPreferences sp = getSharedPreferences(preferencesKey , 0);
@@ -508,6 +516,13 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            /**
+             * 戻るボタンが押された時
+             */
+            case android.R.id.home:
+                finish();
+                return true;
+
             /**
              * 保存ボタンが押された時の処理
              */
