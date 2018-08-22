@@ -62,14 +62,14 @@
 
                 <TextView
                     android:id="@+id/input_birthday"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="130dp"
+                    android:layout_height="30dp" />
 
 
                 <Button
                     android:id="@+id/button"
-                    android:layout_width="45dp"
-                    android:layout_height="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:onClick="onUpdateButtonClick"
                     android:text="選択"
                     android:textSize="10sp" />
@@ -206,6 +206,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/tv_new_registration_mail"
+                android:textSize="15sp" />
+
+
+            <EditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/tv_new_registration_password"
                 android:textSize="15sp" />
 
@@ -216,19 +229,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="text" />
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_new_registration_mail"
-                android:textSize="15sp" />
-
-
-            <EditText
-                android:id="@+id/input_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
 
 
             <LinearLayout

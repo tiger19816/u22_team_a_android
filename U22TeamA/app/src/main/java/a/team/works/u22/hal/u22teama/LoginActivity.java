@@ -164,7 +164,6 @@ public class LoginActivity  extends AppCompatActivity {
                 Editor e = prefUserId.edit();
                 e.putInt("id",userId);
                 e.commit();
-
             } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }

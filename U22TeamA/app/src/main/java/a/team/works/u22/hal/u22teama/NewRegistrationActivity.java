@@ -1,6 +1,8 @@
 package a.team.works.u22.hal.u22teama;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -36,13 +38,15 @@ public class NewRegistrationActivity extends AppCompatActivity {
      * ログインする先のURLを入れる定数.
      * AndroidエミュレータからPC内のサーバ(Eclipse上)にアクセスする場合は、localhost(127.0.0.1)ではなく、10.0.2.2にアクセスする。
      */
-    private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/RegistrationServlet";
+   // private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/RegistrationServlet";
  //   private static final String MYPAGE_URL = "http://10.0.2.2:8080/u22_team_a_web/MypageChangeCompleteServlet";
+    private static final String REGISTRATION_URL = GetUrl.NewRegistration;
 
     int displayInt = 0;
     String displayChar = "";
     String Sex ="";
     String birthday ="";
+    int userId = 0;
     private int year;
     private int month;
     private int day;
@@ -173,7 +177,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
                             //非同期処理を開始する。
                             RegistrationTaskReceiver receiver = new RegistrationTaskReceiver();
                             //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-                            receiver.execute(LOGIN_URL, strName, strBirthday, strAddress, strPhoneNumber, strSex, strCreditCardNumber,strCreditCardSecurityCode,strCreditCardExpiration_Date, strMail, strPassword);
+                            receiver.execute(REGISTRATION_URL, strName, strBirthday, strAddress, strPhoneNumber, strSex, strCreditCardNumber,strCreditCardSecurityCode,strCreditCardExpiration_Date, strMail, strPassword);
 
                  //           RegistrationTaskReceiver mypage_receiver = new RegistrationTaskReceiver();
                  //           mypage_receiver.execute(MYPAGE_URL, strName, strBirthday, strAddress, strPhoneNumber, strSex, strCreditCardNumber, strMail, strPassword);
@@ -296,12 +300,20 @@ public class NewRegistrationActivity extends AppCompatActivity {
                 JSONObject rootJSON = new JSONObject(result);
                 isRegistration = rootJSON.getBoolean("result");
                 String name = rootJSON.getString("name");
+                userId = rootJSON.getInt("userId");
+
+                SharedPreferences prefUserId = getSharedPreferences("prefUserId",0);
+                SharedPreferences.Editor e = prefUserId.edit();
+                e.putInt("id",userId);
+                e.commit();
 
             } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
             if (isRegistration) {
                 Toast.makeText(NewRegistrationActivity.this, "完了", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(NewRegistrationActivity.this, ProjectSearchMapsActivity.class);
+                startActivity(intent);
             } else {
                 Toast.makeText(NewRegistrationActivity.this, "既に登録されています。", Toast.LENGTH_SHORT).show();
             }
