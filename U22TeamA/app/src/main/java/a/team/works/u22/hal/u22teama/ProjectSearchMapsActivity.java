@@ -131,38 +131,42 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-//        int id = item.getItemId();
+        int id = item.getItemId();
 
-//        Intent intent;
-//        if (id == R.id.nav_map) {
-////            intent = new Intent(FemaleStoreMapListActivity.this,FemaleStoreMapListActivity.class);
-////            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-////            startActivity(intent);
-//        } else if (id == R.id.nav_reservation) {
-//            intent = new Intent(FemaleStoreMapListActivity.this,FemaleReservationListActivity.class);
+        Intent intent;
+        if (id == R.id.nav_mypage) {
+            intent = new Intent(ProjectSearchMapsActivity.this,MypageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_join_project) {
+            intent = new Intent(ProjectSearchMapsActivity.this,TabLayoutCleanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }else if (id == R.id.nav_project_search) {
+//            intent = new Intent(ProjectSearchMapsActivity.this,FemaleReservationListActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //            startActivity(intent);
-//        } else if (id == R.id.nav_history) {
-//            intent = new Intent(FemaleStoreMapListActivity.this,FemaleHistoryListActivity.class);
+        } else if (id == R.id.nav_project_contribution) {
+            intent = new Intent(ProjectSearchMapsActivity.this,NewProjectPostsScreenActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_contact) {
+//            intent = new Intent(ProjectSearchMapsActivity.this,FemaleMyPageActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //            startActivity(intent);
-//        } else if (id == R.id.nav_my_page) {
-//            intent = new Intent(FemaleStoreMapListActivity.this,FemaleMyPageActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
-//        }else if (id == R.id.nav_logout){
-//            //ユーザーID削除。
-//            SharedPreferences setting = getSharedPreferences("USER" , 0);
-//            SharedPreferences.Editor editor = setting.edit();
-//            editor.remove("ID");
-//            editor.commit();
-//            intent = new Intent(FemaleStoreMapListActivity.this,MainActivity.class);
-//            finish();
-//            startActivity(intent);
-//        }
-//
-//        DrawerLayout drawer = findViewById(R.id.dlMainContent);
-//        drawer.closeDrawer(GravityCompat.START);
+        }else if (id == R.id.nav_logout){
+            //ユーザーID削除。
+            SharedPreferences setting = getSharedPreferences("USER" , 0);
+            SharedPreferences.Editor editor = setting.edit();
+            editor.remove("ID");
+            editor.commit();
+            intent = new Intent(ProjectSearchMapsActivity.this,MainActivity.class);
+            finish();
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.dlMainContent);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
