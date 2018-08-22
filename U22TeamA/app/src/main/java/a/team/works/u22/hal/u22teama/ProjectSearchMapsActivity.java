@@ -131,18 +131,18 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-//        int id = item.getItemId();
+        int id = item.getItemId();
 
-//        Intent intent;
-//        if (id == R.id.nav_map) {
-////            intent = new Intent(FemaleStoreMapListActivity.this,FemaleStoreMapListActivity.class);
-////            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-////            startActivity(intent);
-//        } else if (id == R.id.nav_reservation) {
-//            intent = new Intent(FemaleStoreMapListActivity.this,FemaleReservationListActivity.class);
+        Intent intent;
+        if (id == R.id.nav_search) {
+//            intent = new Intent(FemaleStoreMapListActivity.this,FemaleStoreMapListActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //            startActivity(intent);
-//        } else if (id == R.id.nav_history) {
+        } else if (id == R.id.nav_reservation) {
+            intent = new Intent(ProjectSearchMapsActivity.this,NewProjectPostsScreenActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }// else if (id == R.id.nav_history) {
 //            intent = new Intent(FemaleStoreMapListActivity.this,FemaleHistoryListActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //            startActivity(intent);
@@ -160,9 +160,9 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
 //            finish();
 //            startActivity(intent);
 //        }
-//
-//        DrawerLayout drawer = findViewById(R.id.dlMainContent);
-//        drawer.closeDrawer(GravityCompat.START);
+
+        DrawerLayout drawer = findViewById(R.id.dlMainContent);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
