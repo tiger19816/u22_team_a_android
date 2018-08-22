@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.ParcelFileDescriptor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,16 +33,17 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
     private  NewProjectPostsScreenActivityInfomation NPPSAI;
     final static private String TAG = "HttpPost";
 
-    // 検証用
-    final static private String URL = "http://192.168.100.100:8080/u22_team_a_web/NewProjectPostsConfirmationScreenActivityServlet";
     //サーバー用
-    //final static private String URL = GetUrl.LoginUrl;
-    //final static private String URL = GetUrl.MyPostsUrl;
+    final static private String URL = GetUrl.NewProjectPostsConfirmationScreenActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project_posts_confirmation_screen);
+
+        //ツールバー(レイアウトを変更可)。
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         //戻るボタン
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
@@ -49,7 +51,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent=getIntent();
-        NewProjectPostsScreenActivityInfomation NPPSAI = (NewProjectPostsScreenActivityInfomation)intent.getSerializableExtra("value");
+        NPPSAI = (NewProjectPostsScreenActivityInfomation)intent.getSerializableExtra("value");
 
         //Viewの取得
         TextView tvTitle = findViewById(R.id.tv_CheckTitle);
@@ -173,7 +175,6 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                 task.addText("userId", NPPSAI.getUserId());
                 task.addText("latitude",NPPSAI.getLatitude());
                 task.addText("longitude",NPPSAI.getLongitude());
-                //
                 //画像をbyte型に変換 + 格納
                 task.addImage("filename", img2byte(image));
 
