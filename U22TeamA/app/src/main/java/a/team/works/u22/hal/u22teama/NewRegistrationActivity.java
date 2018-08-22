@@ -301,6 +301,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
                 isRegistration = rootJSON.getBoolean("result");
                 String name = rootJSON.getString("name");
                 userId = rootJSON.getInt("userId");
+
                 SharedPreferences prefUserId = getSharedPreferences("prefUserId",0);
                 SharedPreferences.Editor e = prefUserId.edit();
                 e.putInt("id",userId);
