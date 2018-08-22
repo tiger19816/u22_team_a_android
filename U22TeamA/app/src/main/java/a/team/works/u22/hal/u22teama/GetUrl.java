@@ -10,5 +10,19 @@ public class GetUrl {
     public static final String LoginUrl = fixedUrl + "UserLoginServlet";
     public static final String MyPostsUrl = fixedUrl + "JoinProjectServlet";
     public static final String NewRegistration = fixedUrl + "RegistrationServlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+     public static final String # = fixedUrl + "Servlet";
+
 
 }
