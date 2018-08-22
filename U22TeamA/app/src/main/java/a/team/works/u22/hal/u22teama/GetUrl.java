@@ -10,5 +10,6 @@ public class GetUrl {
     public static final String LoginUrl = fixedUrl + "UserLoginServlet";
     public static final String MyPostsUrl = fixedUrl + "JoinProjectServlet";
      public static final String projectMapUrl = fixedUrl + "DistanceServlet";
+     public static final String NewProjectPostsConfirmationScreenActivity = fixedUrl + "NewProjectPostsConfirmationScreenActivityServlet";
 
 }
