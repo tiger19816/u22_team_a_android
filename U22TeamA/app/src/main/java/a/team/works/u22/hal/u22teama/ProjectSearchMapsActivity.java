@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,11 +19,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,7 +36,23 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ProjectSearchMapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
@@ -38,6 +60,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
     private ListView lvProjectList;    // 内容エリア
     private FloatingActionButton fab;
     private LinearLayout linearLayoutArea;
+    private ArrayList<Marker> markers;
 
     /**
      * アニメーションにかける時間（ミリ秒）
@@ -92,12 +115,12 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
      */
     @Override
     public void onBackPressed() {
-//        DrawerLayout drawer = findViewById(R.id.dlMainContent);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//        }
+        DrawerLayout drawer = findViewById(R.id.dlMainContent);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**
@@ -180,14 +203,23 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
         Location location = locationManager.getLastKnownLocation(locationProvider);
 
         if (location != null) {
-            // Add a marker in Sydney and move the camera
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker in Sydney"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
+//            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker in Sydney"));
+//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
+
+            //非同期処理を開始する。
+            ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
+            //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+            receiver.execute(GetUrl.projectMapUrl, location.getLatitude() + "", location.getLongitude() + "");
         } else {
-            //大阪市役所34.693835, 135.501929
             Toast.makeText(ProjectSearchMapsActivity.this, "現在地情報の取得に失敗しました。", Toast.LENGTH_SHORT).show();
+            //非同期処理を開始する。
+            ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
+            //大阪市役所34.693835, 135.501929
+            //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+            receiver.execute(GetUrl.projectMapUrl, "34.693835", "135.501929");
         }
+
     }
 
     @Override
@@ -236,5 +268,206 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
      * @param view 画面部品。
      */
     public void onFabOpenListClick(View view) {
+    }
+
+    /**
+     * 非同期通信を行うAsyncTaskクラスを継承したメンバクラス.
+     */
+    private class ProjectMapTaskReceiver extends AsyncTask<String, Void, String> {
+
+        private static final String DEBUG_TAG = "RestAccess";
+
+        /**
+         * 非同期に処理したい内容を記述するメソッド.
+         * このメソッドは必ず実装する必要がある。
+         *
+         * @param params String型の配列。（可変長）
+         * @return String型の結果JSONデータ。
+         */
+        @Override
+        public String doInBackground(String... params) {
+            String urlStr = params[0];
+            String lat = params[1];
+            String lng = params[2];
+
+            HttpURLConnection con = null;
+            InputStream is = null;
+            String result = "";
+            String postData = "lat=" + lat + "&lng=" + lng;
+
+            try {
+                URL url = new URL(urlStr);
+                con = (HttpURLConnection) url.openConnection();
+
+                //GET通信かPOST通信かを指定する。
+                con.setRequestMethod("POST");
+
+                //自動リダイレクトを許可するかどうか。
+                con.setInstanceFollowRedirects(false);
+
+                //時間制限。（ミリ秒単位）
+                con.setReadTimeout(10000);
+                con.setConnectTimeout(20000);
+
+                con.setDoOutput(true);
+
+                //POSTデータ送信処理。InputStream処理よりも先に記述する。
+                OutputStream os = null;
+                try {
+                    os = con.getOutputStream();
+
+                    //送信する値をByteデータに変換する（UTF-8）
+                    os.write(postData.getBytes("UTF-8"));
+                    os.flush();
+                }
+                catch (IOException ex) {
+                    Log.e(DEBUG_TAG, "POST送信エラー", ex);
+                }
+                finally {
+                    if(os != null) {
+                        try {
+                            os.close();
+                        }
+                        catch (IOException ex) {
+                            Log.e(DEBUG_TAG, "OutputStream解放失敗", ex);
+                        }
+                    }
+                }
+
+                is = con.getInputStream();
+
+                result = Tools.is2String(is);
+            }
+            catch (MalformedURLException ex) {
+                Log.e(DEBUG_TAG, "URL変換失敗", ex);
+            }
+            catch (IOException ex) {
+                Log.e(DEBUG_TAG, "通信失敗", ex);
+            }
+            finally {
+                if(con != null) {
+                    con.disconnect();
+                }
+                if(is != null) {
+                    try {
+                        is.close();
+                    }
+                    catch (IOException ex) {
+                        Log.e(DEBUG_TAG, "InputStream解放失敗", ex);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        @Override
+        public void onPostExecute(String result) {
+            final List<Map<String, String>> projectList = new ArrayList<>();
+            try {
+                JSONArray rootJson = new JSONArray(result);
+                for(int i = 0; i < rootJson.length(); i++) {
+                    Map<String, String> map = new HashMap<>();
+                    JSONObject restNow = rootJson.getJSONObject(i);
+                    map.put("no",restNow.getString("no"));
+                    map.put("member_no", restNow.getString("member_no"));
+                    map.put("category_no", restNow.getString("category_no"));
+                    map.put("post_date", restNow.getString("post_date"));
+                    map.put("place", restNow.getString("place"));
+                    map.put("latitude", restNow.getString("latitude"));
+                    map.put("longitude", restNow.getString("longitude"));
+                    map.put("title", restNow.getString("title"));
+                    map.put("content", restNow.getString("content"));
+                    map.put("photo", restNow.getString("photo"));
+                    map.put("target_money", restNow.getString("target_money"));
+                    map.put("cleaning_flag", restNow.getString("cleaning_flag"));
+                    projectList.add(map);
+                }
+            }
+            catch (JSONException ex) {
+                Log.e(DEBUG_TAG, "JSON解析失敗", ex);
+            }
+
+            markers = new ArrayList<>();
+
+            for(Map<String, String> map : projectList) {
+                //マーカー表示
+                LatLng latLng = new LatLng(Float.parseFloat(map.get("latitude")), Float.parseFloat(map.get("longitude")));
+                markers.add(mMap.addMarker(new MarkerOptions().position(latLng).title(map.get("title"))));
+                markers.get(markers.size() - 1).setTag(map);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
+            }
+
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Intent intent = new Intent(ProjectSearchMapsActivity.this, ProjectDetailActivity.class);
+                    Map<String, String> map = (Map<String, String>) marker.getTag();
+                    intent.putExtra("projectId", map.get("no"));
+                    startActivity(intent);
+                }
+            });
+
+            mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+                private boolean isNotFirst = false;
+
+                @Override
+                public void onCameraIdle() {
+                    if(isNotFirst) {
+                        Button btSurroundingStore = findViewById(R.id.btSurroundingProject);
+                        btSurroundingStore.setVisibility(View.VISIBLE);
+                    }
+                    isNotFirst = true;
+                }
+            });
+
+            String[] from = {"name", "short_pr", "id", "id"};
+            int[] to = {R.id.rowTvStoreName, R.id.rowTvStoreShortPr, R.id.rowBtStoreDetail, R.id.rowBtStoreReservation};
+            final SimpleAdapter adapter = new SimpleAdapter(ProjectSearchMapsActivity.this, projectList, R.layout.row_project_list, from, to);
+            adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
+                private String strStoreName = "";
+                @Override
+                public boolean setViewValue(View view, Object data, String textRepresentation) {
+//                    int id = view.getId();
+//                    String strData = (String) data;
+//                    switch (id) {
+//                        case R.id.rowTvStoreName:
+//                            TextView tvStoreName = (TextView) view;
+//                            tvStoreName.setText(strData);
+//                            strStoreName = strData;
+//                            return true;
+//                        case R.id.rowTvStoreShortPr:
+//                            TextView rowTvStoreShortPr = (TextView) view;
+//                            rowTvStoreShortPr.setText(Tools.replaceBr(strData));
+//                            return true;
+//                        case R.id.rowBtStoreDetail:
+//                            Button btStoreDetail = (Button) view;
+//                            btStoreDetail.setTag(strData);
+//                            return true;
+//                        case R.id.rowBtStoreReservation:
+//                            Button btStoreReservation = (Button) view;
+//                            StoreMapListReservationButtonTag reservationButtonTag = new StoreMapListReservationButtonTag();
+//                            reservationButtonTag.setId(strData);
+//                            reservationButtonTag.setName(strStoreName);
+//                            btStoreReservation.setTag(reservationButtonTag);
+//                            return true;
+//                    }
+                    return false;
+                }
+            });
+            lvProjectList.setAdapter(adapter);
+            lvProjectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(ProjectSearchMapsActivity.this, ProjectDetailActivity.class);
+                    Map<String, String> map = (Map<String, String>) adapter.getItem(position);
+                    intent.putExtra("projectId", map.get("no"));
+                    startActivity(intent);
+                }
+            });
+
+            mMap.setIndoorEnabled(false);
+            mMap.getUiSettings().setTiltGesturesEnabled(false);
+        }
     }
 }

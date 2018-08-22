@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".NewProjectPostsConfirmationScreenActivity">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="53dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -35,11 +40,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <TextView
         android:id="@+id/tv_Phoths"
