@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onBackButtonClick"
             android:text="@string/bt_contact_correction" />
 
     </LinearLayout>
@@ -39,19 +40,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/tv_contact_name" />
-
-            <EditText
-                android:id="@+id/edName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,7 +54,7 @@
                 android:layout_weight="1"
                 android:text="@string/tv_contact_content" />
 
-            <EditText
+            <TextView
                 android:id="@+id/edContent2"
                 android:layout_width="wrap_content"
                 android:layout_height="145dp"

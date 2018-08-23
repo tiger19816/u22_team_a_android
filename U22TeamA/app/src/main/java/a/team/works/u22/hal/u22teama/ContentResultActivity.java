@@ -46,7 +46,7 @@ public class ContentResultActivity  extends AppCompatActivity {
 Intent intent = getIntent();
 Bundle extras = intent.getExtras();
 String content= extras.getString("content");
-     EditText edContent = findViewById(R.id.edContent2);
+     TextView edContent = findViewById(R.id.edContent2);
 edContent.setText(content);
 
         Button button = findViewById(R.id.btSend);
@@ -54,6 +54,15 @@ edContent.setText(content);
         button.setOnClickListener(listener);
 
 
+    }
+
+
+    /**
+     * 訂正ボタンが押されたときのイベント処理メソッド
+     */
+
+    public void onBackButtonClick(View view) {
+        finish();
     }
 
     private class ButtonClickListener implements View.OnClickListener {
@@ -64,7 +73,7 @@ edContent.setText(content);
             //仮引数
             String strId = "0";
 
-            EditText edContent = findViewById(R.id.edContent2);
+            TextView edContent = findViewById(R.id.edContent2);
             String content = edContent.getText().toString();
 
             //非同期処理を開始する。
