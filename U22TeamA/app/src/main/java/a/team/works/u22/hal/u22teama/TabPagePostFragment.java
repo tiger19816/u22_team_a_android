@@ -240,9 +240,9 @@ public class TabPagePostFragment extends Fragment{
                 lvPostList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(String.valueOf(TabPagePostFragment.this));
-//                        Map<String, String> map = (Map<String, String>) marker.getTag();
-                        intent.putExtra("id", "kbzg701");
+                        Intent intent = new Intent(getActivity(), ProjectDetailActivity.class);
+                        Map<String, String> map = (Map<String, String>) adapter.getItem(position);
+//                        intent.putExtra("projectId", map.get("no"));
                         startActivity(intent);
                     }
                 });
