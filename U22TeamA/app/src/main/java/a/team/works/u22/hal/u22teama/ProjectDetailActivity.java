@@ -27,10 +27,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class ProjectDetailActivity extends AppCompatActivity {
-    private static final String LOGIN_URL = "http://192.168.42.27:8080/u22_team_a_web/ProjectInfoServlet";
-    private static String projectNo;
+    private static final String DONATION_URL = GetUrl.DonationSetUrl;
+    private static String projectNo = "1";
     private static String memberNo = "1";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
         btn.setOnClickListener(new ButtonClickListener());
 
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(LOGIN_URL, projectNo);
+        receiver.execute(DONATION_URL, projectNo);
     }
 
     /**

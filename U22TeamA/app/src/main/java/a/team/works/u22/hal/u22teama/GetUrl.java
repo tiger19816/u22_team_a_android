@@ -9,8 +9,11 @@ public class GetUrl {
 //private static final String fixedUrl = "http://192.168.1.101:8080/u22_team_a_web/";    //平井モバイルルータ
     public static final String LoginUrl = fixedUrl + "UserLoginServlet";
     public static final String MyPostsUrl = fixedUrl + "JoinProjectServlet";
-     public static final String projectMapUrl = fixedUrl + "DistanceServlet";
-     public static final String NewProjectPostsConfirmationScreenActivity = fixedUrl + "NewProjectPostsConfirmationScreenActivityServlet";
+    public static final String projectMapUrl = fixedUrl + "DistanceServlet";
+    public static final String NewProjectPostsConfirmationScreenActivity = fixedUrl + "NewProjectPostsConfirmationScreenActivityServlet";
     public static final String NewRegistration = fixedUrl + "RegistrationServlet";
+    public static final String DonationCheckUrl = fixedUrl + "DonationServlet";
+     public static final String DonationSetUrl = fixedUrl + "DonationSetServlet";
+     public static final String MypageChangeCompleteUrl = fixedUrl + "MypageChangeCompleteServlet";
 
 }

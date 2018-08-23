@@ -46,6 +46,7 @@
         <activity android:name=".TabLayoutCleanActivity"/>
         <activity android:name=".ContentEditActivity"/>
         <activity android:name=".ContentResultActivity"/>
+        <activity android:name=".DonationCheckActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

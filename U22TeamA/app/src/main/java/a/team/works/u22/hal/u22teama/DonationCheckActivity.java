@@ -23,7 +23,7 @@ package a.team.works.u22.hal.u22teama;
         import java.net.URL;
 
 public class DonationCheckActivity extends AppCompatActivity {
-    private static final String LOGIN_URL = "http://192.168.42.27:8080/u22_team_a_web/DonationSetServlet";
+    private static final String DONATIONCHECK_URL = GetUrl.DonationCheckUrl;
     private static String projectNo = "1";
     private static String memberNo = "1";
     private static String donationMoney;
@@ -53,9 +53,7 @@ public class DonationCheckActivity extends AppCompatActivity {
         public void onClick(View v){
             LoginTaskReceiver receiver = new LoginTaskReceiver();
             //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-
-            receiver.execute(LOGIN_URL, projectNo, memberNo, donationMoney);
-
+            receiver.execute(DONATIONCHECK_URL, projectNo, donationMoney);
 
             DonationGratitudeDialog dialog = new DonationGratitudeDialog();
 
