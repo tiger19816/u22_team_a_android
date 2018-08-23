@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
  <!--       tools:layout_editor_absoluteX="32dp"
         tools:layout_editor_absoluteY="0dp">
