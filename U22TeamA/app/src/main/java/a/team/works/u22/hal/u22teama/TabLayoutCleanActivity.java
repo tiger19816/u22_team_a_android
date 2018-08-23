@@ -1,12 +1,19 @@
 package a.team.works.u22.hal.u22teama;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.TableLayout;
 
 /**
  * タブレイアウトサンプル画面のActivityクラス.
@@ -15,7 +22,7 @@ import android.os.Bundle;
  *
  * @author Taiga Hirai
  */
-public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, TabPageAssistFragment.OnFragmentInteractionListener, TabPagePostFragment.OnFragmentInteractionListener {
+public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, TabPageAssistFragment.OnFragmentInteractionListener, TabPagePostFragment.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,5 +97,65 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+    }
+
+    /**
+     * レフトナビ以外をクリックした時の動き。
+     */
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.dlMainContent);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    /**
+     * レフトナビをクリックした時。
+     * @param item
+     * @return
+     */
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        Intent intent;
+        if (id == R.id.nav_mypage) {
+            intent = new Intent(TabLayoutCleanActivity.this,MypageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_join_project) {
+//            intent = new Intent(TabLayoutCleanActivity.this,TabLayoutCleanActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+        }else if (id == R.id.nav_project_search) {
+            intent = new Intent(TabLayoutCleanActivity.this,ProjectSearchMapsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_project_contribution) {
+            intent = new Intent(TabLayoutCleanActivity.this,NewProjectPostsScreenActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_contact) {
+//            intent = new Intent(TabLayoutCleanActivity.this,FemaleMyPageActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+        }else if (id == R.id.nav_logout){
+            //ユーザーID削除。
+            SharedPreferences setting = getSharedPreferences("USER" , 0);
+            SharedPreferences.Editor editor = setting.edit();
+            editor.remove("ID");
+            editor.commit();
+            intent = new Intent(TabLayoutCleanActivity.this,MainActivity.class);
+            finish();
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.dlMainContent);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

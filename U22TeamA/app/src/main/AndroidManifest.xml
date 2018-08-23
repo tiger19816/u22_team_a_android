@@ -41,7 +41,11 @@
         <activity android:name=".ProjectDetailActivity" />
         <activity android:name=".NewRegistrationActivity" />
         <activity android:name=".MypageChangeActivity" />
+        <activity android:name=".MypageActivity" />
         <activity android:name=".NewProjectPostsScreenActivity" />
+        <activity android:name=".TabLayoutCleanActivity"/>
+        <activity android:name=".ContentEditActivity"/>
+        <activity android:name=".ContentResultActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
