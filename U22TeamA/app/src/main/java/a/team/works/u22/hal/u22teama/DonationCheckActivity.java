@@ -4,8 +4,11 @@ package a.team.works.u22.hal.u22teama;
         import android.content.Intent;
         import android.os.AsyncTask;
         import android.os.Bundle;
+        import android.support.v7.app.ActionBar;
         import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.Toolbar;
         import android.util.Log;
+        import android.view.MenuItem;
         import android.view.View;
         import android.widget.Button;
         import android.widget.TextView;
@@ -46,6 +49,25 @@ public class DonationCheckActivity extends AppCompatActivity {
         Button btn = findViewById(R.id.etAgree);
         btn.setOnClickListener(new ClickAgree());
 
+        //ツールバー(レイアウトを変更可)。
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        setTitle("プロジェクト寄付");
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class ClickAgree implements View.OnClickListener{
