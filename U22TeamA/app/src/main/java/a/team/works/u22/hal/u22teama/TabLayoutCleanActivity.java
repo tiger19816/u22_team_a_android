@@ -10,8 +10,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TableLayout;
 
@@ -27,8 +29,23 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_layout_sample);
-        setTitle( "清掃情報一覧" );
+        setContentView(R.layout.activity_tab_layout_clean);
+
+        //ツールバー(レイアウトを変更可)。
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //DrawerLayout
+        DrawerLayout drawer = findViewById(R.id.dlMainContent);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        //レフトナビ本体。
+        NavigationView navigationView = findViewById(R.id.nvSideMenuButton);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        setTitle("参加プロジェクト");
 
         //xmlからTabLayoutの取得
         TabLayout  tabLayout = findViewById(R.id.tabs);
@@ -81,24 +98,6 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
         tabLayout.getTabAt(0).select();
     }
 
-    //以下の内容を実装する必要がある。（空で問題ない）
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-    }
-
     /**
      * レフトナビ以外をクリックした時の動き。
      */
@@ -140,9 +139,9 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (id == R.id.nav_contact) {
-//            intent = new Intent(TabLayoutCleanActivity.this,FemaleMyPageActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
+            intent = new Intent(TabLayoutCleanActivity.this,ContentEditActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }else if (id == R.id.nav_logout){
             //ユーザーID削除。
             SharedPreferences setting = getSharedPreferences("USER" , 0);
@@ -158,4 +157,23 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    //以下の内容を実装する必要がある。（空で問題ない）
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+    }
+
 }

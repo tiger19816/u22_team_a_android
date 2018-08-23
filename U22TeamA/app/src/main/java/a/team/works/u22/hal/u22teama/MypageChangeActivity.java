@@ -31,7 +31,7 @@ import java.net.URL;
  */
 public class MypageChangeActivity extends AppCompatActivity {
 
-    private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/MypageChangeCompleteServlet";
+    private static final String MYPAGECHANGECOMPLETE_URL = GetUrl.MypageChangeCompleteUrl;
     //性別　0:男  1:女
     private String SEX_TYPE;
     @Override
@@ -103,7 +103,7 @@ public class MypageChangeActivity extends AppCompatActivity {
         //非同期処理を開始する。
         LoginTaskReceiver receiver = new LoginTaskReceiver();
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(LOGIN_URL, name, address, SEX_TYPE, mail, phone);
+        receiver.execute(MYPAGECHANGECOMPLETE_URL, name, address, SEX_TYPE, mail, phone);
     }
 
     /**
