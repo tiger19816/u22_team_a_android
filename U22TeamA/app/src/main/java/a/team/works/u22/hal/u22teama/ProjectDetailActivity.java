@@ -25,11 +25,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.Callable;
 
 public class ProjectDetailActivity extends AppCompatActivity {
     private static final String DONATION_URL = GetUrl.DonationSetUrl;
     private static String projectNo = "1";
-    private static String memberNo = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,12 +132,11 @@ public class ProjectDetailActivity extends AppCompatActivity {
             Boolean isLogin = false;
             try {
                 JSONObject rootJSON = new JSONObject(result);
+                Log.e("neko", result);
                 //画像
-                URL photo = new URL(rootJSON.getString("photo"));
-                InputStream is = photo.openStream();
-                Bitmap bmp = BitmapFactory.decodeStream(is);
-                ImageView imageView = findViewById(R.id.imageView);
-                imageView.setImageBitmap(bmp);
+                String photo = rootJSON.getString("photo");
+                ImageGet ig = new ImageGet();
+                ig.execute(GetUrl.photoUrl + photo);
                 //日付
                 String postDate = rootJSON.getString("postDate");
                 TextView etPostDate = findViewById(R.id.tv_OrderDateInfo);
@@ -146,16 +145,12 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 String place = rootJSON.getString("place");
                 TextView etPlace = findViewById(R.id.tv_PlaceInfo);
                 etPlace.setText(place);
-                //説明
+                //内容
                 String content = rootJSON.getString("content");
                 TextView etContent = findViewById(R.id.tv_ContentInfo);
                 etContent.setText(content);
-            } catch (JSONException ex) {
+            } catch(JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
 
@@ -172,6 +167,32 @@ public class ProjectDetailActivity extends AppCompatActivity {
 
     }
 
+    private class ImageGet extends AsyncTask<String, Void, Bitmap>{
+        @Override
+        public Bitmap doInBackground(String...params){
+            String URL = params[0];
+            InputStream is = null;
+            Bitmap bmp = null;
+
+            try {
+                URL url = new URL(URL);
+                is = url.openStream();
+                bmp = BitmapFactory.decodeStream(is);
+                is.close();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+        public void onPostExecute(Bitmap result) {
+            ImageView imageView = findViewById(R.id.imageView);
+            imageView.setImageBitmap(result);
+        }
+    }
+
+
     private class  ButtonClickListener implements View.OnClickListener {
 
         @Override
@@ -181,7 +202,6 @@ public class ProjectDetailActivity extends AppCompatActivity {
 
             Intent intent = new Intent(ProjectDetailActivity.this, DonationCheckActivity.class);
             intent.putExtra("projectNo",projectNo);
-            intent.putExtra("memberNo",memberNo);
             intent.putExtra("donationMoney",item);
             startActivity(intent);
         }
