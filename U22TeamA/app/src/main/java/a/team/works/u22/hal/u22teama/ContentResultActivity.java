@@ -36,7 +36,7 @@ public class ContentResultActivity  extends AppCompatActivity {
      * ログインする先のURLを入れる定数.
      * AndroidエミュレータからPC内のサーバ(Eclipse上)にアクセスする場合は、localhost(127.0.0.1)ではなく、10.0.2.2にアクセスする。
      */
-    private static final String LOGIN_URL = "http://10.0.2.2:8080/U22Verification/LoginServlet";
+    private static final String LOGIN_URL = GetUrl.ContactUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class ContentResultActivity  extends AppCompatActivity {
 Intent intent = getIntent();
 Bundle extras = intent.getExtras();
 String content= extras.getString("content");
-     EditText edContent = findViewById(R.id.edContent);
+     TextView edContent = findViewById(R.id.edContent2);
 edContent.setText(content);
 
         Button button = findViewById(R.id.btSend);
@@ -54,6 +54,15 @@ edContent.setText(content);
         button.setOnClickListener(listener);
 
 
+    }
+
+
+    /**
+     * 訂正ボタンが押されたときのイベント処理メソッド
+     */
+
+    public void onBackButtonClick(View view) {
+        finish();
     }
 
     private class ButtonClickListener implements View.OnClickListener {
@@ -64,7 +73,7 @@ edContent.setText(content);
             //仮引数
             String strId = "0";
 
-            EditText edContent = findViewById(R.id.edContent);
+            TextView edContent = findViewById(R.id.edContent2);
             String content = edContent.getText().toString();
 
             //非同期処理を開始する。

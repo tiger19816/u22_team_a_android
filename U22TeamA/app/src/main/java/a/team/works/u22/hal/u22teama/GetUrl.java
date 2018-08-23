@@ -15,5 +15,6 @@ private static final String fixedUrl = "http://192.168.1.101:8080/u22_team_a_web
     public static final String DonationCheckUrl = fixedUrl + "DonationServlet";
      public static final String DonationSetUrl = fixedUrl + "DonationSetServlet";
      public static final String MypageChangeCompleteUrl = fixedUrl + "MypageChangeCompleteServlet";
+     public static final String ContactUrl = fixedUrl + "ContactServlet";
 
 }
