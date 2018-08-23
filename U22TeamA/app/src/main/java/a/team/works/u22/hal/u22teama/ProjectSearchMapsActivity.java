@@ -78,7 +78,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
                 .findFragmentById(R.id.projectMaps);
         mapFragment.getMapAsync(this);
 
-//        //ツールバー(レイアウトを変更可)。
+//      //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -151,9 +151,9 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (id == R.id.nav_contact) {
-//            intent = new Intent(ProjectSearchMapsActivity.this,FemaleMyPageActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
+            intent = new Intent(ProjectSearchMapsActivity.this,ContentEditActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }else if (id == R.id.nav_logout){
             //ユーザーID削除。
             SharedPreferences setting = getSharedPreferences("USER" , 0);
