@@ -31,6 +31,7 @@ public class LoginActivity  extends AppCompatActivity {
     private static final String LOGIN_URL = GetUrl.LoginUrl;
 
     int userId = 0;
+    String userName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class LoginActivity  extends AppCompatActivity {
             finish();
         }
     }
+
 
     public void onNewRegistrationClick(View view) {
         Intent intent = new Intent(getApplication(), NewRegistrationActivity.class);
@@ -167,11 +169,18 @@ public class LoginActivity  extends AppCompatActivity {
                 JSONObject rootJSON = new JSONObject(result);
                 isLogin = rootJSON.getBoolean("result");
                 userId = rootJSON.getInt("userId");
+                userName = rootJSON.getString("userName");
 
                 SharedPreferences prefUserId = getSharedPreferences("prefUserId",0);//MODE_WORLD_WRITEABLE
                 Editor e = prefUserId.edit();
                 e.putInt("id",userId);
                 e.commit();
+
+                SharedPreferences prefUserName = getSharedPreferences("prefUserName",0);//MODE_WORLD_WRITEABLE
+                Editor ed = prefUserName.edit();
+                ed.putString("id",userName);
+                ed.commit();
+
             } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
@@ -179,6 +188,8 @@ public class LoginActivity  extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, ProjectSearchMapsActivity.class);
                 startActivity(intent);
+                finish();
+
             } else {
                 Toast.makeText(LoginActivity.this, "メールアドレス又はパスワードが間違っています。", Toast.LENGTH_SHORT).show();
             }
