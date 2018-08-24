@@ -144,11 +144,11 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
             startActivity(intent);
         }else if (id == R.id.nav_logout){
             //ユーザーID削除。
-            SharedPreferences setting = getSharedPreferences("USER" , 0);
+            SharedPreferences setting = getSharedPreferences("prefUserId" , 0);
             SharedPreferences.Editor editor = setting.edit();
-            editor.remove("ID");
+            editor.remove("id");
             editor.commit();
-            intent = new Intent(TabLayoutCleanActivity.this,MainActivity.class);
+            intent = new Intent(TabLayoutCleanActivity.this, LoginActivity.class);
             finish();
             startActivity(intent);
         }
