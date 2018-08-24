@@ -127,20 +127,20 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         }
         return imgByte;
     }
-    /**
-     * オプションメニュー表示の秘密の言葉
-     *
-     * @param menu
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu_activity_new_project_posts_confirmation_screan_activity, menu);
-
-        return true;
-    }
+//    /**
+//     * オプションメニュー表示の秘密の言葉
+//     *
+//     * @param menu
+//     * @return
+//     */
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.option_menu_activity_new_project_posts_confirmation_screan_activity, menu);
+//
+//        return true;
+//    }
 
     /**
      * アクションバーの機能
