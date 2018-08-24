@@ -478,20 +478,20 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     public void onProviderDisabled(String provider) {
     }
 
-
-    /**
-     * オプションメニュー表示の秘密の言葉
-     *
-     * @param menu
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu_activity_new_project_posts_screen, menu);
-        return true;
-    }
+//
+//    /**
+//     * オプションメニュー表示の秘密の言葉
+//     *
+//     * @param menu
+//     * @return
+//     */
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.option_menu_activity_new_project_posts_screen, menu);
+//        return true;
+//    }
 
     /**
      * アクションバーの機能
@@ -502,60 +502,55 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            /**
-             * 保存ボタンが押された時の処理
-             */
-            case R.id.menuNewProjectPostsScreenActivitySave:
-
-                //収納用クラスに値収納
-                NewProjectPostsScreenActivityInfomation NPPSAI = new NewProjectPostsScreenActivityInfomation();
-
-                EditText edTitle = findViewById(R.id.ed_Title);
-                EditText etPlace = findViewById(R.id.et_Place);
-                Spinner spinnerCate = findViewById(R.id.spinner_Category);
-                EditText etContent = findViewById(R.id.et_Content);
-                EditText etInvestmentAmount = findViewById(R.id.et_InvestmentAmount);
-                //すべての項目が入力されているかの確認
-                if("".equals(edTitle.getText().toString())) {
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"タイトルが入力されていません", Toast.LENGTH_SHORT).show();
-                }else if(_bitmap == null) {
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"写真を撮影してください", Toast.LENGTH_SHORT).show();
-                }else if("".equals(etPlace.getText().toString())){
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"場所が入力されていません", Toast.LENGTH_SHORT).show();
-                }else if("選択してください".equals(spinnerCate.getSelectedItem())) {
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"カテゴリーが選択されていません", Toast.LENGTH_SHORT).show();
-                }else if("".equals(etContent.getText().toString())) {
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"内容が入力されていません", Toast.LENGTH_SHORT).show();
-                }else if("".equals(etInvestmentAmount.getText().toString())) {
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"募金額が入力されていません", Toast.LENGTH_SHORT).show();
-                }else{
-
-                    //NewProhectPostsScreenActivityInfomationに値を格納
-                    NPPSAI.setEdTitel(edTitle.getText().toString());
-                    NPPSAI.setImgUrl(mediaFile.toString());
-                    NPPSAI.setImgName(StrImgName);
-                    NPPSAI.setEtPlace(etPlace.getText().toString());
-                    NPPSAI.setSpinnerCate(String.valueOf(spinnerCate.getSelectedItemPosition()));
-                    NPPSAI.setEdSConte(etContent.getText().toString());
-                    NPPSAI.setEdInvestmentAmount(etInvestmentAmount.getText().toString());
-                    NPPSAI.setUserId(String.valueOf(userId));
-
-                    //緯度経度を小数点有りで入力
-                    float[] latLong = new float[2];
-                    exif.getLatLong(latLong);
-                    NPPSAI.setLatitude(String.valueOf(latLong[0]));
-                    NPPSAI.setLongitude(String.valueOf(latLong[1]));
-
-                    //値を送る
-                    MovePage(NPPSAI);
-                }
-                return true;
             case android.R.id.home:
                 finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public boolean onPostClick(View view) {
+        //収納用クラスに値収納
+        NewProjectPostsScreenActivityInfomation NPPSAI = new NewProjectPostsScreenActivityInfomation();
+
+        EditText edTitle = findViewById(R.id.ed_Title);
+        Spinner spinnerCate = findViewById(R.id.spinner_Category);
+        EditText etContent = findViewById(R.id.et_Content);
+        EditText etInvestmentAmount = findViewById(R.id.et_InvestmentAmount);
+        //すべての項目が入力されているかの確認
+        if("".equals(edTitle.getText().toString())) {
+            Toast.makeText(NewProjectPostsScreenActivity.this,"タイトルが入力されていません", Toast.LENGTH_SHORT).show();
+        }else if(_bitmap == null) {
+            Toast.makeText(NewProjectPostsScreenActivity.this,"写真を撮影してください", Toast.LENGTH_SHORT).show();
+        }else if("選択してください".equals(spinnerCate.getSelectedItem())) {
+            Toast.makeText(NewProjectPostsScreenActivity.this,"カテゴリーが選択されていません", Toast.LENGTH_SHORT).show();
+        }else if("".equals(etContent.getText().toString())) {
+            Toast.makeText(NewProjectPostsScreenActivity.this,"内容が入力されていません", Toast.LENGTH_SHORT).show();
+        }else if("".equals(etInvestmentAmount.getText().toString())) {
+            Toast.makeText(NewProjectPostsScreenActivity.this,"募金額が入力されていません", Toast.LENGTH_SHORT).show();
+        }else{
+
+            //NewProhectPostsScreenActivityInfomationに値を格納
+            NPPSAI.setEdTitel(edTitle.getText().toString());
+            NPPSAI.setImgUrl(mediaFile.toString());
+            NPPSAI.setImgName(StrImgName);
+            NPPSAI.setSpinnerCate(String.valueOf(spinnerCate.getSelectedItemPosition()));
+            NPPSAI.setEdSConte(etContent.getText().toString());
+            NPPSAI.setEdInvestmentAmount(etInvestmentAmount.getText().toString());
+            NPPSAI.setUserId(String.valueOf(userId));
+
+            //緯度経度を小数点有りで入力
+            float[] latLong = new float[2];
+            exif.getLatLong(latLong);
+            NPPSAI.setLatitude(String.valueOf(latLong[0]));
+            NPPSAI.setLongitude(String.valueOf(latLong[1]));
+
+            //値を送る
+            MovePage(NPPSAI);
+        }
+        return true;
+    }
+
 
     /**
      * ページ移動
