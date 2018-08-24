@@ -1,35 +1,27 @@
 package a.team.works.u22.hal.u22teama;
 
 import android.Manifest;
-<<<<<<< HEAD
 import android.support.v7.app.ActionBar;
-=======
 import android.app.Activity;
 import android.app.assist.AssistContent;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
->>>>>>> #29_revision
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-<<<<<<< HEAD
-=======
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
->>>>>>> #29_revision
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.media.ExifInterface;
-<<<<<<< HEAD
 import android.os.Environment;
 import android.os.Handler;
-=======
 import android.media.Image;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -37,7 +29,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager;
->>>>>>> #29_revision
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -62,11 +53,8 @@ import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-<<<<<<< HEAD
-=======
 import java.io.InputStream;
 import java.util.ArrayList;
->>>>>>> #29_revision
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -145,17 +133,12 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-<<<<<<< HEAD
         setTitle("プロジェクト投稿");
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-=======
         //戻るボタン
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
         actionbar.setHomeButtonEnabled(true);
         actionbar.setDisplayHomeAsUpEnabled(true);
->>>>>>> #29_revision
 
         // アプリ標準の Preferences を取得する
         SharedPreferences sp = getSharedPreferences(preferencesKey , 0);
@@ -639,7 +622,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-<<<<<<< HEAD
             case android.R.id.home:
                 finish();
                 return true;
@@ -647,9 +629,8 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClickPost(View view) {
-        //収納用クラスに値収納
-        NewProjectPostsScreenActivityInfomation NPPSAI = new NewProjectPostsScreenActivityInfomation();
+    public void onClickPost(View view) {//収納用クラスに値収納
+        NPPSAI = new NewProjectPostsScreenActivityInfomation();
 
         EditText edTitle = findViewById(R.id.ed_Title);
         Spinner spinnerCate = findViewById(R.id.spinner_Category);
@@ -670,12 +651,13 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
 
             //NewProhectPostsScreenActivityInfomationに値を格納
             NPPSAI.setEdTitel(edTitle.getText().toString());
-            NPPSAI.setImgUrl(mediaFile.toString());
+            NPPSAI.setImgUrl( mediaFile.toString());
             NPPSAI.setImgName(StrImgName);
             NPPSAI.setSpinnerCate(String.valueOf(spinnerCate.getSelectedItemPosition()));
             NPPSAI.setEdSConte(etContent.getText().toString());
             NPPSAI.setEdInvestmentAmount(etInvestmentAmount.getText().toString());
             NPPSAI.setUserId(String.valueOf(userId));
+
 
             //緯度経度を小数点有りで入力
             float[] latLong = new float[2];
@@ -683,74 +665,17 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
             NPPSAI.setLatitude(String.valueOf(latLong[0]));
             NPPSAI.setLongitude(String.valueOf(latLong[1]));
 
+            //位置情報（緯度経度より住所取得）
+            try {
+                NPPSAI.setEtPlace(point2address(Double.valueOf(String.valueOf(latLong[0])), Double.valueOf(String.valueOf(latLong[1])), this));
+                Log.e("Place", NPPSAI.getEdPlace());
+            }catch (IOException e){
+                System.out.println(e);
+                Log.e("errorGetAddress", "error "+ e);
+            }
+
             //値を送る
             MovePage(NPPSAI);
-=======
-            /**
-             * 戻るボタンが押された時
-             */
-            case android.R.id.home:
-                finish();
-                return true;
-
-            /**
-             * 保存ボタンが押された時の処理
-             */
-            case R.id.menuNewProjectPostsScreenActivitySave:
-
-                //収納用クラスに値収納
-                NPPSAI = new NewProjectPostsScreenActivityInfomation();
-
-                EditText edTitle = findViewById(R.id.ed_Title);
-                EditText etPlace = findViewById(R.id.et_Place);
-                Spinner spinnerCate = findViewById(R.id.spinner_Category);
-                EditText etContent = findViewById(R.id.et_Content);
-                EditText etInvestmentAmount = findViewById(R.id.et_InvestmentAmount);
-                //すべての項目が入力されているかの確認
-                if("".equals(edTitle.getText().toString())) {
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"タイトルが入力されていません", Toast.LENGTH_SHORT).show();
-                }else if(_bitmap == null) {
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"写真を撮影してください", Toast.LENGTH_SHORT).show();
-                }else if("".equals(etPlace.getText().toString())){
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"場所が入力されていません", Toast.LENGTH_SHORT).show();
-                }else if("選択してください".equals(spinnerCate.getSelectedItem())) {
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"カテゴリーが選択されていません", Toast.LENGTH_SHORT).show();
-                }else if("".equals(etContent.getText().toString())) {
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"内容が入力されていません", Toast.LENGTH_SHORT).show();
-                }else if("".equals(etInvestmentAmount.getText().toString())) {
-                    Toast.makeText(NewProjectPostsScreenActivity.this,"募金額が入力されていません", Toast.LENGTH_SHORT).show();
-                }else{
-
-                    //NewProhectPostsScreenActivityInfomationに値を格納
-                    NPPSAI.setEdTitel(edTitle.getText().toString());
-                    NPPSAI.setImgUrl( mediaFile.toString());
-                    NPPSAI.setImgName(StrImgName);
-                    NPPSAI.setSpinnerCate(String.valueOf(spinnerCate.getSelectedItemPosition()));
-                    NPPSAI.setEdSConte(etContent.getText().toString());
-                    NPPSAI.setEdInvestmentAmount(etInvestmentAmount.getText().toString());
-                    NPPSAI.setUserId(String.valueOf(userId));
-
-
-                    //緯度経度を小数点有りで入力
-                    float[] latLong = new float[2];
-                    exif.getLatLong(latLong);
-                    NPPSAI.setLatitude(String.valueOf(latLong[0]));
-                    NPPSAI.setLongitude(String.valueOf(latLong[1]));
-
-                    //位置情報（緯度経度より住所取得）
-                    try {
-                        NPPSAI.setEtPlace(point2address(Double.valueOf(String.valueOf(latLong[0])), Double.valueOf(String.valueOf(latLong[1])), this));
-                        Log.e("Place", NPPSAI.getEdPlace());
-                    }catch (IOException e){
-                        System.out.println(e);
-                        Log.e("errorGetAddress", "error "+ e);
-                    }
-
-                    //値を送る
-                    MovePage(NPPSAI);
-                }
-                break;
->>>>>>> #29_revision
         }
     }
 

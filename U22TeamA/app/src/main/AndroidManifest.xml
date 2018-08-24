@@ -43,13 +43,9 @@
         <activity android:name=".MypageActivity" />
         <activity android:name=".NewProjectPostsScreenActivity" />
         <activity android:name=".TabLayoutCleanActivity"/>
-<<<<<<< HEAD
         <activity android:name=".ContentEditActivity"/>
         <activity android:name=".ContentResultActivity"/>
         <activity android:name=".DonationCheckActivity"/>
-=======
->>>>>>> #29_revision
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
