@@ -12,14 +12,15 @@
         android:id="@+id/include"
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="59dp"
+        tools:layout_editor_absoluteY="-3dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="110dp" />
+        app:layout_constraintGuide_end="274dp" />
 
     <TextView
         android:id="@+id/tv_Title"
