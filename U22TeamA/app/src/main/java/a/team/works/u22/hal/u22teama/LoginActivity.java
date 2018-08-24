@@ -174,12 +174,8 @@ public class LoginActivity  extends AppCompatActivity {
                 SharedPreferences prefUserId = getSharedPreferences("prefUserId",0);//MODE_WORLD_WRITEABLE
                 Editor e = prefUserId.edit();
                 e.putInt("id",userId);
+                e.putString("name",userName);
                 e.commit();
-
-                SharedPreferences prefUserName = getSharedPreferences("prefUserName",0);//MODE_WORLD_WRITEABLE
-                Editor ed = prefUserName.edit();
-                ed.putString("id",userName);
-                ed.commit();
 
             } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
