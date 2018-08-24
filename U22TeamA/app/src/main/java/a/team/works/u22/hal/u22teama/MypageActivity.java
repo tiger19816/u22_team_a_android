@@ -95,9 +95,9 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
             //ユーザーID削除。
             SharedPreferences setting = getSharedPreferences("prefUserId" , 0);
             SharedPreferences.Editor editor = setting.edit();
-            editor.remove("ID");
+            editor.remove("id");
             editor.commit();
-            intent = new Intent(MypageActivity.this,MainActivity.class);
+            intent = new Intent(MypageActivity.this, LoginActivity.class);
             finish();
             startActivity(intent);
         }

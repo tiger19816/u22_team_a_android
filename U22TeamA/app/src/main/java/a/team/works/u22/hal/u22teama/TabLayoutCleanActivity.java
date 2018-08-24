@@ -146,9 +146,9 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
             //ユーザーID削除。
             SharedPreferences setting = getSharedPreferences("prefUserId" , 0);
             SharedPreferences.Editor editor = setting.edit();
-            editor.remove("ID");
+            editor.remove("id");
             editor.commit();
-            intent = new Intent(TabLayoutCleanActivity.this,MainActivity.class);
+            intent = new Intent(TabLayoutCleanActivity.this, LoginActivity.class);
             finish();
             startActivity(intent);
         }

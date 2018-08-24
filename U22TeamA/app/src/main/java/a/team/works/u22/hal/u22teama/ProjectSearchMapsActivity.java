@@ -158,7 +158,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
             //ユーザーID削除。
             SharedPreferences setting = getSharedPreferences("prefUserId" , 0);
             SharedPreferences.Editor editor = setting.edit();
-            editor.remove("ID");
+            editor.remove("id");
             editor.commit();
             intent = new Intent(ProjectSearchMapsActivity.this, LoginActivity.class);
             finish();
