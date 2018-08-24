@@ -45,9 +45,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-
 
 /**
  * TabLayoutのFragmentクラス2.
@@ -63,7 +60,7 @@ public class TabPageAssistFragment extends Fragment{
     private TabPagePostFragment.OnFragmentInteractionListener mListener;
     private static final String LOGIN_URL = GetUrl.MyPostsUrl;
     private String _flag = "2";
-//    private int id;
+    private int id;
 
     /**
      * コンストラクタ.
