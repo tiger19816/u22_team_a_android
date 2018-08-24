@@ -1,11 +1,14 @@
 package a.team.works.u22.hal.u22teama;
 
+import android.support.v7.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +39,7 @@ public class ContentResultActivity  extends AppCompatActivity {
      * ログインする先のURLを入れる定数.
      * AndroidエミュレータからPC内のサーバ(Eclipse上)にアクセスする場合は、localhost(127.0.0.1)ではなく、10.0.2.2にアクセスする。
      */
-    private static final String LOGIN_URL = "http://10.0.2.2:8080/U22Verification/LoginServlet";
+    private static final String LOGIN_URL = GetUrl.ContactUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +49,40 @@ public class ContentResultActivity  extends AppCompatActivity {
 Intent intent = getIntent();
 Bundle extras = intent.getExtras();
 String content= extras.getString("content");
-     EditText edContent = findViewById(R.id.edContent);
+     TextView edContent = findViewById(R.id.edContent2);
 edContent.setText(content);
 
         Button button = findViewById(R.id.btSend);
         ButtonClickListener listener = new ButtonClickListener();
         button.setOnClickListener(listener);
 
+        //ツールバー(レイアウトを変更可)。
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        setTitle("お問い合わせ");
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    /**
+     * 訂正ボタンが押されたときのイベント処理メソッド
+     */
+
+    public void onBackButtonClick(View view) {
+        finish();
     }
 
     private class ButtonClickListener implements View.OnClickListener {
@@ -64,7 +93,7 @@ edContent.setText(content);
             //仮引数
             String strId = "0";
 
-            EditText edContent = findViewById(R.id.edContent);
+            TextView edContent = findViewById(R.id.edContent2);
             String content = edContent.getText().toString();
 
             //非同期処理を開始する。

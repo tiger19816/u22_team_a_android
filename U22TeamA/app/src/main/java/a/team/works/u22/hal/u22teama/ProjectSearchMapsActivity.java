@@ -393,6 +393,14 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
             final List<Map<String, String>> projectList = new ArrayList<>();
             try {
                 JSONArray rootJson = new JSONArray(result);
+                if(rootJson.length() == 0) {
+                    //非同期処理を開始する。
+                    ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
+                    //大阪市役所34.693835, 135.501929
+                    //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+                    receiver.execute(GetUrl.projectMapUrl, "34.693835", "135.501929");
+                    return;
+                }
                 for(int i = 0; i < rootJson.length(); i++) {
                     Map<String, String> map = new HashMap<>();
                     JSONObject restNow = rootJson.getJSONObject(i);

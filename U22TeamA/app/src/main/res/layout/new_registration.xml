@@ -15,9 +15,7 @@
         android:id="@+id/include"
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
-        android:layout_height="63dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-4dp" />
+        android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/textView8"
@@ -192,7 +190,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/tv_new_registration_women" />
-
         </RadioGroup>
 
 
