@@ -320,7 +320,7 @@ public class NewRegistrationActivity extends AppCompatActivity {
             try {
                 JSONObject rootJSON = new JSONObject(result);
                 isRegistration = rootJSON.getBoolean("result");
-                String name = rootJSON.getString("name");
+       //         String name = rootJSON.getString("name");
                 userId = rootJSON.getInt("userId");
 
                 SharedPreferences prefUserId = getSharedPreferences("prefUserId",0);

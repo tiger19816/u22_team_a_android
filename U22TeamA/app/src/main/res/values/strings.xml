@@ -86,7 +86,7 @@
     <string name="tv_contact_result">以下の内容で送信します。</string>
 
     <!--ログイン画面-->
-    <string name="tv_login_id">ログインID</string>
+    <string name="tv_login_id">メールアドレス</string>
     <string name="tv_login_password">パスワード</string>
     <string name="tv_login_button">ログイン</string>
     <string name="tv_login_new_registration">新規登録</string>
