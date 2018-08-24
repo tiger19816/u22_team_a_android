@@ -31,6 +31,7 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout_clean);
 
+
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -60,7 +60,7 @@ public class TabPageAssistFragment extends Fragment{
     private TabPagePostFragment.OnFragmentInteractionListener mListener;
     private static final String LOGIN_URL = GetUrl.MyPostsUrl;
     private String _flag = "2";
-    private int id;
+    private String _id = "0";
 
     /**
      * コンストラクタ.
@@ -79,15 +79,18 @@ public class TabPageAssistFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences pref = getActivity().getSharedPreferences("prefUserId",0);
+        int loginInfo = pref.getInt("id", 0);
+        _id = String.valueOf(loginInfo);
+
         if (getArguments() != null) {
             mParam = getArguments().getString(ARG_PARAM);
         }
-//        SharedPreferences pref = getSharedPreferences("prefUserId",0);
-//        this.id = pref.getInt("id", 0);
         //非同期処理を開始する。
         AssistsTaskReceiver receiver = new AssistsTaskReceiver();
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(LOGIN_URL , _flag );
+        receiver.execute(LOGIN_URL , _flag , _id);
     }
 
 
@@ -110,9 +113,10 @@ public class TabPageAssistFragment extends Fragment{
         public String doInBackground(String... params) {
             String urlStr = params[0];
             String flag = params[1];
+            String id = params[2];
 
             //POSTで送りたいデータ
-            String postData = "flag=" + flag;
+            String postData = "flag=" + flag + "id=" + id ;
 
             HttpURLConnection con = null;
             InputStream is = null;
