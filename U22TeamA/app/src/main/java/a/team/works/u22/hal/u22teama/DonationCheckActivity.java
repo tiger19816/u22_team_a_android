@@ -4,8 +4,11 @@ package a.team.works.u22.hal.u22teama;
         import android.content.Intent;
         import android.os.AsyncTask;
         import android.os.Bundle;
+        import android.support.v7.app.ActionBar;
         import android.support.v7.app.AppCompatActivity;
+        import android.support.v7.widget.Toolbar;
         import android.util.Log;
+        import android.view.MenuItem;
         import android.view.View;
         import android.widget.Button;
         import android.widget.TextView;
@@ -23,8 +26,9 @@ package a.team.works.u22.hal.u22teama;
         import java.net.URL;
 
 public class DonationCheckActivity extends AppCompatActivity {
-    private static final String LOGIN_URL = "http://192.168.42.27:8080/u22_team_a_web/DonationServlet";
-    private static String projectId = "1";
+    private static final String DONATIONCHECK_URL = GetUrl.DonationCheckUrl;
+    private static String projectNo = "1";
+    private static String memberNo = "1";
     private static String donationMoney;
 
     @Override
@@ -33,7 +37,9 @@ public class DonationCheckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_donation_check);
 
         Intent intent = getIntent();
-        projectId = (intent.getStringExtra("projectNo"));
+
+        projectNo = (intent.getStringExtra("projectNo"));
+        memberNo = (intent.getStringExtra("memberNo"));
         String targetMoney = (intent.getStringExtra("targetMoney"));
         donationMoney = (intent.getStringExtra("donationMoney"));
 
@@ -43,6 +49,25 @@ public class DonationCheckActivity extends AppCompatActivity {
         Button btn = findViewById(R.id.etAgree);
         btn.setOnClickListener(new ClickAgree());
 
+        //ツールバー(レイアウトを変更可)。
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        setTitle("プロジェクト寄付");
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class ClickAgree implements View.OnClickListener{
@@ -50,7 +75,7 @@ public class DonationCheckActivity extends AppCompatActivity {
         public void onClick(View v){
             LoginTaskReceiver receiver = new LoginTaskReceiver();
             //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-            receiver.execute(LOGIN_URL, projectId, donationMoney);
+            receiver.execute(DONATIONCHECK_URL, projectNo, donationMoney);
 
             DonationGratitudeDialog dialog = new DonationGratitudeDialog();
 
@@ -75,19 +100,17 @@ public class DonationCheckActivity extends AppCompatActivity {
         @Override
         public String doInBackground(String... params) {
             String urlStr = params[0];
-            String id = params[1];
-            String donation = params[2];
+            String projectNo = params[1];
+            String memberNo = params[2];
+            String donation = params[3];
             //POSTで送りたいデータ
-            String postData = "id=" + id + "&donationMoney=" + donation;
+            String postData = "projectNo=" + projectNo + "&memberNo=" + memberNo+ "&donationMoney=" + donation;
 
             Log.e("neko",postData);
 
             HttpURLConnection con = null;
             InputStream is = null;
             String result = "";
-
-            Log.e("neko","A");
-
             try {
                 URL url = new URL(urlStr);
                 con = (HttpURLConnection) url.openConnection();
@@ -103,12 +126,10 @@ public class DonationCheckActivity extends AppCompatActivity {
                 //POSTデータ送信処理。InputStream処理よりも先に記述する。
                 OutputStream os = null;
                 try {
-                    Log.e("neko","B");
                     os = con.getOutputStream();
                     //送信する値をByteデータに変換する（UTF-8）
                     os.write(postData.getBytes("UTF-8"));
                     os.flush();
-                    Log.e("neko","C");
                 } catch (IOException ex) {
                     Log.e(DEBUG_TAG, "POST送信エラー", ex);
                 } finally {

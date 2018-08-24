@@ -5,17 +5,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_search"
-            android:title="@string/left_nav_item_search" />
+            android:id="@+id/nav_mypage"
+            android:icon="@drawable/ic_account"
+            android:title="@string/left_nav_mypage" />
         <item
-            android:id="@+id/nav_reservation"
-            android:title="予約リスト" />
+            android:id="@+id/nav_join_project"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="@string/left_nav_join_project" />
         <item
-            android:id="@+id/nav_history"
-            android:title="履歴" />
+            android:id="@+id/nav_project_search"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/left_nav_project_search" />
         <item
-            android:id="@+id/nav_my_page"
-            android:title="MyPage" />
+            android:id="@+id/nav_project_contribution"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="@string/left_nav_project_contribution" />
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="@string/left_nav_contact" />
     </group>
 
     <item tools:ignore="MenuTitle">

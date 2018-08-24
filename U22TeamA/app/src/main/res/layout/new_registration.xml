@@ -1,250 +1,392 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context="NewRegistrationActivity">
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
- <!--       tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="0dp">
--->
-        <LinearLayout
+    <include
+        android:id="@+id/include"
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/tv_new_registration_name"
+            app:layout_constraintBaseline_toBaselineOf="@+id/input_name"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="@string/tv_title_registration"
-                android:textSize="25sp" />
-        </LinearLayout>
-    <ScrollView
-        android:id="@+id/ScrollView"
-        android:fillViewport="true"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <LinearLayout
-            android:layout_width="230dp"
+        <EditText
+            android:id="@+id/input_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_new_registration_name"
-                android:textSize="15sp" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:inputType="date"
+            android:text="@string/tv_new_registration_birthday"
+            app:layout_constraintBaseline_toBaselineOf="@+id/input_birthday"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <EditText
-                android:id="@+id/input_name"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:text="@string/tv_new_registration_birthday"
-                android:textSize="15sp" />
-
-            <LinearLayout
-                android:layout_width="230dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/input_birthday"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content" />
-
-
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="45dp"
-                    android:layout_height="32dp"
-                    android:onClick="onUpdateButtonClick"
-                    android:text="選択"
-                    android:textSize="10sp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_new_registration_address"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/input_address"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
+        <TextView
+            android:id="@+id/input_birthday"
+            android:layout_width="133dp"
+            android:layout_height="24dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/input_address"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/input_name" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_new_registration_phone_number"
-                android:textSize="15sp" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="78dp"
+            android:layout_height="46dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:onClick="onUpdateButtonClick"
+            android:text="選択"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/input_birthday"
+            app:layout_constraintTop_toBottomOf="@+id/input_name" />
 
-            <EditText
-                android:id="@+id/input_phone_number"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:maxLength="11" />
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/tv_new_registration_address"
+            app:layout_constraintBaseline_toBaselineOf="@+id/input_address"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_new_registration_sex"
-                android:textSize="15sp" />
-
-            <RadioGroup
-                android:id="@+id/RadioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/bt_men"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="@string/tv_new_registration_men" />
-
-
-                <RadioButton
-                    android:id="@+id/bt_women"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/tv_new_registration_women" />
-
-            </RadioGroup>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_new_registration_credit_card_number"
-                android:textSize="15sp" />
-
-            <LinearLayout
-                android:layout_width="230dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/input_credit_card_number"
-                    android:layout_width="190dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="16" />
+        <EditText
+            android:id="@+id/input_address"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:inputType="text"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
 
 
-                <EditText
-                    android:id="@+id/input_credit_card_security_code"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="3" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/tv_new_registration_phone_number"
+            app:layout_constraintBaseline_toBaselineOf="@+id/input_phone_number"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            </LinearLayout>
+        <EditText
+            android:id="@+id/input_phone_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/input_address" />
 
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/tv_new_registration_sex"
+            app:layout_constraintBottom_toTopOf="@+id/textView10"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintVertical_bias="0.539" />
 
-            <TextView
-                android:layout_width="125dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_new_registration_credit_card_expiration_date"
-                android:textSize="15sp" />
+        <RadioGroup
+            android:id="@+id/RadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.035"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/input_phone_number">
 
-            <LinearLayout
-                android:layout_width="230dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/input_credit_card_expiration_year"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="年"
-                    android:textSize="15sp" />
-
-                <EditText
-                    android:id="@+id/input_credit_card_expiration_month"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxLength="2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="月"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_new_registration_password"
-                android:textSize="15sp" />
-
-
-            <EditText
-                android:id="@+id/input_mail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_new_registration_mail"
-                android:textSize="15sp" />
-
-
-            <EditText
-                android:id="@+id/input_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
+            <RadioButton
+            android:id="@+id/bt_men"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/tv_new_registration_men" />
+            <RadioButton
+            android:id="@+id/bt_women"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tv_new_registration_women" />
+        </RadioGroup>
 
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/tv_new_registration_credit_card_number"
+            app:layout_constraintBaseline_toBaselineOf="@+id/input_credit_card_number"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
-                <Button
-                    android:id="@+id/Registration"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:onClick="onRegistration"
-                    android:text="@string/tv_new_registration" />
+        <EditText
+            android:id="@+id/input_credit_card_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:inputType="number"
+            android:maxLength="16"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/RadioGroup" />
 
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+        <EditText
+            android:id="@+id/input_credit_card_security_code"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="15dp"
+            android:inputType="number"
+            android:maxLength="3"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_credit_card_number" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="37dp"
+            android:text="@string/tv_new_registration_credit_card_expiration_date"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <EditText
+            android:id="@+id/input_credit_card_expiration_year"
+            android:layout_width="53dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/input_credit_card_number" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="25dp"
+            android:text="年"
+            app:layout_constraintStart_toEndOf="@+id/input_credit_card_expiration_year"
+            app:layout_constraintTop_toBottomOf="@+id/input_credit_card_number" />
+
+        <EditText
+            android:id="@+id/input_credit_card_expiration_month"
+            android:layout_width="60dp"
+            android:layout_height="41dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView6"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/input_credit_card_number" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="25dp"
+            android:text="月"
+            app:layout_constraintEnd_toStartOf="@+id/input_credit_card_security_code"
+            app:layout_constraintTop_toBottomOf="@+id/input_credit_card_number" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/tv_new_registration_mail"
+            app:layout_constraintBaseline_toBaselineOf="@+id/input_mail"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <EditText
+            android:id="@+id/input_password"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="13dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/Registration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/input_mail" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/tv_new_registration_password"
+            app:layout_constraintBaseline_toBaselineOf="@+id/input_password"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <EditText
+            android:id="@+id/input_mail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="19dp"
+            android:inputType="text"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/input_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/input_credit_card_expiration_year" />
+
+        <Button
+            android:id="@+id/Registration"
+            android:layout_width="368dp"
+            android:layout_height="46dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:onClick="onRegistration"
+            android:text="@string/tv_new_registration"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="148dp" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

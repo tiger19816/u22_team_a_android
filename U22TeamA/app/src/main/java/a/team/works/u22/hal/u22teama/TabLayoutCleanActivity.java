@@ -1,12 +1,21 @@
 package a.team.works.u22.hal.u22teama;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.TableLayout;
 
 /**
  * タブレイアウトサンプル画面のActivityクラス.
@@ -15,13 +24,28 @@ import android.os.Bundle;
  *
  * @author Taiga Hirai
  */
-public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, TabPageAssistFragment.OnFragmentInteractionListener, TabPagePostFragment.OnFragmentInteractionListener {
+public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, TabPageAssistFragment.OnFragmentInteractionListener, TabPagePostFragment.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_layout_sample);
-        setTitle( "清掃情報一覧" );
+        setContentView(R.layout.activity_tab_layout_clean);
+
+        //ツールバー(レイアウトを変更可)。
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //DrawerLayout
+        DrawerLayout drawer = findViewById(R.id.dlMainContent);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        //レフトナビ本体。
+        NavigationView navigationView = findViewById(R.id.nvSideMenuButton);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        setTitle("参加プロジェクト");
 
         //xmlからTabLayoutの取得
         TabLayout  tabLayout = findViewById(R.id.tabs);
@@ -74,6 +98,66 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
         tabLayout.getTabAt(0).select();
     }
 
+    /**
+     * レフトナビ以外をクリックした時の動き。
+     */
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.dlMainContent);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    /**
+     * レフトナビをクリックした時。
+     * @param item
+     * @return
+     */
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        Intent intent;
+        if (id == R.id.nav_mypage) {
+            intent = new Intent(TabLayoutCleanActivity.this,MypageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_join_project) {
+//            intent = new Intent(TabLayoutCleanActivity.this,TabLayoutCleanActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+        }else if (id == R.id.nav_project_search) {
+            intent = new Intent(TabLayoutCleanActivity.this,ProjectSearchMapsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_project_contribution) {
+            intent = new Intent(TabLayoutCleanActivity.this,NewProjectPostsScreenActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_contact) {
+            intent = new Intent(TabLayoutCleanActivity.this,ContentEditActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }else if (id == R.id.nav_logout){
+            //ユーザーID削除。
+            SharedPreferences setting = getSharedPreferences("prefUserId" , 0);
+            SharedPreferences.Editor editor = setting.edit();
+            editor.remove("id");
+            editor.commit();
+            intent = new Intent(TabLayoutCleanActivity.this, LoginActivity.class);
+            finish();
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.dlMainContent);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
     //以下の内容を実装する必要がある。（空で問題ない）
 
     @Override
@@ -91,4 +175,5 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
     @Override
     public void onFragmentInteraction(Uri uri) {
     }
+
 }

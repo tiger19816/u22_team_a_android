@@ -3,9 +3,12 @@ package a.team.works.u22.hal.u22teama;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -31,7 +34,7 @@ import java.net.URL;
  */
 public class MypageChangeActivity extends AppCompatActivity {
 
-    private static final String LOGIN_URL = "http://10.0.2.2:8080/u22_team_a_web/MypageChangeCompleteServlet";
+    private static final String MYPAGECHANGECOMPLETE_URL = GetUrl.MypageChangeCompleteUrl;
     //性別　0:男  1:女
     private String SEX_TYPE;
     @Override
@@ -71,6 +74,25 @@ public class MypageChangeActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //ツールバー(レイアウトを変更可)。
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        setTitle("マイページ");
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -103,7 +125,7 @@ public class MypageChangeActivity extends AppCompatActivity {
         //非同期処理を開始する。
         LoginTaskReceiver receiver = new LoginTaskReceiver();
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(LOGIN_URL, name, address, SEX_TYPE, mail, phone);
+        receiver.execute(MYPAGECHANGECOMPLETE_URL, name, address, SEX_TYPE, mail, phone);
     }
 
     /**

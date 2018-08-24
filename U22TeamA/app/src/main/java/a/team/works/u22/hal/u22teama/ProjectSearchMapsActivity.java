@@ -35,6 +35,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -77,7 +78,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
                 .findFragmentById(R.id.projectMaps);
         mapFragment.getMapAsync(this);
 
-//        //ツールバー(レイアウトを変更可)。
+//      //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -92,7 +93,6 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
         navigationView.setNavigationItemSelectedListener(this);
 
         setTitle("プロジェクト検索");
-
 
         // 内容エリアの結び付け
         lvProjectList = findViewById(R.id.lvProjectList);
@@ -134,32 +134,36 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
         int id = item.getItemId();
 
         Intent intent;
-        if (id == R.id.nav_search) {
-//            intent = new Intent(FemaleStoreMapListActivity.this,FemaleStoreMapListActivity.class);
+        if (id == R.id.nav_mypage) {
+            intent = new Intent(ProjectSearchMapsActivity.this,MypageActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else if (id == R.id.nav_join_project) {
+            intent = new Intent(ProjectSearchMapsActivity.this,TabLayoutCleanActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }else if (id == R.id.nav_project_search) {
+//            intent = new Intent(ProjectSearchMapsActivity.this,FemaleReservationListActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //            startActivity(intent);
-        } else if (id == R.id.nav_reservation) {
+        } else if (id == R.id.nav_project_contribution) {
             intent = new Intent(ProjectSearchMapsActivity.this,NewProjectPostsScreenActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        }// else if (id == R.id.nav_history) {
-//            intent = new Intent(FemaleStoreMapListActivity.this,FemaleHistoryListActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
-//        } else if (id == R.id.nav_my_page) {
-//            intent = new Intent(FemaleStoreMapListActivity.this,FemaleMyPageActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
-//        }else if (id == R.id.nav_logout){
-//            //ユーザーID削除。
-//            SharedPreferences setting = getSharedPreferences("USER" , 0);
-//            SharedPreferences.Editor editor = setting.edit();
-//            editor.remove("ID");
-//            editor.commit();
-//            intent = new Intent(FemaleStoreMapListActivity.this,MainActivity.class);
-//            finish();
-//            startActivity(intent);
-//        }
+        } else if (id == R.id.nav_contact) {
+            intent = new Intent(ProjectSearchMapsActivity.this,ContentEditActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }else if (id == R.id.nav_logout){
+            //ユーザーID削除。
+            SharedPreferences setting = getSharedPreferences("prefUserId" , 0);
+            SharedPreferences.Editor editor = setting.edit();
+            editor.remove("id");
+            editor.commit();
+            intent = new Intent(ProjectSearchMapsActivity.this, LoginActivity.class);
+            finish();
+            startActivity(intent);
+        }
 
         DrawerLayout drawer = findViewById(R.id.dlMainContent);
         drawer.closeDrawer(GravityCompat.START);
@@ -271,6 +275,29 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
     }
 
     /**
+     * ボタンが押された時の処理.
+     *
+     * @param view 画面部品。
+     */
+    public void onButtonClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.btSurroundingProject:
+                Button btSurroundingProject = (Button) view;
+                btSurroundingProject.setVisibility(View.INVISIBLE);
+                for(Marker marker : markers) {
+                    marker.remove();
+                }
+                //カメラの位置を取得する。
+                CameraPosition position = mMap.getCameraPosition();
+                //非同期処理を開始する。
+                ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
+                //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+                receiver.execute(GetUrl.projectMapUrl, position.target.latitude + "", position.target.longitude + "");
+                break;
+        }
+    }
+    /**
      * 非同期通信を行うAsyncTaskクラスを継承したメンバクラス.
      */
     private class ProjectMapTaskReceiver extends AsyncTask<String, Void, String> {
@@ -366,6 +393,14 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
             final List<Map<String, String>> projectList = new ArrayList<>();
             try {
                 JSONArray rootJson = new JSONArray(result);
+                if(rootJson.length() == 0) {
+                    //非同期処理を開始する。
+                    ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
+                    //大阪市役所34.693835, 135.501929
+                    //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+                    receiver.execute(GetUrl.projectMapUrl, "34.693835", "135.501929");
+                    return;
+                }
                 for(int i = 0; i < rootJson.length(); i++) {
                     Map<String, String> map = new HashMap<>();
                     JSONObject restNow = rootJson.getJSONObject(i);
@@ -421,37 +456,24 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
                 }
             });
 
-            String[] from = {"name", "short_pr", "id", "id"};
-            int[] to = {R.id.rowTvStoreName, R.id.rowTvStoreShortPr, R.id.rowBtStoreDetail, R.id.rowBtStoreReservation};
+            String[] from = {"title", "content"};
+            int[] to = {R.id.rowTvProjectTitle, R.id.rowTvProjectContent};
             final SimpleAdapter adapter = new SimpleAdapter(ProjectSearchMapsActivity.this, projectList, R.layout.row_project_list, from, to);
             adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
-                private String strStoreName = "";
                 @Override
                 public boolean setViewValue(View view, Object data, String textRepresentation) {
-//                    int id = view.getId();
-//                    String strData = (String) data;
-//                    switch (id) {
-//                        case R.id.rowTvStoreName:
-//                            TextView tvStoreName = (TextView) view;
-//                            tvStoreName.setText(strData);
-//                            strStoreName = strData;
-//                            return true;
-//                        case R.id.rowTvStoreShortPr:
-//                            TextView rowTvStoreShortPr = (TextView) view;
-//                            rowTvStoreShortPr.setText(Tools.replaceBr(strData));
-//                            return true;
-//                        case R.id.rowBtStoreDetail:
-//                            Button btStoreDetail = (Button) view;
-//                            btStoreDetail.setTag(strData);
-//                            return true;
-//                        case R.id.rowBtStoreReservation:
-//                            Button btStoreReservation = (Button) view;
-//                            StoreMapListReservationButtonTag reservationButtonTag = new StoreMapListReservationButtonTag();
-//                            reservationButtonTag.setId(strData);
-//                            reservationButtonTag.setName(strStoreName);
-//                            btStoreReservation.setTag(reservationButtonTag);
-//                            return true;
-//                    }
+                    int id = view.getId();
+                    String strData = (String) data;
+                    switch (id) {
+                        case R.id.rowTvProjectTitle:
+                            TextView rowTvProjectTitle = (TextView) view;
+                            rowTvProjectTitle.setText(strData);
+                            return true;
+                        case R.id.rowTvProjectContent:
+                            TextView rowTvProjectContent = (TextView) view;
+                            rowTvProjectContent.setText(strData);
+                            return true;
+                    }
                     return false;
                 }
             });
