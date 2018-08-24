@@ -36,6 +36,14 @@ public class LoginActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        SharedPreferences pref = getSharedPreferences("prefUserId",0);
+        int loginInfo = pref.getInt("id", 0);
+        if(loginInfo != 0){
+            Intent intent = new Intent(LoginActivity.this, ProjectSearchMapsActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void onNewRegistrationClick(View view) {
