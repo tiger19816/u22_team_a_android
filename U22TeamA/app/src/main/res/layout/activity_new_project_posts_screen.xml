@@ -73,7 +73,14 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
+        android:adjustViewBounds="true"
         android:onClick="onClickCameraStart"
+<<<<<<< HEAD
+=======
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+>>>>>>> #29_revision
         app:layout_constraintStart_toEndOf="@+id/tv_Phoths"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/ed_Title"

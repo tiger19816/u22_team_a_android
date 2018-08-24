@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -42,6 +43,9 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project_posts_confirmation_screen);
 
+        //タイトル変更
+        setTitle( "新規プロジェクト投稿確認" );
+
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,12 +72,12 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         try{
             Uri uri;
             uri =  Uri.parse("file://"+ NPPSAI.getImgUrl() +"/");
-
-            System.out.println(uri);
             parcelFileDescriptor =
                     getContentResolver().openFileDescriptor(uri, "r");
             FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-            image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+            BitmapFactory.Options opt = new BitmapFactory.Options();
+            opt.inScaled = false;
+            image = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, opt);
 
         }catch(IOException e){
             e.printStackTrace();
@@ -225,7 +229,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
 
     public void MovePage() {
 
-        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, ProjectDetailActivity.class);
+        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, TabLayoutCleanActivity.class);
         startActivity(intent);
 
     }
@@ -389,7 +393,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                     baos.write(("--" + BOUNDARY + "\r\n").getBytes());
                     baos.write(("Content-Disposition: form-data;").getBytes());
                     baos.write(("name=\"" + name + "\";").getBytes());
-                    baos.write(("filename=\"" + key + "\"\r\n").getBytes());
+                    baos.write(("filename=\"" + key + ".jpg" + "\"\r\n").getBytes());
                     baos.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
                     baos.write(data);
                     baos.write(("\r\n").getBytes());

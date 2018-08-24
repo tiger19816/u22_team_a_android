@@ -2,6 +2,7 @@ package a.team.works.u22.hal.u22teama;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -44,6 +45,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 
 /**
@@ -60,6 +63,7 @@ public class TabPageAssistFragment extends Fragment{
     private TabPagePostFragment.OnFragmentInteractionListener mListener;
     private static final String LOGIN_URL = GetUrl.MyPostsUrl;
     private String _flag = "2";
+    private int id;
 
     /**
      * コンストラクタ.
@@ -81,7 +85,8 @@ public class TabPageAssistFragment extends Fragment{
         if (getArguments() != null) {
             mParam = getArguments().getString(ARG_PARAM);
         }
-
+        SharedPreferences pref = getSharedPreferences("prefUserId",0);
+        this.id = pref.getInt("id", 0);
         //非同期処理を開始する。
         AssistsTaskReceiver receiver = new AssistsTaskReceiver();
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
