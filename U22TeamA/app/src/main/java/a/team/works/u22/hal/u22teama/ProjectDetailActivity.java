@@ -31,7 +31,7 @@ import java.net.URL;
 import java.util.concurrent.Callable;
 
 public class ProjectDetailActivity extends AppCompatActivity {
-    private static final String DONATION_URL = GetUrl.DonationSetUrl;
+    private static final String ProjectDetail_URL = GetUrl.ProjectInfoUrl;
     private static String projectNo = "1";
 
     @Override
@@ -47,7 +47,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
         btn.setOnClickListener(new ButtonClickListener());
 
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(DONATION_URL, projectNo);
+        receiver.execute(ProjectDetail_URL, projectNo);
 
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -57,6 +57,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        new ButtonClickListener();
     }
 
     @Override

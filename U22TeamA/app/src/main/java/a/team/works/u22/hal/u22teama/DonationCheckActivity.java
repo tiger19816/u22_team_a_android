@@ -26,9 +26,9 @@ package a.team.works.u22.hal.u22teama;
         import java.net.URL;
 
 public class DonationCheckActivity extends AppCompatActivity {
-    private static final String DONATIONCHECK_URL = GetUrl.DonationCheckUrl;
+    private static final String DONATIONSET_URL = GetUrl.DonationSetUrl;
     private static String projectNo = "1";
-    private static String memberNo = "1";
+    private static String memberNo = "3";
     private static String donationMoney;
 
     @Override
@@ -39,7 +39,7 @@ public class DonationCheckActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         projectNo = (intent.getStringExtra("projectNo"));
-        memberNo = (intent.getStringExtra("memberNo"));
+        //memberNo = (intent.getStringExtra("memberNo"));
         String targetMoney = (intent.getStringExtra("targetMoney"));
         donationMoney = (intent.getStringExtra("donationMoney"));
 
@@ -75,7 +75,7 @@ public class DonationCheckActivity extends AppCompatActivity {
         public void onClick(View v){
             LoginTaskReceiver receiver = new LoginTaskReceiver();
             //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-            receiver.execute(DONATIONCHECK_URL, projectNo, donationMoney);
+            receiver.execute(DONATIONSET_URL, projectNo, memberNo, donationMoney);
 
             DonationGratitudeDialog dialog = new DonationGratitudeDialog();
 
