@@ -1,6 +1,12 @@
 package a.team.works.u22.hal.u22teama;
 
 import android.Manifest;
+
+import android.app.Activity;
+import android.app.assist.AssistContent;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.app.Activity;
 import android.app.assist.AssistContent;
@@ -20,6 +26,13 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.media.ExifInterface;
+import android.media.Image;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.ParcelFileDescriptor;
+import android.preference.PreferenceManager;
 import android.os.Environment;
 import android.os.Handler;
 import android.media.Image;
@@ -133,11 +146,12 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setTitle("プロジェクト投稿");
-
         //戻るボタン
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
         actionbar.setHomeButtonEnabled(true);
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        setTitle("プロジェクト投稿");
+
         actionbar.setDisplayHomeAsUpEnabled(true);
 
         // アプリ標準の Preferences を取得する
@@ -622,14 +636,19 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            /**
+             * 戻るボタンが押された時
+             */
             case android.R.id.home:
                 finish();
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClickPost(View view) {//収納用クラスに値収納
+    public void onClickPost(View view) {
+        //収納用クラスに値収納
         NPPSAI = new NewProjectPostsScreenActivityInfomation();
 
         EditText edTitle = findViewById(R.id.ed_Title);
@@ -673,9 +692,9 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                 System.out.println(e);
                 Log.e("errorGetAddress", "error "+ e);
             }
-
             //値を送る
             MovePage(NPPSAI);
+
         }
     }
 
