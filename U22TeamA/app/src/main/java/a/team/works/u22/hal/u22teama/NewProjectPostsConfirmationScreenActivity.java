@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.Map.Entry;
@@ -158,40 +159,68 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                 finish();
                 return true;
 
-
-            /**
-             * 保存ボタンが押された時の処理
-             */
-            case R.id.item_send:
-
-                NewProjectsConfirmationScreenActivityTaskReceiver task = new NewProjectsConfirmationScreenActivityTaskReceiver(URL);
-
-                //POSTデータ作成のためのデータ格納
-                task.addText("title",NPPSAI.getEdTitle());
-                task.addText("place",NPPSAI.getEdPlace());
-                task.addText("category", NPPSAI.getSpinnerCate());
-                task.addText("content", NPPSAI.getEdSConte());
-                task.addText("InvestmentAmount", NPPSAI.getEdInvestmentAmount());
-                task.addText("userId", NPPSAI.getUserId());
-                task.addText("latitude",NPPSAI.getLatitude());
-                task.addText("longitude",NPPSAI.getLongitude());
-                //画像をbyte型に変換 + 格納
-                task.addImage("filename", img2byte(image));
-
-                // リスナーをセットする
-                task.setListener( NewProjectPostsConfirmationScreenActivity.this);
-
-                Log.e("item_Send", "送信処理開始");
-                //ここで渡した引きすはdoInBackgroundで受け取れる。
-
-                task.execute();
-
-                Log.e("item_Send", "送信処理中");
-
-                MovePage();
-                break;
+//
+//            /**
+//             * 保存ボタンが押された時の処理
+//             */
+//            case R.id.item_send:
+//
+//                NewProjectsConfirmationScreenActivityTaskReceiver task = new NewProjectsConfirmationScreenActivityTaskReceiver(URL);
+//
+//                //POSTデータ作成のためのデータ格納
+//                task.addText("title",NPPSAI.getEdTitle());
+//                task.addText("place",NPPSAI.getEdPlace());
+//                task.addText("category", NPPSAI.getSpinnerCate());
+//                task.addText("content", NPPSAI.getEdSConte());
+//                task.addText("InvestmentAmount", NPPSAI.getEdInvestmentAmount());
+//                task.addText("userId", NPPSAI.getUserId());
+//                task.addText("latitude",NPPSAI.getLatitude());
+//                task.addText("longitude",NPPSAI.getLongitude());
+//                //画像をbyte型に変換 + 格納
+//                task.addImage("filename", img2byte(image));
+//
+//                // リスナーをセットする
+//                task.setListener( NewProjectPostsConfirmationScreenActivity.this);
+//
+//                Log.e("item_Send", "送信処理開始");
+//                //ここで渡した引きすはdoInBackgroundで受け取れる。
+//
+//                task.execute();
+//
+//                Log.e("item_Send", "送信処理中");
+//
+//                MovePage();
+//                break;
         }
         return true;
+    }
+    public void onClickPostComp(View view) {
+
+        NewProjectsConfirmationScreenActivityTaskReceiver task = new NewProjectsConfirmationScreenActivityTaskReceiver(URL);
+
+        //POSTデータ作成のためのデータ格納
+        task.addText("title",NPPSAI.getEdTitle());
+        task.addText("place",NPPSAI.getEdPlace());
+        task.addText("category", NPPSAI.getSpinnerCate());
+        task.addText("content", NPPSAI.getEdSConte());
+        task.addText("InvestmentAmount", NPPSAI.getEdInvestmentAmount());
+        task.addText("userId", NPPSAI.getUserId());
+        task.addText("latitude",NPPSAI.getLatitude());
+        task.addText("longitude",NPPSAI.getLongitude());
+        //画像をbyte型に変換 + 格納
+        task.addImage("filename", img2byte(image));
+
+        // リスナーをセットする
+        task.setListener( NewProjectPostsConfirmationScreenActivity.this);
+
+        Log.e("item_Send", "送信処理開始");
+        //ここで渡した引きすはdoInBackgroundで受け取れる。
+
+        task.execute();
+
+        Log.e("item_Send", "送信処理中");
+
+        MovePage();
     }
 
     public void MovePage() {

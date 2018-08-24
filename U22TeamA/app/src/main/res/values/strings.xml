@@ -60,6 +60,7 @@
     <string name="tv_activity_new_project_posts_confirmation_category">カテゴリー</string>
     <string name="tv_activity_new_project_posts_confirmation_content">内容</string>
     <string name="tv_activity_new_project_posts_confirmation_investmentAmount">投資金額</string>
+    <string name="tv_activity_new_project_posts_confirmation_postbutton">投資完了</string>
     <!--新規プロジェクト投稿画面-->
     <string name="tv_activity_new_project_posts_title">タイトル</string>
     <string name="tv_activity_new_project_posts_photo">写真</string>

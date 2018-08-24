@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="110dp" />
+        app:layout_constraintGuide_begin="133dp" />
 
     <TextView
         android:id="@+id/tv_Title"
@@ -68,13 +68,9 @@
         android:id="@+id/iv_CheckPhots"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tv_Phoths"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_CheckTitle"
@@ -163,7 +159,7 @@
 
     <TextView
         android:id="@+id/tvInvestmentAmount"
-        android:layout_width="56dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -190,6 +186,25 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_CheckContent"
         app:layout_constraintVertical_bias="0.238" />
+
+    <Button
+        android:id="@+id/btPostComp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="onClickPostComp"
+        android:text="@string/tv_activity_new_project_posts_confirmation_postbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_CheckInvestmentAmount"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
 

@@ -509,7 +509,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean onPostClick(View view) {
+    public void onClickPost(View view) {
         //収納用クラスに値収納
         NewProjectPostsScreenActivityInfomation NPPSAI = new NewProjectPostsScreenActivityInfomation();
 
@@ -548,7 +548,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
             //値を送る
             MovePage(NPPSAI);
         }
-        return true;
     }
 
 
