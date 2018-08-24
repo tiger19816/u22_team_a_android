@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -70,12 +71,12 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         try{
             Uri uri;
             uri =  Uri.parse("file://"+ NPPSAI.getImgUrl() +"/");
-
-            System.out.println(uri);
             parcelFileDescriptor =
                     getContentResolver().openFileDescriptor(uri, "r");
             FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-            image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+            BitmapFactory.Options opt = new BitmapFactory.Options();
+            opt.inScaled = false;
+            image = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, opt);
 
         }catch(IOException e){
             e.printStackTrace();
@@ -363,7 +364,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                     baos.write(("--" + BOUNDARY + "\r\n").getBytes());
                     baos.write(("Content-Disposition: form-data;").getBytes());
                     baos.write(("name=\"" + name + "\";").getBytes());
-                    baos.write(("filename=\"" + key + "\"\r\n").getBytes());
+                    baos.write(("filename=\"" + key + ".jpg" + "\"\r\n").getBytes());
                     baos.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
                     baos.write(data);
                     baos.write(("\r\n").getBytes());
