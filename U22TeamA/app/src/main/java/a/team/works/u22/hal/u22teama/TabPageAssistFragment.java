@@ -220,11 +220,8 @@ public class TabPageAssistFragment extends Fragment{
                                 tvPostTitle.setText(strData);
                                 return true;
                             case R.id.ivPostPhoto:
-                                //非同期処理を開始する。
-                                TabPageAssistFragment.CleanImageGetTaskReceiver imageGetTaskReceiver = new TabPageAssistFragment.CleanImageGetTaskReceiver();
-                                //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-                                imageGetTaskReceiver.execute(strData);
-                                return true;
+                                ImageGetClean ig = new ImageGetClean();
+                                ig.execute(GetUrl.photoUrl + strData);
                             case R.id.tvPostMoney:
                                 TextView tvPostMoney = (TextView) view;
                                 tvPostMoney.setText("協賛金：" + strData + "円");
@@ -259,76 +256,30 @@ public class TabPageAssistFragment extends Fragment{
             }
         }
     }
-    /**
-     * 非同期通信を行い画像を取得するAsyncTaskクラスを継承したメンバクラス.
-     */
-    private class CleanImageGetTaskReceiver extends AsyncTask<String, Void, Bitmap> {
 
-        private static final String DEBUG_TAG = "RestAccess";
 
-        /**
-         * 非同期に処理したい内容を記述するメソッド.
-         * このメソッドは必ず実装する必要がある。
-         *
-         * @param params String型の配列。（可変長）
-         * @return String型の結果JSONデータ。
-         */
+    private class ImageGetClean extends AsyncTask<String, Void, Bitmap>{
         @Override
-        public Bitmap doInBackground(String... params) {
-            String urlStr = params[0];
-
-            HttpURLConnection con = null;
+        public Bitmap doInBackground(String...params){
+            String URL = params[0];
             InputStream is = null;
-            Bitmap result = null;
+            Bitmap bmp = null;
 
             try {
-                URL url = new URL(urlStr);
-                con = (HttpURLConnection) url.openConnection();
-
-                //GET通信かPOST通信かを指定する。
-                con.setRequestMethod("GET");
-
-                //自動リダイレクトを許可するかどうか。
-                con.setInstanceFollowRedirects(false);
-
-                //時間制限。（ミリ秒単位）
-                con.setReadTimeout(10000);
-                con.setConnectTimeout(20000);
-
-                con.connect();
-
-                is = con.getInputStream();
-
-                result = BitmapFactory.decodeStream(is);
+                URL url = new URL(URL);
+                is = url.openStream();
+                bmp = BitmapFactory.decodeStream(is);
+                is.close();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            catch (MalformedURLException ex) {
-                Log.e(DEBUG_TAG, "URL変換失敗", ex);
-            }
-            catch (IOException ex) {
-                Log.e(DEBUG_TAG, "通信失敗", ex);
-            }
-            finally {
-                if(con != null) {
-                    con.disconnect();
-                }
-                if(is != null) {
-                    try {
-                        is.close();
-                    }
-                    catch (IOException ex) {
-                        Log.e(DEBUG_TAG, "InputStream解放失敗", ex);
-                    }
-                }
-            }
-
-            return result;
+            return bmp;
         }
-
-        @Override
         public void onPostExecute(Bitmap result) {
-            ImageView ivPostPhoto = getActivity().findViewById(R.id.ivPostPhoto);
-            //ビットマップをImageViewに設定
-            ivPostPhoto.setImageBitmap(result);
+            ImageView imageView = getActivity().findViewById(R.id.ivPostPhoto);
+            imageView.setImageBitmap(result);
         }
     }
 
