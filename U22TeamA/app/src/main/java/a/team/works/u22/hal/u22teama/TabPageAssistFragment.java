@@ -116,7 +116,7 @@ public class TabPageAssistFragment extends Fragment{
             String id = params[2];
 
             //POSTで送りたいデータ
-            String postData = "flag=" + flag + "id=" + id ;
+            String postData = "flag=" + flag + "&id=" + id ;
 
             HttpURLConnection con = null;
             InputStream is = null;
