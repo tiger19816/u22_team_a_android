@@ -39,7 +39,7 @@ public class DonationActivity extends AppCompatActivity {
         targetMoney = (intent.getStringExtra("TargetMoney"));
 
         TextView tvTargetMoney = findViewById(R.id.tvTargetMoney);
-        tvTargetMoney.setText(targetMoney);
+        tvTargetMoney.setText(targetMoney + "円");
 
         Button btCheck = findViewById(R.id.btCheckButton);
         btCheck.setOnClickListener(new donationCheckListener());

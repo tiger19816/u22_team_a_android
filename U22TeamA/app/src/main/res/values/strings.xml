@@ -49,9 +49,10 @@
     </string-array>
 
     <string name="bt_donation">寄付する</string>
-    <string name="tv_message_donation">寄付金額を入力してください</string>
+    <string name="tv_message_donation">寄付金額を選択してください</string>
     <string name="tv_set_donation">寄付金額</string>
     <string name="tv_target_money">目標金額</string>
+    <string name="tv_donation_money">寄付金額</string>
     <string name="check_message">下記内容で寄付しますか？</string>
     <string name="tv_gratitude">ありがとうございました</string>
 

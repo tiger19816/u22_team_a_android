@@ -438,7 +438,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
                 public void onInfoWindowClick(Marker marker) {
                     Intent intent = new Intent(ProjectSearchMapsActivity.this, ProjectDetailActivity.class);
                     Map<String, String> map = (Map<String, String>) marker.getTag();
-                    intent.putExtra("projectId", map.get("no"));
+                    intent.putExtra("projectNo", map.get("no"));
                     startActivity(intent);
                 }
             });
@@ -483,7 +483,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(ProjectSearchMapsActivity.this, ProjectDetailActivity.class);
                     Map<String, String> map = (Map<String, String>) adapter.getItem(position);
-                    intent.putExtra("projectId", map.get("no"));
+                    intent.putExtra("projectNo", map.get("no"));
                     startActivity(intent);
                 }
             });

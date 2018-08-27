@@ -32,7 +32,7 @@ import java.util.concurrent.Callable;
 
 public class ProjectDetailActivity extends AppCompatActivity {
     private static final String ProjectDetail_URL = GetUrl.ProjectInfoUrl;
-    private static String projectNo = "5";
+    private static String projectNo = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_project_detail_activity);
 
         Intent intent = getIntent();
-        //projectNo = (intent.getStringExtra("projectNo"));
+        projectNo = (intent.getStringExtra("projectNo"));
         ProjectInfoTaskReceiver receiver = new ProjectInfoTaskReceiver();
 
         Button btn = findViewById(R.id.bt_FundRaising);
