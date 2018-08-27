@@ -31,8 +31,8 @@ import java.net.URL;
 import java.util.concurrent.Callable;
 
 public class ProjectDetailActivity extends AppCompatActivity {
-    private static final String DONATION_URL = GetUrl.DonationSetUrl;
-    private static String projectNo = "1";
+    private static final String ProjectDetail_URL = GetUrl.ProjectInfoUrl;
+    private static String projectNo = "5";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +40,14 @@ public class ProjectDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_project_detail_activity);
 
         Intent intent = getIntent();
-        projectNo = (intent.getStringExtra("projectId"));
-        LoginTaskReceiver receiver = new LoginTaskReceiver();
+        //projectNo = (intent.getStringExtra("projectNo"));
+        ProjectInfoTaskReceiver receiver = new ProjectInfoTaskReceiver();
 
         Button btn = findViewById(R.id.bt_FundRaising);
         btn.setOnClickListener(new ButtonClickListener());
 
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(DONATION_URL, projectNo);
+        receiver.execute(ProjectDetail_URL, projectNo);
 
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -72,7 +72,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
     /**
      * 非同期通信を行うAsyncTaskクラスを継承したメンバクラス.
      */
-    private class LoginTaskReceiver extends AsyncTask<String, Void, String> {
+    private class ProjectInfoTaskReceiver extends AsyncTask<String, Void, String> {
 
         private static final String DEBUG_TAG = "RestAccess";
 
@@ -161,16 +161,21 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 ig.execute(GetUrl.photoUrl + photo);
                 //日付
                 String postDate = rootJSON.getString("postDate");
-                TextView etPostDate = findViewById(R.id.tv_OrderDateInfo);
-                etPostDate.setText(postDate);
+                TextView tvPostDate = findViewById(R.id.tv_OrderDateInfo);
+                tvPostDate.setText(postDate);
                 //場所
                 String place = rootJSON.getString("place");
-                TextView etPlace = findViewById(R.id.tv_PlaceInfo);
-                etPlace.setText(place);
+                TextView tvPlace = findViewById(R.id.tv_PlaceInfo);
+                tvPlace.setText(place);
                 //内容
                 String content = rootJSON.getString("content");
-                TextView etContent = findViewById(R.id.tv_ContentInfo);
-                etContent.setText(content);
+                TextView tvContent = findViewById(R.id.tv_ContentInfo);
+                tvContent.setText(content);
+                //現在の寄付金額
+                String fundRaising = rootJSON.getString("donationMoney");
+                TextView tvFundRaising = findViewById(R.id.tv_FundRaisingInfo);
+                tvFundRaising.setText(fundRaising);
+
             } catch(JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
@@ -219,12 +224,12 @@ public class ProjectDetailActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            Spinner spn = (Spinner)findViewById(R.id.spinner);
-            String item = (String)spn.getSelectedItem();
+            TextView tvTargetMoney = findViewById(R.id.tv_FundRaisingInfo);
+            String item = "0";
 
-            Intent intent = new Intent(ProjectDetailActivity.this, DonationCheckActivity.class);
+            Intent intent = new Intent(ProjectDetailActivity.this, DonationActivity.class);
             intent.putExtra("projectNo",projectNo);
-            intent.putExtra("donationMoney",item);
+            intent.putExtra("TargetMoney",item);
             startActivity(intent);
         }
     }

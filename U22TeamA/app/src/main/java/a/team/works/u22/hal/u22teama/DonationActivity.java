@@ -1,92 +1,77 @@
 package a.team.works.u22.hal.u22teama;
 
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import android.content.Intent;
-        import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.support.v7.app.ActionBar;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.util.Log;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.TextView;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-        import java.io.BufferedReader;
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.io.InputStreamReader;
-        import java.io.OutputStream;
-        import java.net.HttpURLConnection;
-        import java.net.MalformedURLException;
-        import java.net.URL;
-
-public class DonationCheckActivity extends AppCompatActivity {
+public class DonationActivity extends AppCompatActivity {
     private static final String DONATIONSET_URL = GetUrl.DonationSetUrl;
     private static String projectNo = "1";
     private static String memberNo = "3";
-    private static String donationMoney;
-
+    private static String targetMoney;
     @Override
-    protected  void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_donation_check);
+        setContentView(R.layout.activity_donation);
 
         Intent intent = getIntent();
-
         projectNo = (intent.getStringExtra("projectNo"));
-        //memberNo = (intent.getStringExtra("memberNo"));
-        String targetMoney = (intent.getStringExtra("targetMoney"));
-        donationMoney = (intent.getStringExtra("donationMoney"));
 
-        TextView etDonation = findViewById(R.id.etDonation);
-        etDonation.setText(donationMoney);
+        targetMoney = (intent.getStringExtra("TargetMoney"));
 
-        Button btn = findViewById(R.id.etAgree);
-        btn.setOnClickListener(new ClickAgree());
+        TextView tvTargetMoney = findViewById(R.id.tvTargetMoney);
+        tvTargetMoney.setText(targetMoney);
 
-        //ツールバー(レイアウトを変更可)。
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        setTitle("プロジェクト寄付");
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
+        Button btCheck = findViewById(R.id.btCheckButton);
+        btCheck.setOnClickListener(new donationCheckListener());
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private class ClickAgree implements View.OnClickListener{
+    private class donationCheckListener implements View.OnClickListener{
         @Override
         public void onClick(View v){
-            LoginTaskReceiver receiver = new LoginTaskReceiver();
-            //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-            receiver.execute(DONATIONSET_URL, projectNo, memberNo, donationMoney);
-
-            DonationGratitudeDialog dialog = new DonationGratitudeDialog();
-
+            DonationCheckDialog dialog = new DonationCheckDialog();
+            Bundle args = new Bundle();
+            Spinner spn = (Spinner)findViewById(R.id.spinner);
+            String donationMoney = (String)spn.getSelectedItem();
+            args.putString("donationMoney", donationMoney);
+            dialog.setArguments(args);
             dialog.show(getFragmentManager(), "checker");
         }
+    }
+
+    public void donationSend(){
+        Spinner spn = (Spinner)findViewById(R.id.spinner);
+        String donationMoney = (String)spn.getSelectedItem();
+        DonationSetTaskReceiver receiver = new DonationSetTaskReceiver();
+        receiver.execute(DONATIONSET_URL, projectNo, memberNo, donationMoney);
+
+        Toast.makeText(DonationActivity.this, "寄付ありがとうございました", Toast.LENGTH_SHORT).show();
+
     }
 
     /**
      * 非同期通信を行うAsyncTaskクラスを継承したメンバクラス.
      */
-    private class LoginTaskReceiver extends AsyncTask<String, Void, String> {
+    private class DonationSetTaskReceiver extends AsyncTask<String, Void, String> {
 
         private static final String DEBUG_TAG = "RestAccess";
 
