@@ -505,23 +505,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
 
                     _bitmap = ImageUtil.createBitmapFromUri(this, pictureUri ,orientation);
                     imageView.setImageBitmap(_bitmap);
-
-
-                    try {
-                        String[] columns = {MediaStore.Images.Media.DATA };
-                        Cursor c;
-                        if(data == null) {
-                            c = cr.query(pictureUri, columns, null, null, null);
-                        }else {
-                            c = cr.query(data.getData(), columns, null, null, null);
-                        }
-                        c.moveToFirst();
-                        exif = new ExifInterface(c.getString(0));
-                    } catch (IOException e) {
-                        System.out.println(e);
-                    }
-
-
+                    
 
                     //撮影した画像の名前を日付から確定
                     StrImgName = getFileName();

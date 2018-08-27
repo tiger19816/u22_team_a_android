@@ -67,7 +67,11 @@ public class ImageUtil {
             if(data == null) {
                 c = cr.query(uri, columns, null, null, null);
             }else {
-                c = cr.query(data.getData(), columns, null, null, null);
+                if (data.getData() != null) {
+                    c = cr.query(data.getData(), columns, null, null, null);
+                }else{
+                    c = cr.query(uri, columns, null, null, null);
+                }
             }
             c.moveToFirst();
             exifInterface = new ExifInterface(c.getString(0));
