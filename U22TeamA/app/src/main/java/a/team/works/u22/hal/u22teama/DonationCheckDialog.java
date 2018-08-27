@@ -13,6 +13,7 @@ public class DonationCheckDialog extends DialogFragment{
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         String donationMoney = getArguments().getString("donationMoney");
         dialogBuilder.setTitle("寄付金額確認");
+
         dialogBuilder.setMessage("下記の金額を寄付します。\nよろしいですか？\n\n"+donationMoney+"  円");
 
         final TextView tvCheck = new TextView(getActivity());

@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -108,6 +109,17 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
         ProjectSearchMapsAnimation closeAnimation = new ProjectSearchMapsAnimation(lvProjectList, -originalHeight, originalHeight);
         closeAnimation.setDuration(DURATION);
         lvProjectList.startAnimation(closeAnimation);
+
+        //ユーザ名を表示する
+        SharedPreferences pref = getSharedPreferences("prefUserId",0);
+        if(Build.VERSION.SDK_INT < 23) {
+            TextView navTvUserName = navigationView.findViewById(R.id.navTvUserName);
+            navTvUserName.setText(pref.getString("name", "ユーザ名"));
+        } else {
+            View headerView = navigationView.getHeaderView(0);
+            TextView navTvUserName = headerView.findViewById(R.id.navTvUserName);
+            navTvUserName.setText(pref.getString("name", "ユーザ名"));
+        }
     }
 
     /**

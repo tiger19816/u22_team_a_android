@@ -3,6 +3,7 @@ package a.team.works.u22.hal.u22teama;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 /**
  * タブレイアウトサンプル画面のActivityクラス.
@@ -30,6 +33,7 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout_clean);
+
 
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -96,6 +100,17 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
 
         //初期に選択されているTabを設定(0始まり)
         tabLayout.getTabAt(0).select();
+
+        //ユーザ名を表示する
+        SharedPreferences pref = getSharedPreferences("prefUserId",0);
+        if(Build.VERSION.SDK_INT < 23) {
+            TextView navTvUserName = navigationView.findViewById(R.id.navTvUserName);
+            navTvUserName.setText(pref.getString("name", "ユーザ名"));
+        } else {
+            View headerView = navigationView.getHeaderView(0);
+            TextView navTvUserName = headerView.findViewById(R.id.navTvUserName);
+            navTvUserName.setText(pref.getString("name", "ユーザ名"));
+        }
     }
 
     /**

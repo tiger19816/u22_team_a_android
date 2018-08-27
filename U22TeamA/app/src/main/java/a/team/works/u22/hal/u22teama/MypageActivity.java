@@ -2,6 +2,7 @@ package a.team.works.u22.hal.u22teama;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -45,6 +46,17 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
 
         setTitle("マイページ");
+
+        //ユーザ名を表示する
+        SharedPreferences pref = getSharedPreferences("prefUserId",0);
+        if(Build.VERSION.SDK_INT < 23) {
+            TextView navTvUserName = navigationView.findViewById(R.id.navTvUserName);
+            navTvUserName.setText(pref.getString("name", "ユーザ名"));
+        } else {
+            View headerView = navigationView.getHeaderView(0);
+            TextView navTvUserName = headerView.findViewById(R.id.navTvUserName);
+            navTvUserName.setText(pref.getString("name", "ユーザ名"));
+        }
     }
 
     /**

@@ -2,6 +2,7 @@ package a.team.works.u22.hal.u22teama;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -60,6 +61,7 @@ public class TabPagePostFragment extends Fragment{
     private OnFragmentInteractionListener mListener;
     private static final String LOGIN_URL = GetUrl.MyPostsUrl;
     private String _flag = "1";
+    private String _id = "0";
 
     /**
      * コンストラクタ.
@@ -78,6 +80,9 @@ public class TabPagePostFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences pref = getActivity().getSharedPreferences("prefUserId",0);
+        int loginInfo = pref.getInt("id", 0);
+        _id = String.valueOf(loginInfo);
         if (getArguments() != null) {
             mParam = getArguments().getString(ARG_PARAM);
         }
@@ -85,7 +90,7 @@ public class TabPagePostFragment extends Fragment{
         //非同期処理を開始する。
         PostsTaskReceiver receiver = new PostsTaskReceiver();
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(LOGIN_URL , _flag );
+        receiver.execute(LOGIN_URL , _flag , _id);
     }
 
 
@@ -108,9 +113,10 @@ public class TabPagePostFragment extends Fragment{
         public String doInBackground(String... params) {
             String urlStr = params[0];
             String flag = params[1];
+            String id = params[2];
 
             //POSTで送りたいデータ
-            String postData = "flag=" + flag;
+            String postData = "flag=" + flag + "&id=" + id ;
 
             HttpURLConnection con = null;
             InputStream is = null;
