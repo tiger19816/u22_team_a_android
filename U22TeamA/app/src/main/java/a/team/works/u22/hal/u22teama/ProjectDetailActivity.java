@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,6 +34,11 @@ import java.util.concurrent.Callable;
 public class ProjectDetailActivity extends AppCompatActivity {
     private static final String ProjectDetail_URL = GetUrl.ProjectInfoUrl;
     private static String projectNo = "5";
+    //プログレスバー１番の最大値設定
+    private final int prFirstMax = 3000;
+    private String donationMoney ="";
+    private String cleaningFlag ="";
+    private String prSecondMax ="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,8 +179,15 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 tvContent.setText(content);
                 //現在の寄付金額
                 String fundRaising = rootJSON.getString("donationMoney");
+                donationMoney = fundRaising;
                 TextView tvFundRaising = findViewById(R.id.tv_FundRaisingInfo);
                 tvFundRaising.setText(fundRaising);
+                //掃除進行状況
+                cleaningFlag = rootJSON.getString("cleanFlag");
+                //目標金額
+                prSecondMax = rootJSON.getString("targetMoney");
+
+                SetProgresBarr();
 
             } catch(JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
@@ -232,5 +245,21 @@ public class ProjectDetailActivity extends AppCompatActivity {
             intent.putExtra("TargetMoney",item);
             startActivity(intent);
         }
+    }
+
+    private void SetProgresBarr(){
+        ProgressBar prFirst = findViewById(R.id.pb_first);
+        TextView tvFirst = findViewById(R.id.tvFirstPD);
+        tvFirst.setText(tvFirst.getText().toString() + " : "  + donationMoney +"円 / " + prFirstMax+ "円");
+        prFirst.setMax(prFirstMax);
+        prFirst.setProgress(Integer.parseInt(donationMoney));
+        if(Integer.parseInt(cleaningFlag) >= 2){
+            ProgressBar prSecond = findViewById(R.id.pb_second);
+            TextView tvSecond = findViewById(R.id.tvSecondPD);
+            tvSecond.setText(tvSecond.getText().toString() + " : " + donationMoney + "円 / "  + prSecondMax + "円");
+            prSecond.setMax(Integer.parseInt(prSecondMax));
+            prSecond.setProgress(Integer.parseInt(donationMoney));
+        }
+
     }
 }
