@@ -112,5 +112,8 @@
     <string name="tv_new_registration_phone_number">電話番号</string>
     <string name="tv_new_registration">登録する</string>
     <string name="msg_items">未入力の項目があります。</string>
+
+    <string name="activity_project_detail_activity_first_rank">一段階目</string>
+    <string name="activity_project_detail_activity_second_rank">二段階目</string>
 </resources>
 
