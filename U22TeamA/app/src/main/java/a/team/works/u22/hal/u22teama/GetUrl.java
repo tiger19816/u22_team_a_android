@@ -19,6 +19,7 @@ public class GetUrl {
     public static final String ProjectInfoUrl = fixedUrl + "ProjectInfoServlet";
     public static final String DonationSetUrl = fixedUrl + "DonationSetServlet";
     public static final String MypageChangeCompleteUrl = fixedUrl + "MypageChangeCompleteServlet";
+    public static final String MypageChangeUrl = fixedUrl + "MypageChangeServlet";
     public static final String ContactUrl = fixedUrl + "ContactServlet";
     public static final String photoUrl = fixedUrl + "temp/";
 }

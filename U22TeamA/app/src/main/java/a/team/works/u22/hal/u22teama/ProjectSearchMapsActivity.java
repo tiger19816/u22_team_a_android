@@ -45,8 +45,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -63,6 +65,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
     private FloatingActionButton fab;
     private LinearLayout linearLayoutArea;
     private ArrayList<Marker> markers;
+    private Intent intent;
 
     /**
      * アニメーションにかける時間（ミリ秒）
@@ -145,7 +148,6 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        Intent intent;
         if (id == R.id.nav_mypage) {
             intent = new Intent(ProjectSearchMapsActivity.this,MypageActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
