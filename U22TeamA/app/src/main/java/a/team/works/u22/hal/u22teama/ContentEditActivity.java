@@ -64,5 +64,5 @@ public class ContentEditActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        }
+    }
 }
