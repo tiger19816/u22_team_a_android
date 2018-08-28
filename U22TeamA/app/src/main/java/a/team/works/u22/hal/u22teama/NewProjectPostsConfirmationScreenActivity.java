@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.Map.Entry;
@@ -41,6 +43,9 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project_posts_confirmation_screen);
 
+        //タイトル変更
+        setTitle( "新規プロジェクト投稿確認" );
+
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,12 +72,12 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         try{
             Uri uri;
             uri =  Uri.parse("file://"+ NPPSAI.getImgUrl() +"/");
-
-            System.out.println(uri);
             parcelFileDescriptor =
                     getContentResolver().openFileDescriptor(uri, "r");
             FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-            image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+            BitmapFactory.Options opt = new BitmapFactory.Options();
+            opt.inScaled = false;
+            image = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, opt);
 
         }catch(IOException e){
             e.printStackTrace();
@@ -127,20 +132,20 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         }
         return imgByte;
     }
-    /**
-     * オプションメニュー表示の秘密の言葉
-     *
-     * @param menu
-     * @return
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu_activity_new_project_posts_confirmation_screan_activity, menu);
-
-        return true;
-    }
+//    /**
+//     * オプションメニュー表示の秘密の言葉
+//     *
+//     * @param menu
+//     * @return
+//     */
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.option_menu_activity_new_project_posts_confirmation_screan_activity, menu);
+//
+//        return true;
+//    }
 
     /**
      * アクションバーの機能
@@ -158,45 +163,73 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                 finish();
                 return true;
 
-
-            /**
-             * 保存ボタンが押された時の処理
-             */
-            case R.id.item_send:
-
-                NewProjectsConfirmationScreenActivityTaskReceiver task = new NewProjectsConfirmationScreenActivityTaskReceiver(URL);
-
-                //POSTデータ作成のためのデータ格納
-                task.addText("title",NPPSAI.getEdTitle());
-                task.addText("place",NPPSAI.getEdPlace());
-                task.addText("category", NPPSAI.getSpinnerCate());
-                task.addText("content", NPPSAI.getEdSConte());
-                task.addText("InvestmentAmount", NPPSAI.getEdInvestmentAmount());
-                task.addText("userId", NPPSAI.getUserId());
-                task.addText("latitude",NPPSAI.getLatitude());
-                task.addText("longitude",NPPSAI.getLongitude());
-                //画像をbyte型に変換 + 格納
-                task.addImage("filename", img2byte(image));
-
-                // リスナーをセットする
-                task.setListener( NewProjectPostsConfirmationScreenActivity.this);
-
-                Log.e("item_Send", "送信処理開始");
-                //ここで渡した引きすはdoInBackgroundで受け取れる。
-
-                task.execute();
-
-                Log.e("item_Send", "送信処理中");
-
-                MovePage();
-                break;
+//
+//            /**
+//             * 保存ボタンが押された時の処理
+//             */
+//            case R.id.item_send:
+//
+//                NewProjectsConfirmationScreenActivityTaskReceiver task = new NewProjectsConfirmationScreenActivityTaskReceiver(URL);
+//
+//                //POSTデータ作成のためのデータ格納
+//                task.addText("title",NPPSAI.getEdTitle());
+//                task.addText("place",NPPSAI.getEdPlace());
+//                task.addText("category", NPPSAI.getSpinnerCate());
+//                task.addText("content", NPPSAI.getEdSConte());
+//                task.addText("InvestmentAmount", NPPSAI.getEdInvestmentAmount());
+//                task.addText("userId", NPPSAI.getUserId());
+//                task.addText("latitude",NPPSAI.getLatitude());
+//                task.addText("longitude",NPPSAI.getLongitude());
+//                //画像をbyte型に変換 + 格納
+//                task.addImage("filename", img2byte(image));
+//
+//                // リスナーをセットする
+//                task.setListener( NewProjectPostsConfirmationScreenActivity.this);
+//
+//                Log.e("item_Send", "送信処理開始");
+//                //ここで渡した引きすはdoInBackgroundで受け取れる。
+//
+//                task.execute();
+//
+//                Log.e("item_Send", "送信処理中");
+//
+//                MovePage();
+//                break;
         }
         return true;
+    }
+    public void onClickPostComp(View view) {
+
+        NewProjectsConfirmationScreenActivityTaskReceiver task = new NewProjectsConfirmationScreenActivityTaskReceiver(URL);
+
+        //POSTデータ作成のためのデータ格納
+        task.addText("title",NPPSAI.getEdTitle());
+        task.addText("place",NPPSAI.getEdPlace());
+        task.addText("category", NPPSAI.getSpinnerCate());
+        task.addText("content", NPPSAI.getEdSConte());
+        task.addText("InvestmentAmount", NPPSAI.getEdInvestmentAmount());
+        task.addText("userId", NPPSAI.getUserId());
+        task.addText("latitude",NPPSAI.getLatitude());
+        task.addText("longitude",NPPSAI.getLongitude());
+        //画像をbyte型に変換 + 格納
+        task.addImage("filename", img2byte(image));
+
+        // リスナーをセットする
+        task.setListener( NewProjectPostsConfirmationScreenActivity.this);
+
+        Log.e("item_Send", "送信処理開始");
+        //ここで渡した引きすはdoInBackgroundで受け取れる。
+
+        task.execute();
+
+        Log.e("item_Send", "送信処理中");
+
+        MovePage();
     }
 
     public void MovePage() {
 
-        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, ProjectDetailActivity.class);
+        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, TabLayoutCleanActivity.class);
         startActivity(intent);
 
     }
@@ -360,7 +393,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
                     baos.write(("--" + BOUNDARY + "\r\n").getBytes());
                     baos.write(("Content-Disposition: form-data;").getBytes());
                     baos.write(("name=\"" + name + "\";").getBytes());
-                    baos.write(("filename=\"" + key + "\"\r\n").getBytes());
+                    baos.write(("filename=\"" + key + ".jpg" + "\"\r\n").getBytes());
                     baos.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
                     baos.write(data);
                     baos.write(("\r\n").getBytes());

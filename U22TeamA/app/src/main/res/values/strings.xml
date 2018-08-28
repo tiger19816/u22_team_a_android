@@ -49,7 +49,9 @@
     </string-array>
 
     <string name="bt_donation">寄付する</string>
+    <string name="tv_message_donation">寄付金額を入力してください</string>
     <string name="tv_set_donation">寄付金額</string>
+    <string name="tv_target_money">目標金額</string>
     <string name="check_message">下記内容で寄付しますか？</string>
     <string name="tv_gratitude">ありがとうございました</string>
 
@@ -60,9 +62,11 @@
     <string name="tv_activity_new_project_posts_confirmation_category">カテゴリー</string>
     <string name="tv_activity_new_project_posts_confirmation_content">内容</string>
     <string name="tv_activity_new_project_posts_confirmation_investmentAmount">投資金額</string>
+    <string name="tv_activity_new_project_posts_confirmation_postbutton">投資完了</string>
     <!--新規プロジェクト投稿画面-->
     <string name="tv_activity_new_project_posts_title">タイトル</string>
     <string name="tv_activity_new_project_posts_photo">写真</string>
+    <string name="tv_activity_new_project_posts_post">投稿</string>
     <string name="tv_activity_new_project_posts_place">場所</string>
     <string name="tv_activity_new_project_posts_category">カテゴリー</string>
     <string name="tv_activity_new_project_posts_content">内容</string>
@@ -89,6 +93,7 @@
     <string name="tv_login_id">メールアドレス</string>
     <string name="tv_login_password">パスワード</string>
     <string name="tv_login_button">ログイン</string>
+    <string name="tv_login_infomation">アカウントをお持ちでない方はこちら</string>
     <string name="tv_login_new_registration">新規登録</string>
     <string name="login_msg_items"></string>
     <!--新規登録画面-->

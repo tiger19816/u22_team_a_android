@@ -1,21 +1,15 @@
 package a.team.works.u22.hal.u22teama;
 
-
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,51 +22,56 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.Callable;
 
-public class ProjectDetailActivity extends AppCompatActivity {
-    private static final String ProjectDetail_URL = GetUrl.ProjectInfoUrl;
-    private static String projectNo = "5";
-
+public class DonationActivity extends AppCompatActivity {
+    private static final String DONATIONSET_URL = GetUrl.DonationSetUrl;
+    private static String projectNo = "1";
+    private static String memberNo = "3";
+    private static String targetMoney;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project_detail_activity);
+        setContentView(R.layout.activity_donation);
 
         Intent intent = getIntent();
-        //projectNo = (intent.getStringExtra("projectNo"));
-        ProjectInfoTaskReceiver receiver = new ProjectInfoTaskReceiver();
+        projectNo = (intent.getStringExtra("projectNo"));
 
-        Button btn = findViewById(R.id.bt_FundRaising);
-        btn.setOnClickListener(new ButtonClickListener());
+        targetMoney = (intent.getStringExtra("TargetMoney"));
 
-        //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(ProjectDetail_URL, projectNo);
+        TextView tvTargetMoney = findViewById(R.id.tvTargetMoney);
+        tvTargetMoney.setText(targetMoney);
 
-        //ツールバー(レイアウトを変更可)。
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        setTitle("プロジェクト詳細");
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        Button btCheck = findViewById(R.id.btCheckButton);
+        btCheck.setOnClickListener(new donationCheckListener());
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
+    private class donationCheckListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v){
+            DonationCheckDialog dialog = new DonationCheckDialog();
+            Bundle args = new Bundle();
+            Spinner spn = (Spinner)findViewById(R.id.spinner);
+            String donationMoney = (String)spn.getSelectedItem();
+            args.putString("donationMoney", donationMoney);
+            dialog.setArguments(args);
+            dialog.show(getFragmentManager(), "checker");
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+    public void donationSend(){
+        Spinner spn = (Spinner)findViewById(R.id.spinner);
+        String donationMoney = (String)spn.getSelectedItem();
+        DonationSetTaskReceiver receiver = new DonationSetTaskReceiver();
+        receiver.execute(DONATIONSET_URL, projectNo, memberNo, donationMoney);
+
+        Toast.makeText(DonationActivity.this, "寄付ありがとうございました", Toast.LENGTH_SHORT).show();
+
     }
 
     /**
      * 非同期通信を行うAsyncTaskクラスを継承したメンバクラス.
      */
-    private class ProjectInfoTaskReceiver extends AsyncTask<String, Void, String> {
+    private class DonationSetTaskReceiver extends AsyncTask<String, Void, String> {
 
         private static final String DEBUG_TAG = "RestAccess";
 
@@ -86,15 +85,17 @@ public class ProjectDetailActivity extends AppCompatActivity {
         @Override
         public String doInBackground(String... params) {
             String urlStr = params[0];
-            String no = params[1];
-
+            String projectNo = params[1];
+            String memberNo = params[2];
+            String donation = params[3];
             //POSTで送りたいデータ
-            String postData = "no=" + no;
+            String postData = "projectNo=" + projectNo + "&memberNo=" + memberNo+ "&donationMoney=" + donation;
+
+            Log.e("neko",postData);
 
             HttpURLConnection con = null;
             InputStream is = null;
             String result = "";
-
             try {
                 URL url = new URL(urlStr);
                 con = (HttpURLConnection) url.openConnection();
@@ -145,38 +146,15 @@ public class ProjectDetailActivity extends AppCompatActivity {
                     }
                 }
             }
-
             return result;
         }
 
         @Override
         public void onPostExecute(String result) {
-            Boolean isLogin = false;
             try {
                 JSONObject rootJSON = new JSONObject(result);
-                Log.e("neko", result);
-                //画像
-                String photo = rootJSON.getString("photo");
-                ImageGet ig = new ImageGet();
-                ig.execute(GetUrl.photoUrl + photo);
-                //日付
-                String postDate = rootJSON.getString("postDate");
-                TextView tvPostDate = findViewById(R.id.tv_OrderDateInfo);
-                tvPostDate.setText(postDate);
-                //場所
-                String place = rootJSON.getString("place");
-                TextView tvPlace = findViewById(R.id.tv_PlaceInfo);
-                tvPlace.setText(place);
-                //内容
-                String content = rootJSON.getString("content");
-                TextView tvContent = findViewById(R.id.tv_ContentInfo);
-                tvContent.setText(content);
-                //現在の寄付金額
-                String fundRaising = rootJSON.getString("donationMoney");
-                TextView tvFundRaising = findViewById(R.id.tv_FundRaisingInfo);
-                tvFundRaising.setText(fundRaising);
 
-            } catch(JSONException ex) {
+            } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
         }
@@ -190,47 +168,6 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 sb.append(b, 0, line);
             }
             return sb.toString();
-        }
-
-    }
-
-    private class ImageGet extends AsyncTask<String, Void, Bitmap>{
-        @Override
-        public Bitmap doInBackground(String...params){
-            String URL = params[0];
-            InputStream is = null;
-            Bitmap bmp = null;
-
-            try {
-                URL url = new URL(URL);
-                is = url.openStream();
-                bmp = BitmapFactory.decodeStream(is);
-                is.close();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return bmp;
-        }
-        public void onPostExecute(Bitmap result) {
-            ImageView imageView = findViewById(R.id.imageView);
-            imageView.setImageBitmap(result);
-        }
-    }
-
-
-    private class  ButtonClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            TextView tvTargetMoney = findViewById(R.id.tv_FundRaisingInfo);
-            String item = "0";
-
-            Intent intent = new Intent(ProjectDetailActivity.this, DonationActivity.class);
-            intent.putExtra("projectNo",projectNo);
-            intent.putExtra("TargetMoney",item);
-            startActivity(intent);
         }
     }
 }

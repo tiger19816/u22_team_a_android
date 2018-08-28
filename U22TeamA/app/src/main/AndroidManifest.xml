@@ -46,7 +46,7 @@
         <activity android:name=".ContentEditActivity"/>
         <activity android:name=".ContentResultActivity"/>
         <activity android:name=".DonationCheckActivity"/>
-
+        <activity android:name=".DonationActivity"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
