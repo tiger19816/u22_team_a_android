@@ -115,5 +115,6 @@
 
     <string name="activity_project_detail_activity_first_rank">一段階目</string>
     <string name="activity_project_detail_activity_second_rank">二段階目</string>
+    <string name="tv_yen">円</string>
 </resources>
 
