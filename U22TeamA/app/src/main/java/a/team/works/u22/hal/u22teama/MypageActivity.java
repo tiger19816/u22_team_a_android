@@ -315,7 +315,7 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
                 String sex = "男";
 
                 tvName.setText(name);
-                tvBirth.setText(birthdate);
+                tvBirth.setText(DataConversion.getDataConversion02(birthdate));
                 tvAddress.setText(address);
                 if (tvSex.getText().toString().equals("1")) {
                     sex = "女";
