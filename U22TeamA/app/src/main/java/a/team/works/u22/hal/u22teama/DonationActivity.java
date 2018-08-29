@@ -37,9 +37,9 @@ public class DonationActivity extends AppCompatActivity {
         projectNo = (intent.getStringExtra("projectNo"));
 
         targetMoney = (intent.getStringExtra("TargetMoney"));
-
-        TextView tvTargetMoney = findViewById(R.id.tvTargetMoney);
-        tvTargetMoney.setText(targetMoney);
+//
+//        TextView tvTargetMoney = findViewById(R.id.tvTargetMoney);
+//        tvTargetMoney.setText(targetMoney);
 
         Button btCheck = findViewById(R.id.btCheckButton);
         btCheck.setOnClickListener(new donationCheckListener());
