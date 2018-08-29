@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include
+        android:id="@+id/include3"
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/include3">
 
         <TextView
             android:id="@+id/tvMsg"
@@ -27,43 +33,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/bt_contact_correction" />
+            android:text="@string/bt_contact_correction"
+            android:onClick="onBackButtonClick"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
-        android:background="@drawable/layout_shape"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/btSend"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_contact_content"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/edContent2"
             android:layout_width="match_parent"
-            android:layout_height="143dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/tvContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/tv_contact_content" />
-
-            <TextView
-                android:id="@+id/edContent2"
-                android:layout_width="wrap_content"
-                android:layout_height="145dp"
-                android:ems="10"
-                android:inputType="text" />
-
-        </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/btSend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bt_contact_send" />
+        android:layout_marginBottom="8dp"
+        android:text="@string/bt_contact_send"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
