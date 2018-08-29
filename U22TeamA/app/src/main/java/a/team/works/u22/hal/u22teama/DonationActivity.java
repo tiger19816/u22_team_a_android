@@ -77,7 +77,9 @@ public class DonationActivity extends AppCompatActivity {
         receiver.execute(DONATIONSET_URL, projectNo, memberNo, donationMoney);
 
         Toast.makeText(DonationActivity.this, "寄付ありがとうございました", Toast.LENGTH_SHORT).show();
-
+        Intent intent = new Intent(DonationActivity.this, TabLayoutCleanActivity.class);
+        intent.putExtra("mood", 1);
+        startActivity(intent);
     }
 
     /**
