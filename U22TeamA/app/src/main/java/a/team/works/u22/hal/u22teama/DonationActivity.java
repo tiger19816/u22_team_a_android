@@ -35,8 +35,8 @@ public class DonationActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         projectNo = (intent.getStringExtra("projectNo"));
-
-        targetMoney = (intent.getStringExtra("TargetMoney"));
+//
+//        targetMoney = (intent.getStringExtra("TargetMoney"));
 //
 //        TextView tvTargetMoney = findViewById(R.id.tvTargetMoney);
 //        tvTargetMoney.setText(targetMoney);
