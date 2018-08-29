@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,8 +51,8 @@ public class DonationActivity extends AppCompatActivity {
         public void onClick(View v){
             DonationCheckDialog dialog = new DonationCheckDialog();
             Bundle args = new Bundle();
-            Spinner spn = (Spinner)findViewById(R.id.spinner);
-            String donationMoney = (String)spn.getSelectedItem();
+            EditText spn = (EditText)findViewById(R.id.editText);
+            String donationMoney = (String)spn.getText().toString();
             args.putString("donationMoney", donationMoney);
             dialog.setArguments(args);
             dialog.show(getFragmentManager(), "checker");
@@ -59,8 +60,8 @@ public class DonationActivity extends AppCompatActivity {
     }
 
     public void donationSend(){
-        Spinner spn = (Spinner)findViewById(R.id.spinner);
-        String donationMoney = (String)spn.getSelectedItem();
+        EditText spn = (EditText)findViewById(R.id.editText);
+        String donationMoney = (String)spn.getText().toString();
         DonationSetTaskReceiver receiver = new DonationSetTaskReceiver();
         receiver.execute(DONATIONSET_URL, projectNo, memberNo, donationMoney);
 
