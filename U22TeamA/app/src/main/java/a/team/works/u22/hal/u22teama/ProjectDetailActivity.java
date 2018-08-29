@@ -46,7 +46,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_project_detail_activity);
 
         Intent intent = getIntent();
-        //projectNo = (intent.getStringExtra("projectNo"));
+        projectNo = (intent.getStringExtra("projectId"));
         ProjectInfoTaskReceiver receiver = new ProjectInfoTaskReceiver();
 
         Button btn = findViewById(R.id.bt_FundRaising);

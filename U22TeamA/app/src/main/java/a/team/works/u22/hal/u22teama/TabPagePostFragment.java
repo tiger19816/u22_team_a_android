@@ -198,6 +198,7 @@ public class TabPagePostFragment extends Fragment{
                 for (int i = 0; i < datas.length(); i++) {
                     JSONObject data = datas.getJSONObject(i);
                     Map map = new HashMap<String , Object>();
+                    map.put("postNo" , data.getString("postNo"));
                     map.put("postTitle" , data.getString("postTitle"));
                     map.put("postPhoto" , data.getString("postPhoto"));
                     map.put("postMoney" , data.getString("postMoney"));
@@ -220,7 +221,13 @@ public class TabPagePostFragment extends Fragment{
                                 tvPostTitle.setText(strData);
                                 return true;
                             case R.id.ivPostPhoto:
-                                ImageGetClean ig = new ImageGetClean();
+                                ImageGetClean ig = new ImageGetClean(new AsyncTaskCallBack() {
+                                    @Override
+                                    public void taskComp(Bitmap result) {
+                                        ImageView imageView = getActivity().findViewById(R.id.ivPostPhoto);
+                                        imageView.setImageBitmap(result);
+                                    }
+                                });
                                 ig.execute(GetUrl.photoUrl + strData);
                                 return true;
                             case R.id.tvPostMoney:
@@ -246,7 +253,7 @@ public class TabPagePostFragment extends Fragment{
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(getActivity(), ProjectDetailActivity.class);
                         Map<String, String> map = (Map<String, String>) adapter.getItem(position);
-//                        intent.putExtra("projectId", map.get("no"));
+                        intent.putExtra("projectId", map.get("postNo"));
                         startActivity(intent);
                     }
                 });
@@ -259,7 +266,13 @@ public class TabPagePostFragment extends Fragment{
 
 
     }
-    private class ImageGetClean extends AsyncTask<String, Void, Bitmap>{
+    private class ImageGetClean extends AsyncTask<String, Bitmap, Bitmap>{
+        private AsyncTaskCallBack callBack;
+
+        public ImageGetClean(AsyncTaskCallBack callBack) {
+            this.callBack = callBack;
+        }
+
         @Override
         public Bitmap doInBackground(String...params){
             String URL = params[0];
@@ -276,11 +289,18 @@ public class TabPagePostFragment extends Fragment{
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            publishProgress(bmp);
             return bmp;
         }
+
+        public void onProgressUpdate(Bitmap... bmp) {
+            this.callBack.taskComp(bmp[0]);
+        }
+
         public void onPostExecute(Bitmap result) {
-            ImageView imageView = getActivity().findViewById(R.id.ivPostPhoto);
-            imageView.setImageBitmap(result);
+//            this.callBack.taskComp(result);
+//            ImageView imageView = getActivity().findViewById(R.id.ivPostPhoto);
+//            imageView.setImageBitmap(result);
         }
     }
     private String is2String(InputStream is) throws IOException {
@@ -335,6 +355,10 @@ public class TabPagePostFragment extends Fragment{
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    public interface AsyncTaskCallBack {
+        public void taskComp(Bitmap result);
     }
 }
 
