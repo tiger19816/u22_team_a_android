@@ -28,7 +28,6 @@ public class DonationActivity extends AppCompatActivity {
     private static final String DONATIONSET_URL = GetUrl.DonationSetUrl;
     private static String projectNo = "1";
     private static String memberNo = "3";
-    private static String targetMoney;
     private static String donationMoney;
     private static int prFirstMax = 3000;
     private int prSecondMax;

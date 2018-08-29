@@ -169,6 +169,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 ig.execute(GetUrl.photoUrl + photo);
                 //日付
                 String postDate = rootJSON.getString("postDate");
+                postDate = DataConversion.getDataConversion02(postDate);
                 TextView tvPostDate = findViewById(R.id.tv_OrderDateInfo);
                 tvPostDate.setText(postDate);
                 //場所
