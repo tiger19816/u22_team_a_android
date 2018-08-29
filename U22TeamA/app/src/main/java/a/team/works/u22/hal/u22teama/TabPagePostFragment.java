@@ -221,14 +221,14 @@ public class TabPagePostFragment extends Fragment{
                                 tvPostTitle.setText(strData);
                                 return true;
                             case R.id.ivPostPhoto:
-                                ImageGetClean ig = new ImageGetClean(new AsyncTaskCallBack() {
-                                    @Override
-                                    public void taskComp(Bitmap result) {
-                                        ImageView imageView = getActivity().findViewById(R.id.ivPostPhoto);
-                                        imageView.setImageBitmap(result);
-                                    }
-                                });
-                                ig.execute(GetUrl.photoUrl + strData);
+//                                ImageGetClean ig = new ImageGetClean(new AsyncTaskCallBack() {
+//                                    @Override
+//                                    public void taskComp(Bitmap result) {
+//                                        ImageView imageView = getActivity().findViewById(R.id.ivPostPhoto);
+//                                        imageView.setImageBitmap(result);
+//                                    }
+//                                });
+//                                ig.execute(GetUrl.photoUrl + strData);
                                 return true;
                             case R.id.tvPostMoney:
                                 TextView tvPostMoney = (TextView) view;

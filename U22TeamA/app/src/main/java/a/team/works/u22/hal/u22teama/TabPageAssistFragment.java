@@ -221,8 +221,8 @@ public class TabPageAssistFragment extends Fragment{
                                 tvPostTitle.setText(strData);
                                 return true;
                             case R.id.ivPostPhoto:
-                                ImageGetClean ig = new ImageGetClean();
-                                ig.execute(GetUrl.photoUrl + strData);
+//                                ImageGetClean ig = new ImageGetClean();
+//                                ig.execute(GetUrl.photoUrl + strData);
                             case R.id.tvPostMoney:
                                 TextView tvPostMoney = (TextView) view;
                                 tvPostMoney.setText("協賛金：" + strData + "円");
