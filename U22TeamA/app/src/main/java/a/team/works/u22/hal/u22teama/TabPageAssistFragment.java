@@ -198,6 +198,7 @@ public class TabPageAssistFragment extends Fragment{
                 for (int i = 0; i < datas.length(); i++) {
                     JSONObject data = datas.getJSONObject(i);
                     Map map = new HashMap<String , Object>();
+                    map.put("postNo" , data.getString("postNo"));
                     map.put("postTitle" , data.getString("postTitle"));
                     map.put("postPhoto" , data.getString("postPhoto"));
                     map.put("postMoney" , data.getString("postMoney"));
@@ -243,9 +244,9 @@ public class TabPageAssistFragment extends Fragment{
                 lvAssistList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(String.valueOf(TabPageAssistFragment.this));
-//                        Map<String, String> map = (Map<String, String>) marker.getTag();
-                        intent.putExtra("id", "kbzg701");
+                        Intent intent = new Intent(getActivity(), ProjectDetailActivity.class);
+                        Map<String, String> map = (Map<String, String>) adapter.getItem(position);
+                        intent.putExtra("projectId", map.get("postNo"));
                         startActivity(intent);
                     }
                 });
