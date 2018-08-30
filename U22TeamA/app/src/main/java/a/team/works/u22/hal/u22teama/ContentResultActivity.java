@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -34,7 +35,7 @@ public class ContentResultActivity  extends AppCompatActivity {
      * @param savedInstanceState
      */
 
-
+    int loginId = 0;
     /**
      * ログインする先のURLを入れる定数.
      * AndroidエミュレータからPC内のサーバ(Eclipse上)にアクセスする場合は、localhost(127.0.0.1)ではなく、10.0.2.2にアクセスする。
@@ -46,15 +47,13 @@ public class ContentResultActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_result);
 
-Intent intent = getIntent();
-Bundle extras = intent.getExtras();
-String content= extras.getString("content");
-     TextView edContent = findViewById(R.id.edContent2);
-edContent.setText(content);
 
-        Button button = findViewById(R.id.btSend);
-        ButtonClickListener listener = new ButtonClickListener();
-        button.setOnClickListener(listener);
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        String content= extras.getString("content");
+        TextView edContent = findViewById(R.id.edContent2);
+        edContent.setText(content);
+        loginId = extras.getInt("loginId");
 
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -85,13 +84,7 @@ edContent.setText(content);
         finish();
     }
 
-    private class ButtonClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
-
-            //仮引数
-            String strId = "0";
+        public void onSendButtonClick(View view) {
 
             TextView edContent = findViewById(R.id.edContent2);
             String content = edContent.getText().toString();
@@ -99,10 +92,8 @@ edContent.setText(content);
             //非同期処理を開始する。
             LoginTaskReceiver receiver = new LoginTaskReceiver();
             //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-            receiver.execute(LOGIN_URL, strId, content);
-
+            receiver.execute(LOGIN_URL, String.valueOf(loginId), content);
         }
-    }
 
 
         /**
@@ -211,6 +202,9 @@ edContent.setText(content);
                 }
                 if (isLogin) {
                     Toast.makeText(ContentResultActivity.this , "成功" , Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ContentResultActivity.this, ProjectSearchMapsActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }else{
                     Toast.makeText(ContentResultActivity.this , "失敗" , Toast.LENGTH_SHORT).show();
                 }
