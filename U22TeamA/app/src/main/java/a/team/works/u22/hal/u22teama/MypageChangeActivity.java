@@ -2,6 +2,7 @@ package a.team.works.u22.hal.u22teama;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class MypageChangeActivity extends AppCompatActivity {
     private static final String MYPAGECHANGECOMPLETE_URL = GetUrl.MypageChangeCompleteUrl;
     //性別　0:男  1:女
     private String SEX_TYPE;
+    String userName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,13 +105,10 @@ public class MypageChangeActivity extends AppCompatActivity {
      */
     public void onChangeClickComplete(View view){
 
-        //ユーザーIDの取得。
-//        EditText etId = findViewById(R.id.etId);
-//        String strId = etId.getText().toString();
-
         //氏名の取得。
         EditText etName = findViewById(R.id.et_mypage_name);
         String name = etName.getText().toString();
+        userName = name;
 
         //住所の取得
         EditText etAddress = findViewById(R.id.et_address);
@@ -236,7 +235,12 @@ public class MypageChangeActivity extends AppCompatActivity {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
             if (isUpdate) {
+                SharedPreferences prefUserId = getSharedPreferences("prefUserId",0);//MODE_WORLD_WRITEABLE
+                SharedPreferences.Editor e = prefUserId.edit();
+                e.putString("name",userName);
+                e.commit();
                 Toast.makeText(MypageChangeActivity.this , "成功" , Toast.LENGTH_SHORT).show();
+                finish();
             }else{
                 Toast.makeText(MypageChangeActivity.this , "失敗" , Toast.LENGTH_SHORT).show();
             }

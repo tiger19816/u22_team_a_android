@@ -70,6 +70,42 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
 
         setTitle("マイページ");
 
+//        //ユーザ名を表示する
+//        SharedPreferences pref = getSharedPreferences("prefUserId",0);
+//        if(Build.VERSION.SDK_INT < 23) {
+//            TextView navTvUserName = navigationView.findViewById(R.id.navTvUserName);
+//            navTvUserName.setText(pref.getString("name", "ユーザ名"));
+//        } else {
+//            View headerView = navigationView.getHeaderView(0);
+//            TextView navTvUserName = headerView.findViewById(R.id.navTvUserName);
+//            navTvUserName.setText(pref.getString("name", "ユーザ名"));
+//        }
+//        int loginInfo = pref.getInt("id", 0);
+//        String loginInfoStr = String.valueOf(loginInfo);
+//        //非同期処理を開始する。
+//        MypageReceiver receiver = new MypageReceiver();
+//        //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+//        receiver.execute(LOGIN_URL, loginInfoStr);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //ツールバー(レイアウトを変更可)。
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = findViewById(R.id.dlMainContent);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        //レフトナビ本体。
+        NavigationView navigationView = findViewById(R.id.nvSideMenuButton);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        setTitle("マイページ");
+
         //ユーザ名を表示する
         SharedPreferences pref = getSharedPreferences("prefUserId",0);
         if(Build.VERSION.SDK_INT < 23) {
@@ -84,7 +120,7 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
         String loginInfoStr = String.valueOf(loginInfo);
         //非同期処理を開始する。
         MypageReceiver receiver = new MypageReceiver();
-        //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+        //ここで渡した引数はLoginTaskReceiverクラスvvのdoInBackground(String... params)で受け取れる。
         receiver.execute(LOGIN_URL, loginInfoStr);
     }
 
