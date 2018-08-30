@@ -21,5 +21,5 @@ public class GetUrl {
     public static final String MypageChangeCompleteUrl = fixedUrl + "MypageChangeCompleteServlet";
     public static final String MypageChangeUrl = fixedUrl + "MypageChangeServlet";
     public static final String ContactUrl = fixedUrl + "ContactServlet";
-    public static final String photoUrl = fixedUrl + "temp/";
+    public static final String photoUrl = fixedUrl + "ImageDisplay.jsp";
 }

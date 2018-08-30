@@ -227,7 +227,7 @@ public class TabPageAssistFragment extends Fragment{
                                 myWebView.setWebViewClient(new WebViewClient());
                                 myWebView.getSettings().setUseWideViewPort(true);
                                 myWebView.getSettings().setLoadWithOverviewMode(true);
-                                myWebView.loadUrl(GetUrl.photoUrl + strData);
+                                myWebView.loadUrl(GetUrl.photoUrl + "?img=" + strData);
                                 return true;
                             case R.id.tvPostMoney:
                                 TextView tvPostMoney = (TextView) view;

@@ -171,7 +171,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 myWebView.setWebViewClient(new WebViewClient());
                 myWebView.getSettings().setUseWideViewPort(true);
                 myWebView.getSettings().setLoadWithOverviewMode(true);
-                myWebView.loadUrl(GetUrl.photoUrl + photo);
+                myWebView.loadUrl(GetUrl.photoUrl + "?img=" + photo);
 
                 //日付
                 String postDate = rootJSON.getString("postDate");
