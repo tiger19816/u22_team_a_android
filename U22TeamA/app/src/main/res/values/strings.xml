@@ -37,6 +37,7 @@
     <string name="bt_surrounding_project">この周辺のプロジェクトを検索</string>
     <!--プロジェクト詳細、寄付画面-->
     <string name="tv_project_detail_activity_yen">円</string>
+    <string name="activity_project_detail_activity_title">タイトル :</string>
     <string name="tv_project_detail_activity_fundRaising">現在 :</string>
     <string name="tv_project_detail_activity_place">場所 :</string>
     <string name="tv_project_detail_activity_content">内容 :</string>
@@ -115,5 +116,8 @@
 
     <string name="activity_project_detail_activity_first_rank">一段階目</string>
     <string name="activity_project_detail_activity_second_rank">二段階目</string>
+
+    <!--全体使用可能なもの-->
+    <string name="tv_yen">円</string>
 </resources>
 

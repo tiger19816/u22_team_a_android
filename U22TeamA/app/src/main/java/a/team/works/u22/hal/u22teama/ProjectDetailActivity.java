@@ -39,6 +39,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
     private String donationMoney ="";
     private String cleaningFlag ="";
     private String prSecondMax ="0";
+    private String title ="";
+    private String allMoney ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +169,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 ig.execute(GetUrl.photoUrl + photo);
                 //日付
                 String postDate = rootJSON.getString("postDate");
+                postDate = DataConversion.getDataConversion02(postDate);
                 TextView tvPostDate = findViewById(R.id.tv_OrderDateInfo);
                 tvPostDate.setText(postDate);
                 //場所
@@ -177,6 +180,10 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 String content = rootJSON.getString("content");
                 TextView tvContent = findViewById(R.id.tv_ContentInfo);
                 tvContent.setText(content);
+                //タイトル
+                title = rootJSON.getString("title");
+                TextView tvTitle = findViewById(R.id.tv_title);
+                tvTitle.setText(title);
                 //現在の寄付金額
                 String fundRaising = rootJSON.getString("donationMoney");
                 donationMoney = fundRaising;
@@ -238,11 +245,13 @@ public class ProjectDetailActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             TextView tvTargetMoney = findViewById(R.id.tv_FundRaisingInfo);
-            String item = "0";
 
             Intent intent = new Intent(ProjectDetailActivity.this, DonationActivity.class);
+            intent.putExtra("title", title);
+            intent.putExtra("cleaningFlag",cleaningFlag);
+            intent.putExtra("donationMoney", donationMoney );
             intent.putExtra("projectNo",projectNo);
-            intent.putExtra("TargetMoney",item);
+            intent.putExtra("TargetMoney",prSecondMax);
             startActivity(intent);
         }
     }
