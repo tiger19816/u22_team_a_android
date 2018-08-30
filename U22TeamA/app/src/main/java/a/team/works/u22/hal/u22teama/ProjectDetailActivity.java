@@ -194,7 +194,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 String fundRaising = rootJSON.getString("donationMoney");
                 donationMoney = fundRaising;
                 TextView tvFundRaising = findViewById(R.id.tv_FundRaisingInfo);
-                tvFundRaising.setText(fundRaising);
+                tvFundRaising.setText(fundRaising + getString(R.string.tv_yen));
                 //掃除進行状況
                 cleaningFlag = rootJSON.getString("cleanFlag");
                 //目標金額
