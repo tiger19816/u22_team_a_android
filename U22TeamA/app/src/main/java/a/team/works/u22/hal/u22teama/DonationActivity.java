@@ -45,7 +45,7 @@ public class DonationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         // アプリ標準の Preferences を取得する
         SharedPreferences sp = getSharedPreferences(preferencesKey , 0);
-        memberNo = sp.getString("id", "-1");
+        memberNo = String.valueOf(sp.getInt("id", 0));
 
         projectNo = (intent.getStringExtra("projectNo"));
         String title = (intent.getStringExtra("title"));
@@ -67,7 +67,7 @@ public class DonationActivity extends AppCompatActivity {
     private class donationCheckListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            if (!"-1".equals(memberNo)) {
+            if (!"0".equals(memberNo)) {
                 DonationCheckDialog dialog = new DonationCheckDialog();
                 Bundle args = new Bundle();
                 EditText spn = (EditText) findViewById(R.id.editText);

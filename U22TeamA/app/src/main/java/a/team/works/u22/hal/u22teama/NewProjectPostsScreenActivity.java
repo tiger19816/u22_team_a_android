@@ -156,7 +156,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
 
         // アプリ標準の Preferences を取得する
         SharedPreferences sp = getSharedPreferences(preferencesKey , 0);
-        userId = sp.getInt("id", 999);
+        userId = sp.getInt("id", 0);
 
         ivDisplay = findViewById(R.id.iv_CheckPhots);
 
