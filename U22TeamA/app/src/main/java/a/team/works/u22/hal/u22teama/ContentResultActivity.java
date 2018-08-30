@@ -53,10 +53,6 @@ String content= extras.getString("content");
      TextView edContent = findViewById(R.id.edContent2);
 edContent.setText(content);
 
-        Button button = findViewById(R.id.btSend);
-        ButtonClickListener listener = new ButtonClickListener();
-        button.setOnClickListener(listener);
-
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -86,10 +82,7 @@ edContent.setText(content);
         finish();
     }
 
-    private class ButtonClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
+        public void onSendButtonClick(View view) {
 
             //仮引数
             String strId = "0";
@@ -103,7 +96,6 @@ edContent.setText(content);
             receiver.execute(LOGIN_URL, strId, content);
 
         }
-    }
 
 
         /**
