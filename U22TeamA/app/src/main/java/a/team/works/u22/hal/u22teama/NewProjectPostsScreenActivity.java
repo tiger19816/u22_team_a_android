@@ -510,9 +510,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                     //撮影した画像の名前を日付から確定
                     StrImgName = getFileName();
                     mediaFile = new File(mediaFile.getPath() + "/" + StrImgName);
-
-                  //  ImageUtil.setImageVew(ivDisplay,_bitmap,orientation,viewWidth);
-
                     try {
                         FileOutputStream outStream = new FileOutputStream(mediaFile);
                         _bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
@@ -559,7 +556,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
 
                     if(resultLocation[0] <= area){
                         System.out.println("エリア内");
-//                        ivDisplay.setImageBitmap(_bitmap);
                         latitude = saveLatitude;
                         longtude = saveLongtude;
                         latitudeRef = saveLatitudeRef;
@@ -568,16 +564,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
                     else {
                         System.out.println("エリア外");
                     }
-
-
                     break;
-
-//-----------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
 
                 case RESULT_CANCELED:    //撮影が途中で中止
                     Toast.makeText(NewProjectPostsScreenActivity.this, "撮影が中止されました。", Toast.LENGTH_SHORT).show();
@@ -595,21 +582,6 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
     @Override
     public void onProviderDisabled(String provider) {
     }
-
-//
-//    /**
-//     * オプションメニュー表示の秘密の言葉
-//     *
-//     * @param menu
-//     * @return
-//     */
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.option_menu_activity_new_project_posts_screen, menu);
-//        return true;
-//    }
 
     /**
      * アクションバーの機能

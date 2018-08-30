@@ -2,10 +2,16 @@ package a.team.works.u22.hal.u22teama;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -26,7 +32,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DonationActivity extends AppCompatActivity {
+public class DonationActivity extends AppCompatActivity implements TextWatcher {
     //Preferences のキー名
     final private String preferencesKey = "prefUserId";
     private static final String DONATIONSET_URL = GetUrl.DonationSetUrl;
@@ -41,6 +47,16 @@ public class DonationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation);
+
+        //ツールバー(レイアウトを変更可)。
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //戻るボタン
+        android.support.v7.app.ActionBar actionbar = getSupportActionBar();
+        actionbar.setHomeButtonEnabled(true);
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        setTitle("寄付金額入力");
 
         Intent intent = getIntent();
         // アプリ標準の Preferences を取得する
@@ -60,6 +76,11 @@ public class DonationActivity extends AppCompatActivity {
 
         Button btCheck = findViewById(R.id.btCheckButton);
         btCheck.setOnClickListener(new donationCheckListener());
+
+
+        EditText editText = findViewById(R.id.editText);
+        // リスナーを登録
+        editText.addTextChangedListener(this);
 
 
     }
@@ -203,6 +224,8 @@ public class DonationActivity extends AppCompatActivity {
         tvFirst.setText(tvFirst.getText().toString() + " : "  + donationMoney +"円 / " + prFirstMax+ "円");
         prFirst.setMax(prFirstMax);
         prFirst.setProgress(Integer.parseInt(donationMoney));
+        TextView tvIfMoney = findViewById(R.id.tv_if_money);
+        tvIfMoney.setText(donationMoney);
         if(Integer.parseInt(cleaningFlag) >= 2){
             ProgressBar prSecond = findViewById(R.id.pb_second);
             TextView tvSecond = findViewById(R.id.tvSecondPD);
@@ -213,5 +236,64 @@ public class DonationActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * アクションバーの機能
+     *
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            /**
+             * 戻るボタンが押された時
+             */
+            case android.R.id.home:
+                finish();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //-------------------
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        // テキスト変更後に変更されたテキストを取り出す
+        String inputStr= s.toString();
+        //仮入金金額表示
+        TextView tvIfMoney = findViewById(R.id.tv_if_money);
+        //金額が入力された時に変動する２段階目のプログレスバー
+        if(!"".equals(inputStr)) {
+            tvIfMoney.setText(((Integer.parseInt(donationMoney) + Integer.parseInt(inputStr))) + "");
+            if(Integer.parseInt(cleaningFlag) >= 2){
+                ProgressBar prSecond = findViewById(R.id.pb_second);
+                prSecond.setMax(prSecondMax);
+                prSecond.setProgress(Integer.parseInt(donationMoney) +  Integer.parseInt(inputStr));
+            }else{
+                tvIfMoney.setText(donationMoney);
+                ProgressBar prFirst = findViewById(R.id.pb_first);
+                prFirst.setSecondaryProgress(Integer.parseInt(inputStr));
+            }
+
+        }else{
+            if(Integer.parseInt(cleaningFlag) >= 2){
+                ProgressBar prSecond = findViewById(R.id.pb_second);
+                prSecond.setSecondaryProgress(0);
+            }else{
+                ProgressBar prFirst = findViewById(R.id.pb_first);
+                prFirst.setSecondaryProgress(0);
+            }
+        }
+    }
 
 }
