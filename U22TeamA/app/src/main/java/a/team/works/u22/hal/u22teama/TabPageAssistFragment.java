@@ -228,13 +228,14 @@ public class TabPageAssistFragment extends Fragment{
                                 myWebView.getSettings().setUseWideViewPort(true);
                                 myWebView.getSettings().setLoadWithOverviewMode(true);
                                 myWebView.loadUrl(GetUrl.photoUrl + strData);
+                                return true;
                             case R.id.tvPostMoney:
                                 TextView tvPostMoney = (TextView) view;
                                 tvPostMoney.setText("協賛金：" + strData + "円");
                                 return true;
                             case R.id.tvPostDate:
                                 TextView tvPostDate = (TextView) view;
-                                tvPostDate.setText("協賛日：" + strData);
+                                tvPostDate.setText("協賛日：" + DataConversion.getDataConversion02(strData));
                                 return true;
                             case R.id.tvPostStatus:
                                 TextView tvPostStatus = (TextView) view;

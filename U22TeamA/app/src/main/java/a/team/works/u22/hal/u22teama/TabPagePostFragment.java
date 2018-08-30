@@ -195,7 +195,6 @@ public class TabPagePostFragment extends Fragment{
                 JSONObject rootJSON = new JSONObject(result);
 
                 JSONArray datas = rootJSON.getJSONArray("postsList");
-
                 //投稿情報
                 for (int i = 0; i < datas.length(); i++) {
                     JSONObject data = datas.getJSONObject(i);
@@ -223,7 +222,6 @@ public class TabPagePostFragment extends Fragment{
                                 tvPostTitle.setText(strData);
                                 return true;
                             case R.id.wvPostsImage:
-
                                 WebView myWebView = (WebView) view;
                                 myWebView.setWebViewClient(new WebViewClient());
                                 myWebView.getSettings().setUseWideViewPort(true);
@@ -236,7 +234,7 @@ public class TabPagePostFragment extends Fragment{
                                 return true;
                             case R.id.tvPostDate:
                                 TextView tvPostDate = (TextView) view;
-                                tvPostDate.setText("投稿日：" + strData);
+                                tvPostDate.setText("投稿日：" + DataConversion.getDataConversion02(strData));
                                 return true;
                             case R.id.tvPostStatus:
                                 TextView tvPostStatus = (TextView) view;
