@@ -178,12 +178,12 @@
             app:layout_constraintTop_toBottomOf="@+id/input_phone_number">
 
             <RadioButton
-            android:id="@+id/bt_men"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="@string/tv_new_registration_men" />
+                android:id="@+id/bt_men"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/tv_new_registration_men" />
             <RadioButton
             android:id="@+id/bt_women"
             android:layout_width="wrap_content"
