@@ -195,7 +195,7 @@ public class TabPageAssistFragment extends Fragment{
             try {
                 JSONObject rootJSON = new JSONObject(result);
 
-                JSONArray datas = rootJSON.getJSONArray("postsList");
+                JSONArray datas = rootJSON.getJSONArray("assistsList");
                 //投稿情報
                 for (int i = 0; i < datas.length(); i++) {
                     JSONObject data = datas.getJSONObject(i);
