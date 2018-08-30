@@ -201,9 +201,9 @@ public class ContentResultActivity  extends AppCompatActivity {
                     Log.e(DEBUG_TAG, "JSON解析失敗", ex);
                 }
                 if (isLogin) {
-                    Toast.makeText(ContentResultActivity.this , "成功" , Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ContentResultActivity.this, ProjectSearchMapsActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Toast.makeText(ContentResultActivity.this , "成功" , Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 }else{
                     Toast.makeText(ContentResultActivity.this , "失敗" , Toast.LENGTH_SHORT).show();
