@@ -23,6 +23,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -208,7 +210,7 @@ public class TabPagePostFragment extends Fragment{
                 }
 
                 String[] from = {"postTitle" , "postPhoto" , "postMoney" , "postDate" , "postStatus"};
-                int[] to = {R.id.tvPostTitle , R.id.ivPostPhoto , R.id.tvPostMoney , R.id.tvPostDate , R.id.tvPostStatus};
+                int[] to = {R.id.tvPostTitle , R.id.wvPostsImage , R.id.tvPostMoney , R.id.tvPostDate , R.id.tvPostStatus};
                 final SimpleAdapter adapter = new SimpleAdapter(getActivity() , _list , R.layout.row_posts , from , to);
                 adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
                     @Override
@@ -220,15 +222,13 @@ public class TabPagePostFragment extends Fragment{
                                 TextView tvPostTitle = (TextView) view;
                                 tvPostTitle.setText(strData);
                                 return true;
-                            case R.id.ivPostPhoto:
-//                                ImageGetClean ig = new ImageGetClean(new AsyncTaskCallBack() {
-//                                    @Override
-//                                    public void taskComp(Bitmap result) {
-//                                        ImageView imageView = getActivity().findViewById(R.id.ivPostPhoto);
-//                                        imageView.setImageBitmap(result);
-//                                    }
-//                                });
-//                                ig.execute(GetUrl.photoUrl + strData);
+                            case R.id.wvPostsImage:
+
+                                WebView myWebView = (WebView) view;
+                                myWebView.setWebViewClient(new WebViewClient());
+                                myWebView.getSettings().setUseWideViewPort(true);
+                                myWebView.getSettings().setLoadWithOverviewMode(true);
+                                myWebView.loadUrl(GetUrl.photoUrl + strData);
                                 return true;
                             case R.id.tvPostMoney:
                                 TextView tvPostMoney = (TextView) view;
@@ -266,43 +266,6 @@ public class TabPagePostFragment extends Fragment{
 
 
     }
-    private class ImageGetClean extends AsyncTask<String, Bitmap, Bitmap>{
-        private AsyncTaskCallBack callBack;
-
-        public ImageGetClean(AsyncTaskCallBack callBack) {
-            this.callBack = callBack;
-        }
-
-        @Override
-        public Bitmap doInBackground(String...params){
-            String URL = params[0];
-            InputStream is = null;
-            Bitmap bmp = null;
-
-            try {
-                URL url = new URL(URL);
-                is = url.openStream();
-                bmp = BitmapFactory.decodeStream(is);
-                is.close();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            publishProgress(bmp);
-            return bmp;
-        }
-
-        public void onProgressUpdate(Bitmap... bmp) {
-            this.callBack.taskComp(bmp[0]);
-        }
-
-        public void onPostExecute(Bitmap result) {
-//            this.callBack.taskComp(result);
-//            ImageView imageView = getActivity().findViewById(R.id.ivPostPhoto);
-//            imageView.setImageBitmap(result);
-        }
-    }
     private String is2String(InputStream is) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
         StringBuffer sb = new StringBuffer();
@@ -313,13 +276,6 @@ public class TabPagePostFragment extends Fragment{
         }
         return sb.toString();
     }
-
-
-//    public void onSearchButtonClick(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
-//        super.onCreateContextMenu(menu, view, menuInfo);
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.context_menu_sample, menu);
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -361,4 +317,5 @@ public class TabPagePostFragment extends Fragment{
         public void taskComp(Bitmap result);
     }
 }
+
 
