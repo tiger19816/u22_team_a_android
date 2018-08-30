@@ -1,6 +1,7 @@
 package a.team.works.u22.hal.u22teama;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class DonationActivity extends AppCompatActivity {
+    //Preferences のキー名
+    final private String preferencesKey = "prefUserId";
     private static final String DONATIONSET_URL = GetUrl.DonationSetUrl;
     private static String projectNo = "1";
     private static String memberNo = "3";
@@ -40,6 +43,10 @@ public class DonationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_donation);
 
         Intent intent = getIntent();
+        // アプリ標準の Preferences を取得する
+        SharedPreferences sp = getSharedPreferences(preferencesKey , 0);
+        memberNo = sp.getString("id", "-1");
+
         projectNo = (intent.getStringExtra("projectNo"));
         String title = (intent.getStringExtra("title"));
         cleaningFlag = (intent.getStringExtra("cleaningFlag"));
@@ -53,18 +60,25 @@ public class DonationActivity extends AppCompatActivity {
 
         Button btCheck = findViewById(R.id.btCheckButton);
         btCheck.setOnClickListener(new donationCheckListener());
+
+
     }
 
     private class donationCheckListener implements View.OnClickListener{
         @Override
-        public void onClick(View v){
-            DonationCheckDialog dialog = new DonationCheckDialog();
-            Bundle args = new Bundle();
-            EditText spn = (EditText)findViewById(R.id.editText);
-            String donationMoney = (String)spn.getText().toString();
-            args.putString("donationMoney", donationMoney);
-            dialog.setArguments(args);
-            dialog.show(getFragmentManager(), "checker");
+        public void onClick(View v) {
+            if (!"-1".equals(memberNo)) {
+                DonationCheckDialog dialog = new DonationCheckDialog();
+                Bundle args = new Bundle();
+                EditText spn = (EditText) findViewById(R.id.editText);
+                String donationMoney = (String) spn.getText().toString();
+                args.putString("donationMoney", donationMoney);
+                dialog.setArguments(args);
+                dialog.show(getFragmentManager(), "checker");
+            }else{
+                Toast.makeText(DonationActivity.this, "ログインIDを取得できていません。", Toast.LENGTH_SHORT).show();
+
+            }
         }
     }
 
@@ -198,4 +212,6 @@ public class DonationActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
