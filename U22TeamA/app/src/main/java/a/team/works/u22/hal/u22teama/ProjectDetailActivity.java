@@ -1,10 +1,12 @@
 package a.team.works.u22.hal.u22teama;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,10 +40,12 @@ public class ProjectDetailActivity extends AppCompatActivity {
     private static String projectNo = "5";
     //プログレスバー１番の最大値設定
     private final int prFirstMax = 3000;
+    private Dialog dialog;
     private String donationMoney ="";
     private String cleaningFlag ="";
     private String prSecondMax ="0";
     private String title ="";
+    private String cleanImageUrl = "";
     private String allMoney ="";
 
     @Override
@@ -53,8 +57,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
         projectNo = (intent.getStringExtra("projectId"));
         ProjectInfoTaskReceiver receiver = new ProjectInfoTaskReceiver();
 
-        Button btn = findViewById(R.id.bt_FundRaising);
-        btn.setOnClickListener(new ButtonClickListener());
+        dialog = new Dialog(ProjectDetailActivity.this);
+
 
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
         receiver.execute(ProjectDetail_URL, projectNo);
@@ -172,7 +176,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 myWebView.getSettings().setUseWideViewPort(true);
                 myWebView.getSettings().setLoadWithOverviewMode(true);
                 myWebView.loadUrl(GetUrl.photoUrl + photo);
-
+                //清掃画像
+                cleanImageUrl = rootJSON.getString("cleaningPhoto");
                 //日付
                 String postDate = rootJSON.getString("postDate");
                 postDate = DataConversion.getDataConversion02(postDate);
@@ -200,13 +205,24 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 //目標金額
                 prSecondMax = rootJSON.getString("targetMoney");
 
+                String completeFlag = rootJSON.getString("completeFlag");
+
+                if(!completeFlag.equals("1")) {
+                    Log.e("cat",completeFlag);
+                    Button btn = findViewById(R.id.bt_FundRaising);
+                    btn.setOnClickListener(new ButtonClickListener());
+                }else{
+                    Log.e("cat","nekoneko");
+                    Button btn = findViewById(R.id.bt_FundRaising);
+                    btn.setOnClickListener(new ButtonClickOpenCleanImage());
+                }
                 SetProgresBarr();
 
             } catch(JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
         }
-
+        @NonNull
         private String is2String(InputStream is) throws IOException {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             StringBuffer sb = new StringBuffer();
@@ -249,5 +265,27 @@ public class ProjectDetailActivity extends AppCompatActivity {
             prSecond.setProgress(Integer.parseInt(donationMoney));
         }
 
+    }
+
+    private class ButtonClickOpenCleanImage implements View.OnClickListener{
+        @Override
+        public void onClick(View v){
+
+            dialog.setContentView(R.layout.dialog_clean_image);
+            WebView cleaningPhoto = (WebView)dialog.findViewById(R.id.wvCleaningPhoto);
+            cleaningPhoto.setWebViewClient(new WebViewClient());
+            cleaningPhoto.getSettings().setUseWideViewPort(true);
+            cleaningPhoto.getSettings().setLoadWithOverviewMode(true);
+            Log.e("cat",GetUrl.cleaningPhotoUrl+cleanImageUrl);
+            cleaningPhoto.loadUrl(GetUrl.cleaningPhotoUrl + cleanImageUrl);
+            Button button = (Button)dialog.findViewById(R.id.button);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        }
     }
 }

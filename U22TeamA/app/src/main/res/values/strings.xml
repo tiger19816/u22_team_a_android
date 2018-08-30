@@ -85,6 +85,7 @@
     <string name="bt_contact_confirming">確認</string>
     <string name="bt_contact_send">送信</string>
     <string name="bt_contact_correction">訂正</string>
+    <string name="bt_close">閉じる</string>
 
     <string name="tv_contact_name">お名前</string>
 
