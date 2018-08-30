@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -39,6 +41,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
     private String donationMoney ="";
     private String cleaningFlag ="";
     private String prSecondMax ="0";
+    private String title ="";
+    private String allMoney ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,10 +167,15 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 Log.e("neko", result);
                 //画像
                 String photo = rootJSON.getString("photo");
-                ImageGet ig = new ImageGet();
-                ig.execute(GetUrl.photoUrl + photo);
+                WebView myWebView = findViewById(R.id.wvProjectPhoto);
+                myWebView.setWebViewClient(new WebViewClient());
+                myWebView.getSettings().setUseWideViewPort(true);
+                myWebView.getSettings().setLoadWithOverviewMode(true);
+                myWebView.loadUrl(GetUrl.photoUrl + "?img=" + photo);
+
                 //日付
                 String postDate = rootJSON.getString("postDate");
+                postDate = DataConversion.getDataConversion02(postDate);
                 TextView tvPostDate = findViewById(R.id.tv_OrderDateInfo);
                 tvPostDate.setText(postDate);
                 //場所
@@ -177,6 +186,10 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 String content = rootJSON.getString("content");
                 TextView tvContent = findViewById(R.id.tv_ContentInfo);
                 tvContent.setText(content);
+                //タイトル
+                title = rootJSON.getString("title");
+                TextView tvTitle = findViewById(R.id.tv_title);
+                tvTitle.setText(title);
                 //現在の寄付金額
                 String fundRaising = rootJSON.getString("donationMoney");
                 donationMoney = fundRaising;
@@ -204,45 +217,20 @@ public class ProjectDetailActivity extends AppCompatActivity {
             }
             return sb.toString();
         }
-
     }
-
-    private class ImageGet extends AsyncTask<String, Void, Bitmap>{
-        @Override
-        public Bitmap doInBackground(String...params){
-            String URL = params[0];
-            InputStream is = null;
-            Bitmap bmp = null;
-
-            try {
-                URL url = new URL(URL);
-                is = url.openStream();
-                bmp = BitmapFactory.decodeStream(is);
-                is.close();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return bmp;
-        }
-        public void onPostExecute(Bitmap result) {
-            ImageView imageView = findViewById(R.id.imageView);
-            imageView.setImageBitmap(result);
-        }
-    }
-
 
     private class  ButtonClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
             TextView tvTargetMoney = findViewById(R.id.tv_FundRaisingInfo);
-            String item = "0";
 
             Intent intent = new Intent(ProjectDetailActivity.this, DonationActivity.class);
+            intent.putExtra("title", title);
+            intent.putExtra("cleaningFlag",cleaningFlag);
+            intent.putExtra("donationMoney", donationMoney );
             intent.putExtra("projectNo",projectNo);
-            intent.putExtra("TargetMoney",item);
+            intent.putExtra("TargetMoney",prSecondMax);
             startActivity(intent);
         }
     }

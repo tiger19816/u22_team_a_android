@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,7 +15,7 @@ public class DonationCheckDialog extends DialogFragment{
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         String donationMoney = getArguments().getString("donationMoney");
         dialogBuilder.setTitle("寄付金額確認");
-        dialogBuilder.setMessage("下記の金額を寄付します。\nよろしいですか？\n\n\n"+donationMoney+"");
+        dialogBuilder.setMessage("下記の金額を寄付します。\nよろしいですか？\n\n\n"+donationMoney+"  円");
         final TextView tvCheck = new TextView(getActivity());
         dialogBuilder.setView(tvCheck);
 
@@ -29,6 +30,7 @@ public class DonationCheckDialog extends DialogFragment{
             public void onClick(DialogInterface dialog, int which) {
                 DonationActivity donationActivity = (DonationActivity) getActivity();
                 donationActivity.donationSend();
+
             }
         });
         return dialogBuilder.create();

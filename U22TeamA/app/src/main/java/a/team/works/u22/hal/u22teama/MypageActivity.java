@@ -53,7 +53,7 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_tab_page1);
+        setContentView(R.layout.activity_mypage);
 
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -351,7 +351,7 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
                 String sex = "男";
 
                 tvName.setText(name);
-                tvBirth.setText(birthdate);
+                tvBirth.setText(DataConversion.getDataConversion02(birthdate));
                 tvAddress.setText(address);
                 if (tvSex.getText().toString().equals("1")) {
                     sex = "女";
