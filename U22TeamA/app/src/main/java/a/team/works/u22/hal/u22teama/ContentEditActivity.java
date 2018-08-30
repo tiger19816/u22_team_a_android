@@ -1,6 +1,7 @@
 package a.team.works.u22.hal.u22teama;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ public class ContentEditActivity extends AppCompatActivity {
      * @param savedInstanceState
      */
 
+    int loginId = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,9 @@ public class ContentEditActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        SharedPreferences pref = getSharedPreferences("prefUserId",0);
+        loginId = pref.getInt("id", 0);
 
     }
 
@@ -60,6 +66,7 @@ public class ContentEditActivity extends AppCompatActivity {
             Intent intent = new Intent(ContentEditActivity.this,ContentResultActivity.class);
             EditText edContent = findViewById(R.id.edContent);
             String content = edContent.getText().toString();
+            intent.putExtra("loginId", loginId);
             intent.putExtra("content",content);
             startActivity(intent);
         }
