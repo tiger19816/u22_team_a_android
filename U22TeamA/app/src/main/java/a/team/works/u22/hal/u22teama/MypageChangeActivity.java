@@ -39,6 +39,7 @@ public class MypageChangeActivity extends AppCompatActivity {
     //性別　0:男  1:女
     private String SEX_TYPE;
     String userName = "";
+    int loginId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,9 @@ public class MypageChangeActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        SharedPreferences pref = getSharedPreferences("prefUserId",0);
+        loginId = pref.getInt("id", 0);
     }
 
     @Override
@@ -125,7 +129,7 @@ public class MypageChangeActivity extends AppCompatActivity {
         //非同期処理を開始する。
         LoginTaskReceiver receiver = new LoginTaskReceiver();
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-        receiver.execute(MYPAGECHANGECOMPLETE_URL, name, address, SEX_TYPE, mail, phone);
+        receiver.execute(MYPAGECHANGECOMPLETE_URL, String.valueOf(loginId), name, address, SEX_TYPE, mail, phone);
     }
 
     /**
@@ -145,14 +149,15 @@ public class MypageChangeActivity extends AppCompatActivity {
         @Override
         public String doInBackground(String... params) {
             String urlStr = params[0];
-            String name = params[1];
-            String address = params[2];
-            String sex = params[3];
-            String mail = params[4];
-            String phone= params[5];
+            String no = params[1];
+            String name = params[2];
+            String address = params[3];
+            String sex = params[4];
+            String mail = params[5];
+            String phone= params[6];
 
             //POSTで送りたいデータ
-            String postData = "name=" + name + "&address=" + address + "&sex=" + sex + "&mail=" + mail + "&phone=" + phone;
+            String postData = "no=" + no + "name=" + name + "&address=" + address + "&sex=" + sex + "&mail=" + mail + "&phone=" + phone;
 
             HttpURLConnection con = null;
             InputStream is = null;
