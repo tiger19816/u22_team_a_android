@@ -1,6 +1,7 @@
 package a.team.works.u22.hal.u22teama;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -44,6 +45,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
     private String title ="";
     private String allMoney ="";
 
+    public ProgressDialog _pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +88,24 @@ public class ProjectDetailActivity extends AppCompatActivity {
     private class ProjectInfoTaskReceiver extends AsyncTask<String, Void, String> {
 
         private static final String DEBUG_TAG = "RestAccess";
+
+        /**
+         * 通信開始前に実行されるメソッド。
+         *
+         * ここで、プログレスダイアログを生成しましょう。
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            // プログレスダイアログの生成。
+            _pDialog = new ProgressDialog(ProjectDetailActivity.this);
+            _pDialog.setMessage(getString(R.string.progress_message));  // メッセージを設定。
+
+            // プログレスダイアログの表示。
+            _pDialog.show();
+
+        }
 
         /**
          * 非同期に処理したい内容を記述するメソッド.
@@ -205,6 +226,12 @@ public class ProjectDetailActivity extends AppCompatActivity {
             } catch(JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
+
+            // ロード画面を消す。
+            if (_pDialog != null && _pDialog.isShowing()) {
+                _pDialog.dismiss();
+            }
+
         }
 
         private String is2String(InputStream is) throws IOException {

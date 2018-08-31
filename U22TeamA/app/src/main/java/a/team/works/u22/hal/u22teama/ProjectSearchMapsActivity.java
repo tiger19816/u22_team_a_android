@@ -1,6 +1,7 @@
 package a.team.works.u22.hal.u22teama;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -67,6 +68,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
     private ArrayList<Marker> markers;
     private Intent intent;
 
+    public ProgressDialog _pDialog;
     /**
      * アニメーションにかける時間（ミリ秒）
      */
@@ -319,6 +321,24 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
         private static final String DEBUG_TAG = "RestAccess";
 
         /**
+         * 通信開始前に実行されるメソッド。
+         *
+         * ここで、プログレスダイアログを生成しましょう。
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            // プログレスダイアログの生成。
+            _pDialog = new ProgressDialog(ProjectSearchMapsActivity.this);
+            _pDialog.setMessage(getString(R.string.progress_message));  // メッセージを設定。
+
+            // プログレスダイアログの表示。
+            _pDialog.show();
+
+        }
+
+        /**
          * 非同期に処理したい内容を記述するメソッド.
          * このメソッドは必ず実装する必要がある。
          *
@@ -504,6 +524,11 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
 
             mMap.setIndoorEnabled(false);
             mMap.getUiSettings().setTiltGesturesEnabled(false);
+
+            // ロード画面を消す。
+            if (_pDialog != null && _pDialog.isShowing()) {
+                _pDialog.dismiss();
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package a.team.works.u22.hal.u22teama;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -65,6 +67,8 @@ public class TabPagePostFragment extends Fragment{
     private String _flag = "1";
     private String _id = "0";
 
+    public ProgressDialog _pDialog;
+
     /**
      * コンストラクタ.
      */
@@ -103,6 +107,24 @@ public class TabPagePostFragment extends Fragment{
 
         private static final String DEBUG_TAG = "RestAccess";
         private List<Map<String, Object>> _list = new ArrayList<Map<String, Object>>();
+
+
+        /**
+         * 通信開始前に実行されるメソッド。
+         *
+         * ここで、プログレスダイアログを生成しましょう。
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            _pDialog = new ProgressDialog(getActivity());
+            _pDialog.setMessage(getString(R.string.progress_message));  // メッセージを設定。
+
+            // プログレスダイアログの表示。
+            _pDialog.show();
+
+        }
 
         /**
          * 非同期に処理したい内容を記述するメソッド.
@@ -259,6 +281,10 @@ public class TabPagePostFragment extends Fragment{
             }
             catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
+            }
+            // ロード画面を消す。
+            if (_pDialog != null && _pDialog.isShowing()) {
+                _pDialog.dismiss();
             }
         }
 
