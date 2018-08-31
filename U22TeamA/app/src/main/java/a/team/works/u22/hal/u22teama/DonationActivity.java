@@ -89,13 +89,23 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
         @Override
         public void onClick(View v) {
             if (!"0".equals(memberNo)) {
-                DonationCheckDialog dialog = new DonationCheckDialog();
-                Bundle args = new Bundle();
                 EditText spn = (EditText) findViewById(R.id.editText);
-                String donationMoney = (String) spn.getText().toString();
-                args.putString("donationMoney", donationMoney);
-                dialog.setArguments(args);
-                dialog.show(getFragmentManager(), "checker");
+                if(spn.getText().toString().equals("")||spn.getText().toString().equals(null)){
+                    Toast.makeText(DonationActivity.this, "寄付金額を入力してください。", Toast.LENGTH_SHORT).show();
+                }else {
+                    String s_money = spn.getText().toString();
+                    int money = Integer.parseInt(s_money);
+                    if(money == 0){
+                        Toast.makeText(DonationActivity.this, "寄付金額に0は入力できません。", Toast.LENGTH_SHORT).show();
+                    }else{
+                        DonationCheckDialog dialog = new DonationCheckDialog();
+                        Bundle args = new Bundle();
+                        String donationMoney = (String) spn.getText().toString();
+                        args.putString("donationMoney", donationMoney);
+                        dialog.setArguments(args);
+                        dialog.show(getFragmentManager(), "checker");
+                    }
+                }
             }else{
                 Toast.makeText(DonationActivity.this, "ログインIDを取得できていません。", Toast.LENGTH_SHORT).show();
 
