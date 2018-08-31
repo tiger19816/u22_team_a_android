@@ -1,5 +1,6 @@
 package a.team.works.u22.hal.u22teama;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -49,6 +50,8 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
     String userSex = "";
     String userMail = "";
     String userPhone = "";
+
+    public ProgressDialog _pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,6 +225,23 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
         private static final String DEBUG_TAG = "RestAccess";
 
         /**
+         * 通信開始前に実行されるメソッド。
+         *
+         * ここで、プログレスダイアログを生成しましょう。
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            _pDialog = new ProgressDialog(MypageActivity.this);
+            _pDialog.setMessage(getString(R.string.progress_message));  // メッセージを設定。
+
+            // プログレスダイアログの表示。
+            _pDialog.show();
+
+        }
+
+        /**
          * 非同期に処理したい内容を記述するメソッド.
          * このメソッドは必ず実装する必要がある。
          *
@@ -362,6 +382,11 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
 
             } catch (JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
+            }
+
+            // ロード画面を消す。
+            if (_pDialog != null && _pDialog.isShowing()) {
+                _pDialog.dismiss();
             }
         }
 

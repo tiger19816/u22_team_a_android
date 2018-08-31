@@ -120,5 +120,8 @@
 
     <!--全体使用可能なもの-->
     <string name="tv_yen">円</string>
+
+    <!-- ロード画面 -->
+    <string name="progress_message">ロード中...</string>
 </resources>
 
