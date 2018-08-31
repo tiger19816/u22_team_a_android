@@ -37,6 +37,7 @@ public class MypageChangeActivity extends AppCompatActivity {
     private static final String MYPAGECHANGECOMPLETE_URL = GetUrl.MypageChangeCompleteUrl;
     //性別　0:男  1:女
     private String SEX_TYPE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

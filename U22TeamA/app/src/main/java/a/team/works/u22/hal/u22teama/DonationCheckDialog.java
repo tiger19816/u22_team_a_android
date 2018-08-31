@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class DonationCheckDialog extends DialogFragment{
             public void onClick(DialogInterface dialog, int which) {
                 DonationActivity donationActivity = (DonationActivity) getActivity();
                 donationActivity.donationSend();
+
             }
         });
         return dialogBuilder.create();

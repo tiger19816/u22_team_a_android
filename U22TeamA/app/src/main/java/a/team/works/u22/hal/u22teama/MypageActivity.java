@@ -3,6 +3,7 @@ package a.team.works.u22.hal.u22teama;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,6 +19,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * タブレイアウトサンプル画面のActivityクラス.
@@ -27,10 +41,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
  */
 public class MypageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    private static final String LOGIN_URL = GetUrl.MypageChangeUrl;
+    private Intent intent;
+    String userName = "";
+    String userBirthdate = "";
+    String userAddress = "";
+    String userSex = "";
+    String userMail = "";
+    String userPhone = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_tab_page1);
+        setContentView(R.layout.activity_mypage);
 
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -57,6 +80,12 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
             TextView navTvUserName = headerView.findViewById(R.id.navTvUserName);
             navTvUserName.setText(pref.getString("name", "ユーザ名"));
         }
+        int loginInfo = pref.getInt("id", 0);
+        String loginInfoStr = String.valueOf(loginInfo);
+        //非同期処理を開始する。
+        MypageReceiver receiver = new MypageReceiver();
+        //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+        receiver.execute(LOGIN_URL, loginInfoStr);
     }
 
     /**
@@ -147,5 +176,168 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
         intent.putExtra("mail", tvMail.getText().toString());
         intent.putExtra("phone", tvPhone.getText().toString());
         startActivity(intent);
+    }
+
+    /**
+     * 非同期通信を行うAsyncTaskクラスを継承したメンバクラス.
+     */
+    private class MypageReceiver extends AsyncTask<String, Void, String> {
+
+        private static final String DEBUG_TAG = "RestAccess";
+
+        /**
+         * 非同期に処理したい内容を記述するメソッド.
+         * このメソッドは必ず実装する必要がある。
+         *
+         * @param params String型の配列。（可変長）
+         * @return String型の結果JSONデータ。
+         */
+        @Override
+        public String doInBackground(String... params) {
+            String urlStr = params[0];
+            String id = params[1];
+
+            //POSTで送りたいデータ
+            String postData = "userId=" + id;
+
+            HttpURLConnection con = null;
+            InputStream is = null;
+            String result = "";
+
+            try {
+                URL url = new URL(urlStr);
+                con = (HttpURLConnection) url.openConnection();
+
+                //GET通信かPOST通信かを指定する。
+                con.setRequestMethod("POST");
+
+                //自動リダイレクトを許可するかどうか。
+                con.setInstanceFollowRedirects(false);
+
+                //時間制限。（ミリ秒単位）
+                con.setReadTimeout(10000);
+                con.setConnectTimeout(20000);
+
+                con.connect();
+
+                //POSTデータ送信処理。InputStream処理よりも先に記述する。
+                OutputStream os = null;
+                try {
+                    os = con.getOutputStream();
+
+                    //送信する値をByteデータに変換する（UTF-8）
+                    os.write(postData.getBytes("UTF-8"));
+                    os.flush();
+                } catch (IOException ex) {
+                    Log.e(DEBUG_TAG, "POST送信エラー", ex);
+                } finally {
+                    if (os != null) {
+                        try {
+                            os.close();
+                        } catch (IOException ex) {
+                            Log.e(DEBUG_TAG, "OutputStream解放失敗", ex);
+                        }
+                    }
+                }
+
+                is = con.getInputStream();
+
+                result = is2String(is);
+            } catch (MalformedURLException ex) {
+                Log.e(DEBUG_TAG, "URL変換失敗", ex);
+            } catch (IOException ex) {
+                Log.e(DEBUG_TAG, "通信失敗", ex);
+            } finally {
+                if (con != null) {
+                    con.disconnect();
+                }
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException ex) {
+                        Log.e(DEBUG_TAG, "InputStream解放失敗", ex);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        @Override
+        public void onPostExecute(String result) {
+            try {
+                JSONObject rootJSON = new JSONObject(result);
+                String name = rootJSON.getString("name");
+                String birthdate = rootJSON.getString("birthdate");
+                String address = rootJSON.getString("address");
+                String mail_address = rootJSON.getString("mail_address");
+                String phone = rootJSON.getString("phone");
+
+                TextView tvName = findViewById(R.id.tv_mypage_name);
+                TextView tvBirth = findViewById(R.id.tv_birth);
+                TextView tvAddress = findViewById(R.id.tv_address);
+                TextView tvSex = findViewById(R.id.tv_sex);
+                TextView tvMail = findViewById(R.id.tv_mail);
+                TextView tvPhone = findViewById(R.id.tv_phone);
+
+                SharedPreferences prefUserName = getSharedPreferences("prefUserName",0);
+                SharedPreferences.Editor e = prefUserName.edit();
+                e.putString("name",userName);
+                e.commit();
+
+                SharedPreferences prefUserBirthdate = getSharedPreferences("prefUserBirthdate",0);
+                SharedPreferences.Editor ed = prefUserBirthdate.edit();
+                ed.putString("birthdate",userBirthdate);
+                ed.commit();
+
+                SharedPreferences prefUserAddress = getSharedPreferences("prefUserAddress",0);
+                SharedPreferences.Editor edi = prefUserAddress.edit();
+                edi.putString("address",userAddress);
+                edi.commit();
+
+                SharedPreferences prefUserSex = getSharedPreferences("prefUserSex",0);
+                SharedPreferences.Editor edit = prefUserSex.edit();
+                edit.putString("sex",userSex);
+                edit.commit();
+
+                SharedPreferences prefUserMail = getSharedPreferences("prefUserMail",0);
+                SharedPreferences.Editor edito = prefUserMail.edit();
+                edito.putString("sex",userSex);
+                edito.commit();
+
+                SharedPreferences prefUserPhone = getSharedPreferences("prefUserPhone",0);
+                SharedPreferences.Editor editor = prefUserPhone.edit();
+                editor.putString("phone",userPhone);
+                editor.commit();
+
+
+
+                String sex = "男";
+
+                tvName.setText(name);
+                tvBirth.setText(DataConversion.getDataConversion02(birthdate));
+                tvAddress.setText(address);
+                if (tvSex.getText().toString().equals("1")) {
+                    sex = "女";
+                }
+                tvSex.setText(sex);
+                tvMail.setText(mail_address);
+                tvPhone.setText(phone);
+
+            } catch (JSONException ex) {
+                Log.e(DEBUG_TAG, "JSON解析失敗", ex);
+            }
+        }
+
+        private String is2String(InputStream is) throws IOException {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            StringBuffer sb = new StringBuffer();
+            char[] b = new char[1024];
+            int line;
+            while (0 <= (line = reader.read(b))) {
+                sb.append(b, 0, line);
+            }
+            return sb.toString();
+        }
     }
 }
