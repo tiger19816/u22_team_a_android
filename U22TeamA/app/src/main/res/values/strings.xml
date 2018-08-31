@@ -35,14 +35,14 @@
     </string-array>
     <string name="tv_activity_project_search_SearchInfo">検索</string>
     <string name="bt_surrounding_project">この周辺のプロジェクトを検索</string>
-    <!--プロジェクト詳細、寄付画面-->
+    <!--プロジェクト詳細、協賛画面-->
     <string name="tv_project_detail_activity_yen">円</string>
     <string name="activity_project_detail_activity_title">タイトル :</string>
     <string name="tv_project_detail_activity_fundRaising">現在 :</string>
     <string name="tv_project_detail_activity_place">場所 :</string>
     <string name="tv_project_detail_activity_content">内容 :</string>
     <string name="tv_project_detail_activity_oder_date">依頼日 :</string>
-    <string name="bt_project_detail_activity_fundRaising">寄付する</string>
+    <string name="bt_project_detail_activity_fundRaising">協賛</string>
     <string name="bt_close">閉じる</string>
     <string-array name="project_detail_activity_Place">
         <item>100</item>
@@ -50,11 +50,11 @@
         <item>300</item>
     </string-array>
 
-    <string name="bt_donation">寄付する</string>
-    <string name="tv_message_donation">寄付金額を入力してください</string>
-    <string name="tv_set_donation">寄付金額</string>
+    <string name="bt_donation">協賛</string>
+    <string name="tv_message_donation">協賛金額を入力してください</string>
+    <string name="tv_set_donation">協賛金額</string>
     <string name="tv_target_money">目標金額</string>
-    <string name="check_message">下記内容で寄付しますか？</string>
+    <string name="check_message">下記内容で協賛しますか？</string>
     <string name="tv_gratitude">ありがとうございました</string>
 
     <!--新規プロジェクト投稿確認画面-->
