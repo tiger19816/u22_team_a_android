@@ -43,6 +43,7 @@
     <string name="tv_project_detail_activity_content">内容 :</string>
     <string name="tv_project_detail_activity_oder_date">依頼日 :</string>
     <string name="bt_project_detail_activity_fundRaising">寄付する</string>
+    <string name="bt_close">閉じる</string>
     <string-array name="project_detail_activity_Place">
         <item>100</item>
         <item>200</item>

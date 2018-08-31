@@ -1,6 +1,7 @@
 package a.team.works.u22.hal.u22teama;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,6 +44,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
     private String prSecondMax ="0";
     private String title ="";
     private String allMoney ="";
+    private Dialog dialog;
+    private String cleanImageUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +56,10 @@ public class ProjectDetailActivity extends AppCompatActivity {
         projectNo = (intent.getStringExtra("projectId"));
         ProjectInfoTaskReceiver receiver = new ProjectInfoTaskReceiver();
 
-        Button btn = findViewById(R.id.bt_FundRaising);
-        btn.setOnClickListener(new ButtonClickListener());
+//        Button btn = findViewById(R.id.bt_FundRaising);
+//        btn.setOnClickListener(new ButtonClickListener());
+
+        dialog = new Dialog(ProjectDetailActivity.this);
 
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
         receiver.execute(ProjectDetail_URL, projectNo);
@@ -173,6 +178,9 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 myWebView.getSettings().setLoadWithOverviewMode(true);
                 myWebView.loadUrl(GetUrl.photoUrl + "?img=temp/" + photo);
 
+                //清掃画像
+                cleanImageUrl = rootJSON.getString("cleaningPhoto");
+
                 //日付
                 String postDate = rootJSON.getString("postDate");
                 postDate = DataConversion.getDataConversion02(postDate);
@@ -199,6 +207,15 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 cleaningFlag = rootJSON.getString("cleanFlag");
                 //目標金額
                 prSecondMax = rootJSON.getString("targetMoney");
+
+                String completeFlag = rootJSON.getString("completeFlag");
+
+                Button btn = findViewById(R.id.bt_FundRaising);
+                if(completeFlag.equals("0")) {
+                    btn.setOnClickListener(new ButtonClickListener());
+                } else {
+                    btn.setOnClickListener(new ButtonClickOpenCleanImage());
+                }
 
                 SetProgresBarr();
 
@@ -249,6 +266,26 @@ public class ProjectDetailActivity extends AppCompatActivity {
             prSecond.setMax(Integer.parseInt(prSecondMax));
             prSecond.setProgress(Integer.parseInt(donationMoney));
         }
+    }
 
+    private class ButtonClickOpenCleanImage implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            dialog.setContentView(R.layout.dialog_clean_image);
+            WebView cleaningPhoto = dialog.findViewById(R.id.wvCleaningPhoto);
+            cleaningPhoto.setWebViewClient(new WebViewClient());
+            cleaningPhoto.getSettings().setUseWideViewPort(true);
+            cleaningPhoto.getSettings().setLoadWithOverviewMode(true);
+            cleaningPhoto.loadUrl(GetUrl.photoUrl + "?img=cleanImage/" + cleanImageUrl);
+            Button button = dialog.findViewById(R.id.button);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        }
     }
 }
