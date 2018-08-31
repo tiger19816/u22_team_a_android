@@ -278,14 +278,14 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
             if(Integer.parseInt(cleaningFlag) >= 2){
                 ProgressBar prSecond = findViewById(R.id.pb_second);
                 prSecond.setMax(prSecondMax);
-                prSecond.setProgress(Integer.parseInt(donationMoney) +  Integer.parseInt(inputStr));
+                prSecond.setSecondaryProgress(Integer.parseInt(donationMoney) +Integer.parseInt(inputStr));
             }else{
-                tvIfMoney.setText(donationMoney);
                 ProgressBar prFirst = findViewById(R.id.pb_first);
-                prFirst.setSecondaryProgress(Integer.parseInt(inputStr));
+                prFirst.setSecondaryProgress(Integer.parseInt(donationMoney) + Integer.parseInt(inputStr));
             }
 
         }else{
+            tvIfMoney.setText(donationMoney);
             if(Integer.parseInt(cleaningFlag) >= 2){
                 ProgressBar prSecond = findViewById(R.id.pb_second);
                 prSecond.setSecondaryProgress(0);
