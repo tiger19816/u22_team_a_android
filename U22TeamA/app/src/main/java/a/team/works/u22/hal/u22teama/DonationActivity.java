@@ -224,8 +224,6 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
         tvFirst.setText(tvFirst.getText().toString() + " : "  + donationMoney +"円 / " + prFirstMax+ "円");
         prFirst.setMax(prFirstMax);
         prFirst.setProgress(Integer.parseInt(donationMoney));
-        TextView tvIfMoney = findViewById(R.id.tv_if_money);
-        tvIfMoney.setText(donationMoney);
         if(Integer.parseInt(cleaningFlag) >= 2){
             ProgressBar prSecond = findViewById(R.id.pb_second);
             TextView tvSecond = findViewById(R.id.tvSecondPD);
@@ -270,26 +268,29 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
     public void afterTextChanged(Editable s) {
         // テキスト変更後に変更されたテキストを取り出す
         String inputStr= s.toString();
-        //仮入金金額表示
-        TextView tvIfMoney = findViewById(R.id.tv_if_money);
         //金額が入力された時に変動する２段階目のプログレスバー
         if(!"".equals(inputStr)) {
-            tvIfMoney.setText(((Integer.parseInt(donationMoney) + Integer.parseInt(inputStr))) + "");
+            //仮入金金額表示
+            TextView tvIfMoney = findViewById(R.id.tvFirstPD);
             if(Integer.parseInt(cleaningFlag) >= 2){
+                tvIfMoney.setText("二段階目 : " + ((Integer.parseInt(donationMoney) + Integer.parseInt(inputStr))) + "円 / " + prFirstMax +"円" );
                 ProgressBar prSecond = findViewById(R.id.pb_second);
                 prSecond.setMax(prSecondMax);
                 prSecond.setSecondaryProgress(Integer.parseInt(donationMoney) +Integer.parseInt(inputStr));
             }else{
+                tvIfMoney.setText("一段階目 : " + ((Integer.parseInt(donationMoney) + Integer.parseInt(inputStr))) + "円 / " + prFirstMax +"円" );
                 ProgressBar prFirst = findViewById(R.id.pb_first);
                 prFirst.setSecondaryProgress(Integer.parseInt(donationMoney) + Integer.parseInt(inputStr));
             }
 
         }else{
-            tvIfMoney.setText(donationMoney);
+            TextView tvIfMoney = findViewById(R.id.tvFirstPD);
             if(Integer.parseInt(cleaningFlag) >= 2){
+                tvIfMoney.setText("二段階目 : " + donationMoney + "円 / " + prFirstMax +"円" );
                 ProgressBar prSecond = findViewById(R.id.pb_second);
                 prSecond.setSecondaryProgress(0);
             }else{
+                tvIfMoney.setText("一段階目 : " + donationMoney + "円 / " + prFirstMax +"円" );
                 ProgressBar prFirst = findViewById(R.id.pb_first);
                 prFirst.setSecondaryProgress(0);
             }
