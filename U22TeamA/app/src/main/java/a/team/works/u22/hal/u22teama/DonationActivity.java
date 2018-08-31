@@ -56,7 +56,7 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
         android.support.v7.app.ActionBar actionbar = getSupportActionBar();
         actionbar.setHomeButtonEnabled(true);
         actionbar.setDisplayHomeAsUpEnabled(true);
-        setTitle("寄付金額入力");
+        setTitle("協賛金額入力");
 
         Intent intent = getIntent();
         // アプリ標準の Preferences を取得する
@@ -91,12 +91,12 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
             if (!"0".equals(memberNo)) {
                 EditText spn = (EditText) findViewById(R.id.editText);
                 if(spn.getText().toString().equals("")||spn.getText().toString().equals(null)){
-                    Toast.makeText(DonationActivity.this, "寄付金額を入力してください。", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DonationActivity.this, "協賛金額を入力してください。", Toast.LENGTH_SHORT).show();
                 }else {
                     String s_money = spn.getText().toString();
                     int money = Integer.parseInt(s_money);
                     if(money == 0){
-                        Toast.makeText(DonationActivity.this, "寄付金額に0は入力できません。", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DonationActivity.this, "協賛金額に0は入力できません。", Toast.LENGTH_SHORT).show();
                     }else{
                         DonationCheckDialog dialog = new DonationCheckDialog();
                         Bundle args = new Bundle();
@@ -119,7 +119,7 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
         DonationSetTaskReceiver receiver = new DonationSetTaskReceiver();
         receiver.execute(DONATIONSET_URL, projectNo, memberNo, donationMoney);
 
-        Toast.makeText(DonationActivity.this, "寄付ありがとうございました", Toast.LENGTH_SHORT).show();
+        Toast.makeText(DonationActivity.this, "協賛ありがとうございました", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(DonationActivity.this, TabLayoutCleanActivity.class);
         intent.putExtra("mood", 1);
         startActivity(intent);
