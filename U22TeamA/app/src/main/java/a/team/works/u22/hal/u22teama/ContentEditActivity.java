@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ContentEditActivity extends AppCompatActivity {
 
@@ -66,9 +67,13 @@ public class ContentEditActivity extends AppCompatActivity {
             Intent intent = new Intent(ContentEditActivity.this,ContentResultActivity.class);
             EditText edContent = findViewById(R.id.edContent);
             String content = edContent.getText().toString();
-            intent.putExtra("loginId", loginId);
-            intent.putExtra("content",content);
-            startActivity(intent);
+            if(content.equals("")||content.equals(null)){
+                Toast.makeText(ContentEditActivity.this, "お問い合わせ内容を入力してください。", Toast.LENGTH_SHORT).show();
+            }else{
+                intent.putExtra("loginId", loginId);
+                intent.putExtra("content",content);
+                startActivity(intent);
+            }
         }
 
     }
