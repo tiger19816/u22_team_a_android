@@ -219,13 +219,32 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 title = rootJSON.getString("title");
                 TextView tvTitle = findViewById(R.id.tv_title);
                 tvTitle.setText(title);
-                //現在の寄付金額
-                String fundRaising = rootJSON.getString("donationMoney");
-                donationMoney = fundRaising;
-                TextView tvFundRaising = findViewById(R.id.tv_FundRaisingInfo);
-                tvFundRaising.setText(fundRaising + getString(R.string.tv_yen));
                 //掃除進行状況
                 cleaningFlag = rootJSON.getString("cleanFlag");
+                TextView tvCleanStatus = findViewById(R.id.tv_FundRaisingInfo);
+                switch(cleaningFlag) {
+                    case "0":
+                        tvCleanStatus.setText("集金中（金額未設定）");
+                        break;
+                    case "1":
+                        tvCleanStatus.setText("集金中（金額設定必要）");
+                        break;
+                    case "2":
+                        tvCleanStatus.setText("集金中（金額設定完了）");
+                        break;
+                    case "3":
+                        tvCleanStatus.setText("集金完了（目標金額達成）");
+                        break;
+                    case "4":
+                        tvCleanStatus.setText("集金完了（依頼完了）");
+                        break;
+                    case "5":
+                        tvCleanStatus.setText("清掃完了");
+                        break;
+                    case "6":
+                        tvCleanStatus.setText("再検討");
+                        break;
+                }
                 //目標金額
                 prSecondMax = rootJSON.getString("targetMoney");
 
