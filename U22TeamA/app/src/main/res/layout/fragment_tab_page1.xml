@@ -168,12 +168,12 @@
 
 </LinearLayout>
 
-    <!--<android.support.design.widget.NavigationView-->
-        <!--android:id="@+id/nvSideMenuButton"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_gravity="start"-->
-        <!--android:fitsSystemWindows="true"-->
-        <!--app:headerLayout="@layout/left_nav_menu_header"-->
-        <!--app:menu="@menu/left_nav_menu" />-->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nvSideMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/left_nav_menu_header"
+        app:menu="@menu/left_nav_menu" />
 </android.support.v4.widget.DrawerLayout>

@@ -23,8 +23,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -195,11 +193,11 @@ public class TabPagePostFragment extends Fragment{
                 JSONObject rootJSON = new JSONObject(result);
 
                 JSONArray datas = rootJSON.getJSONArray("postsList");
+
                 //投稿情報
                 for (int i = 0; i < datas.length(); i++) {
                     JSONObject data = datas.getJSONObject(i);
                     Map map = new HashMap<String , Object>();
-                    map.put("postNo" , data.getString("postNo"));
                     map.put("postTitle" , data.getString("postTitle"));
                     map.put("postPhoto" , data.getString("postPhoto"));
                     map.put("postMoney" , data.getString("postMoney"));
@@ -209,7 +207,7 @@ public class TabPagePostFragment extends Fragment{
                 }
 
                 String[] from = {"postTitle" , "postPhoto" , "postMoney" , "postDate" , "postStatus"};
-                int[] to = {R.id.tvPostTitle , R.id.wvPostsImage , R.id.tvPostMoney , R.id.tvPostDate , R.id.tvPostStatus};
+                int[] to = {R.id.tvPostTitle , R.id.ivPostPhoto , R.id.tvPostMoney , R.id.tvPostDate , R.id.tvPostStatus};
                 final SimpleAdapter adapter = new SimpleAdapter(getActivity() , _list , R.layout.row_posts , from , to);
                 adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
                     @Override
@@ -221,12 +219,11 @@ public class TabPagePostFragment extends Fragment{
                                 TextView tvPostTitle = (TextView) view;
                                 tvPostTitle.setText(strData);
                                 return true;
-                            case R.id.wvPostsImage:
-                                WebView myWebView = (WebView) view;
-                                myWebView.setWebViewClient(new WebViewClient());
-                                myWebView.getSettings().setUseWideViewPort(true);
-                                myWebView.getSettings().setLoadWithOverviewMode(true);
-                                myWebView.loadUrl(GetUrl.photoUrl + strData);
+                            case R.id.ivPostPhoto:
+                                //非同期処理を開始する。
+                                TabPagePostFragment.CleanImageGetTaskReceiver imageGetTaskReceiver = new TabPagePostFragment.CleanImageGetTaskReceiver();
+                                //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+                                imageGetTaskReceiver.execute(strData);
                                 return true;
                             case R.id.tvPostMoney:
                                 TextView tvPostMoney = (TextView) view;
@@ -234,7 +231,7 @@ public class TabPagePostFragment extends Fragment{
                                 return true;
                             case R.id.tvPostDate:
                                 TextView tvPostDate = (TextView) view;
-                                tvPostDate.setText("投稿日：" + DataConversion.getDataConversion02(strData));
+                                tvPostDate.setText("投稿日：" + strData);
                                 return true;
                             case R.id.tvPostStatus:
                                 TextView tvPostStatus = (TextView) view;
@@ -251,7 +248,7 @@ public class TabPagePostFragment extends Fragment{
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(getActivity(), ProjectDetailActivity.class);
                         Map<String, String> map = (Map<String, String>) adapter.getItem(position);
-                        intent.putExtra("projectId", map.get("postNo"));
+//                        intent.putExtra("projectId", map.get("no"));
                         startActivity(intent);
                     }
                 });
@@ -264,6 +261,78 @@ public class TabPagePostFragment extends Fragment{
 
 
     }
+    /**
+     * 非同期通信を行い画像を取得するAsyncTaskクラスを継承したメンバクラス.
+     */
+    private class CleanImageGetTaskReceiver extends AsyncTask<String, Void, Bitmap> {
+
+        private static final String DEBUG_TAG = "RestAccess";
+
+        /**
+         * 非同期に処理したい内容を記述するメソッド.
+         * このメソッドは必ず実装する必要がある。
+         *
+         * @param params String型の配列。（可変長）
+         * @return String型の結果JSONデータ。
+         */
+        @Override
+        public Bitmap doInBackground(String... params) {
+            String urlStr = params[0];
+
+            HttpURLConnection con = null;
+            InputStream is = null;
+            Bitmap result = null;
+
+            try {
+                URL url = new URL(urlStr);
+                con = (HttpURLConnection) url.openConnection();
+
+                //GET通信かPOST通信かを指定する。
+                con.setRequestMethod("GET");
+
+                //自動リダイレクトを許可するかどうか。
+                con.setInstanceFollowRedirects(false);
+
+                //時間制限。（ミリ秒単位）
+                con.setReadTimeout(10000);
+                con.setConnectTimeout(20000);
+
+                con.connect();
+
+                is = con.getInputStream();
+
+                result = BitmapFactory.decodeStream(is);
+            }
+            catch (MalformedURLException ex) {
+                Log.e(DEBUG_TAG, "URL変換失敗", ex);
+            }
+            catch (IOException ex) {
+                Log.e(DEBUG_TAG, "通信失敗", ex);
+            }
+            finally {
+                if(con != null) {
+                    con.disconnect();
+                }
+                if(is != null) {
+                    try {
+                        is.close();
+                    }
+                    catch (IOException ex) {
+                        Log.e(DEBUG_TAG, "InputStream解放失敗", ex);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        @Override
+        public void onPostExecute(Bitmap result) {
+            ImageView ivPostPhoto = getActivity().findViewById(R.id.ivPostPhoto);
+            //ビットマップをImageViewに設定
+            ivPostPhoto.setImageBitmap(result);
+        }
+    }
     private String is2String(InputStream is) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
         StringBuffer sb = new StringBuffer();
@@ -274,6 +343,13 @@ public class TabPagePostFragment extends Fragment{
         }
         return sb.toString();
     }
+
+
+//    public void onSearchButtonClick(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, view, menuInfo);
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.context_menu_sample, menu);
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -310,10 +386,5 @@ public class TabPagePostFragment extends Fragment{
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
-
-    public interface AsyncTaskCallBack {
-        public void taskComp(Bitmap result);
-    }
 }
-
 

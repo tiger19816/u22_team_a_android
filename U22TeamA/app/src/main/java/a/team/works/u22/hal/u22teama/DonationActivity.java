@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,11 +27,7 @@ public class DonationActivity extends AppCompatActivity {
     private static final String DONATIONSET_URL = GetUrl.DonationSetUrl;
     private static String projectNo = "1";
     private static String memberNo = "3";
-    private static String donationMoney;
-    private static int prFirstMax = 3000;
-    private int prSecondMax;
-    private String cleaningFlag;
-
+    private static String targetMoney;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,22 +35,11 @@ public class DonationActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         projectNo = (intent.getStringExtra("projectNo"));
-        String title = (intent.getStringExtra("title"));
-        cleaningFlag = (intent.getStringExtra("cleaningFlag"));
-        donationMoney = (intent.getStringExtra("donationMoney"));
-        prSecondMax = Integer.valueOf(intent.getStringExtra("TargetMoney"));
 
-<<<<<<< HEAD
         targetMoney = (intent.getStringExtra("TargetMoney"));
 
         TextView tvTargetMoney = findViewById(R.id.tvTargetMoney);
         tvTargetMoney.setText(targetMoney + "円");
-=======
-        TextView tvTitle = findViewById(R.id.tv_donation_title);
-        tvTitle.setText(title);
-        //ProgressBarrのセット
-        SetProgresBarr();
->>>>>>> master
 
         Button btCheck = findViewById(R.id.btCheckButton);
         btCheck.setOnClickListener(new donationCheckListener());
@@ -67,8 +50,8 @@ public class DonationActivity extends AppCompatActivity {
         public void onClick(View v){
             DonationCheckDialog dialog = new DonationCheckDialog();
             Bundle args = new Bundle();
-            EditText spn = (EditText)findViewById(R.id.editText);
-            String donationMoney = (String)spn.getText().toString();
+            Spinner spn = (Spinner)findViewById(R.id.spinner);
+            String donationMoney = (String)spn.getSelectedItem();
             args.putString("donationMoney", donationMoney);
             dialog.setArguments(args);
             dialog.show(getFragmentManager(), "checker");
@@ -76,15 +59,13 @@ public class DonationActivity extends AppCompatActivity {
     }
 
     public void donationSend(){
-        EditText spn = (EditText)findViewById(R.id.editText);
-        String donationMoney = (String)spn.getText().toString();
+        Spinner spn = (Spinner)findViewById(R.id.spinner);
+        String donationMoney = (String)spn.getSelectedItem();
         DonationSetTaskReceiver receiver = new DonationSetTaskReceiver();
         receiver.execute(DONATIONSET_URL, projectNo, memberNo, donationMoney);
 
         Toast.makeText(DonationActivity.this, "寄付ありがとうございました", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(DonationActivity.this, TabLayoutCleanActivity.class);
-        intent.putExtra("mood", 1);
-        startActivity(intent);
+
     }
 
     /**
@@ -188,21 +169,5 @@ public class DonationActivity extends AppCompatActivity {
             }
             return sb.toString();
         }
-    }
-
-    private void SetProgresBarr(){
-        ProgressBar prFirst = findViewById(R.id.pb_first);
-        TextView tvFirst = findViewById(R.id.tvFirstPD);
-        tvFirst.setText(tvFirst.getText().toString() + " : "  + donationMoney +"円 / " + prFirstMax+ "円");
-        prFirst.setMax(prFirstMax);
-        prFirst.setProgress(Integer.parseInt(donationMoney));
-        if(Integer.parseInt(cleaningFlag) >= 2){
-            ProgressBar prSecond = findViewById(R.id.pb_second);
-            TextView tvSecond = findViewById(R.id.tvSecondPD);
-            tvSecond.setText(tvSecond.getText().toString() + " : " + donationMoney + "円 / "  + prSecondMax + "円");
-            prSecond.setMax(prSecondMax);
-            prSecond.setProgress(Integer.parseInt(donationMoney));
-        }
-
     }
 }

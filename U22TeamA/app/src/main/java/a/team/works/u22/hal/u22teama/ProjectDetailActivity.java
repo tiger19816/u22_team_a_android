@@ -1,12 +1,10 @@
 package a.team.works.u22.hal.u22teama;
 
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -37,16 +32,7 @@ import java.util.concurrent.Callable;
 
 public class ProjectDetailActivity extends AppCompatActivity {
     private static final String ProjectDetail_URL = GetUrl.ProjectInfoUrl;
-    private static String projectNo = "5";
-    //プログレスバー１番の最大値設定
-    private final int prFirstMax = 3000;
-    private Dialog dialog;
-    private String donationMoney ="";
-    private String cleaningFlag ="";
-    private String prSecondMax ="0";
-    private String title ="";
-    private String cleanImageUrl = "";
-    private String allMoney ="";
+    private static String projectNo = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +43,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
         projectNo = (intent.getStringExtra("projectNo"));
         ProjectInfoTaskReceiver receiver = new ProjectInfoTaskReceiver();
 
-        dialog = new Dialog(ProjectDetailActivity.this);
-
+        Button btn = findViewById(R.id.bt_FundRaising);
+        btn.setOnClickListener(new ButtonClickListener());
 
         //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
         receiver.execute(ProjectDetail_URL, projectNo);
@@ -171,16 +157,10 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 Log.e("neko", result);
                 //画像
                 String photo = rootJSON.getString("photo");
-                WebView myWebView = findViewById(R.id.wvProjectPhoto);
-                myWebView.setWebViewClient(new WebViewClient());
-                myWebView.getSettings().setUseWideViewPort(true);
-                myWebView.getSettings().setLoadWithOverviewMode(true);
-                myWebView.loadUrl(GetUrl.photoUrl + photo);
-                //清掃画像
-                cleanImageUrl = rootJSON.getString("cleaningPhoto");
+                ImageGet ig = new ImageGet();
+                ig.execute(GetUrl.photoUrl + photo);
                 //日付
                 String postDate = rootJSON.getString("postDate");
-                postDate = DataConversion.getDataConversion02(postDate);
                 TextView tvPostDate = findViewById(R.id.tv_OrderDateInfo);
                 tvPostDate.setText(postDate);
                 //場所
@@ -191,38 +171,16 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 String content = rootJSON.getString("content");
                 TextView tvContent = findViewById(R.id.tv_ContentInfo);
                 tvContent.setText(content);
-                //タイトル
-                title = rootJSON.getString("title");
-                TextView tvTitle = findViewById(R.id.tv_title);
-                tvTitle.setText(title);
                 //現在の寄付金額
                 String fundRaising = rootJSON.getString("donationMoney");
-                donationMoney = fundRaising;
                 TextView tvFundRaising = findViewById(R.id.tv_FundRaisingInfo);
                 tvFundRaising.setText(fundRaising);
-                //掃除進行状況
-                cleaningFlag = rootJSON.getString("cleanFlag");
-                //目標金額
-                prSecondMax = rootJSON.getString("targetMoney");
-
-                String completeFlag = rootJSON.getString("completeFlag");
-
-                if(!completeFlag.equals("1")) {
-                    Log.e("cat",completeFlag);
-                    Button btn = findViewById(R.id.bt_FundRaising);
-                    btn.setOnClickListener(new ButtonClickListener());
-                }else{
-                    Log.e("cat","nekoneko");
-                    Button btn = findViewById(R.id.bt_FundRaising);
-                    btn.setOnClickListener(new ButtonClickOpenCleanImage());
-                }
-                SetProgresBarr();
 
             } catch(JSONException ex) {
                 Log.e(DEBUG_TAG, "JSON解析失敗", ex);
             }
         }
-        @NonNull
+
         private String is2String(InputStream is) throws IOException {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             StringBuffer sb = new StringBuffer();
@@ -233,59 +191,46 @@ public class ProjectDetailActivity extends AppCompatActivity {
             }
             return sb.toString();
         }
+
     }
+
+    private class ImageGet extends AsyncTask<String, Void, Bitmap>{
+        @Override
+        public Bitmap doInBackground(String...params){
+            String URL = params[0];
+            InputStream is = null;
+            Bitmap bmp = null;
+
+            try {
+                URL url = new URL(URL);
+                is = url.openStream();
+                bmp = BitmapFactory.decodeStream(is);
+                is.close();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+        public void onPostExecute(Bitmap result) {
+            ImageView imageView = findViewById(R.id.imageView);
+            imageView.setImageBitmap(result);
+        }
+    }
+
 
     private class  ButtonClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
             TextView tvTargetMoney = findViewById(R.id.tv_FundRaisingInfo);
+            String item = "0";
 
             Intent intent = new Intent(ProjectDetailActivity.this, DonationActivity.class);
-            intent.putExtra("title", title);
-            intent.putExtra("cleaningFlag",cleaningFlag);
-            intent.putExtra("donationMoney", donationMoney );
             intent.putExtra("projectNo",projectNo);
-            intent.putExtra("TargetMoney",prSecondMax);
+            intent.putExtra("TargetMoney",item);
             startActivity(intent);
-        }
-    }
-
-    private void SetProgresBarr(){
-        ProgressBar prFirst = findViewById(R.id.pb_first);
-        TextView tvFirst = findViewById(R.id.tvFirstPD);
-        tvFirst.setText(tvFirst.getText().toString() + " : "  + donationMoney +"円 / " + prFirstMax+ "円");
-        prFirst.setMax(prFirstMax);
-        prFirst.setProgress(Integer.parseInt(donationMoney));
-        if(Integer.parseInt(cleaningFlag) >= 2){
-            ProgressBar prSecond = findViewById(R.id.pb_second);
-            TextView tvSecond = findViewById(R.id.tvSecondPD);
-            tvSecond.setText(tvSecond.getText().toString() + " : " + donationMoney + "円 / "  + prSecondMax + "円");
-            prSecond.setMax(Integer.parseInt(prSecondMax));
-            prSecond.setProgress(Integer.parseInt(donationMoney));
-        }
-
-    }
-
-    private class ButtonClickOpenCleanImage implements View.OnClickListener{
-        @Override
-        public void onClick(View v){
-
-            dialog.setContentView(R.layout.dialog_clean_image);
-            WebView cleaningPhoto = (WebView)dialog.findViewById(R.id.wvCleaningPhoto);
-            cleaningPhoto.setWebViewClient(new WebViewClient());
-            cleaningPhoto.getSettings().setUseWideViewPort(true);
-            cleaningPhoto.getSettings().setLoadWithOverviewMode(true);
-            Log.e("cat",GetUrl.CleaningPhotoUrl+cleanImageUrl);
-            cleaningPhoto.loadUrl(GetUrl.CleaningPhotoUrl + cleanImageUrl);
-            Button button = (Button)dialog.findViewById(R.id.button);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.show();
         }
     }
 }

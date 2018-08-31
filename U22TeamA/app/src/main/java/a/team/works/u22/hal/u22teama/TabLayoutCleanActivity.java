@@ -28,17 +28,12 @@ import android.widget.TextView;
  * @author Taiga Hirai
  */
 public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, TabPageAssistFragment.OnFragmentInteractionListener, TabPagePostFragment.OnFragmentInteractionListener,NavigationView.OnNavigationItemSelectedListener {
-    private int mood;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout_clean);
-        Intent intent=getIntent();
-        if(intent.getSerializableExtra("mood") !=null) {
-            mood = (int) intent.getSerializableExtra("mood");
-        }else{
-            mood = 0;
-        }
+
 
         //ツールバー(レイアウトを変更可)。
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -104,7 +99,7 @@ public class TabLayoutCleanActivity extends AppCompatActivity implements ViewPag
         tabLayout.setupWithViewPager(viewPager);
 
         //初期に選択されているTabを設定(0始まり)
-        tabLayout.getTabAt(mood).select();
+        tabLayout.getTabAt(0).select();
 
         //ユーザ名を表示する
         SharedPreferences pref = getSharedPreferences("prefUserId",0);
