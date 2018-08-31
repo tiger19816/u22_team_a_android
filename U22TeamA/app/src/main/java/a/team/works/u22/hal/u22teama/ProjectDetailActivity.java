@@ -245,6 +245,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
             ProgressBar prSecond = findViewById(R.id.pb_second);
             TextView tvSecond = findViewById(R.id.tvSecondPD);
             tvSecond.setText(tvSecond.getText().toString() + " : " + donationMoney + "円 / "  + prSecondMax + "円");
+            tvFirst.setText("一段階目 : " + prFirstMax + "円 / " + prFirstMax +"円" );
             prSecond.setMax(Integer.parseInt(prSecondMax));
             prSecond.setProgress(Integer.parseInt(donationMoney));
         }
