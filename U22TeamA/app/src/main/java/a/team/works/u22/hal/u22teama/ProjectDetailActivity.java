@@ -220,6 +220,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 TextView tvTitle = findViewById(R.id.tv_title);
                 tvTitle.setText(title);
                 //掃除進行状況
+                donationMoney = rootJSON.getString("donationMoney");
                 cleaningFlag = rootJSON.getString("cleanFlag");
                 TextView tvCleanStatus = findViewById(R.id.tv_FundRaisingInfo);
                 switch(cleaningFlag) {
