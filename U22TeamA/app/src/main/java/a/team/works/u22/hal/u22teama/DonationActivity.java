@@ -284,7 +284,7 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
             //仮入金金額表示
             if(Integer.parseInt(cleaningFlag) >= 2){
                 TextView tvIfMoney = findViewById(R.id.tvSecondPD);
-                tvIfMoney.setText("二段階目 : " + ((Integer.parseInt(donationMoney) + Integer.parseInt(inputStr))) + "円 / " + prFirstMax +"円" );
+                tvIfMoney.setText("二段階目 : " + ((Integer.parseInt(donationMoney) + Integer.parseInt(inputStr))) + "円 / " + prSecondMax +"円" );
                 TextView tvMax = findViewById(R.id.tvFirstPD);
                 tvMax.setText("一段階目 : " + prFirstMax + "円 / " + prFirstMax +"円" );
                 ProgressBar prSecond = findViewById(R.id.pb_second);
@@ -300,7 +300,7 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
         }else{
             if(Integer.parseInt(cleaningFlag) >= 2){
                 TextView tvIfMoney = findViewById(R.id.tvSecondPD);
-                tvIfMoney.setText("二段階目 : " + donationMoney + "円 / " + prFirstMax +"円" );
+                tvIfMoney.setText("二段階目 : " + donationMoney + "円 / " + prSecondMax +"円" );
                 TextView tvMax = findViewById(R.id.tvFirstPD);
                 tvMax.setText("一段階目 : " + prFirstMax + "円 / " + prFirstMax +"円" );
                 ProgressBar prSecond = findViewById(R.id.pb_second);
