@@ -157,7 +157,7 @@ public class MypageChangeActivity extends AppCompatActivity {
             String phone= params[6];
 
             //POSTで送りたいデータ
-            String postData = "no=" + no + "name=" + name + "&address=" + address + "&sex=" + sex + "&mail=" + mail + "&phone=" + phone;
+            String postData = "no=" + no + "&name=" + name + "&address=" + address + "&sex=" + sex + "&mail=" + mail + "&phone=" + phone;
 
             HttpURLConnection con = null;
             InputStream is = null;
