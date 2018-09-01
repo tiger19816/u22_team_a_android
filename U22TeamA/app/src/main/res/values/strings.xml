@@ -44,6 +44,7 @@
     <string name="tv_project_detail_activity_oder_date">依頼日 :</string>
     <string name="bt_project_detail_activity_fundRaising">協賛</string>
     <string name="bt_close">閉じる</string>
+    <string name="bt_comp_img">清掃完了後の写真を表示</string>
     <string-array name="project_detail_activity_Place">
         <item>100</item>
         <item>200</item>

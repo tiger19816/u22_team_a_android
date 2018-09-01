@@ -232,10 +232,13 @@ public class ProjectDetailActivity extends AppCompatActivity {
                 String completeFlag = rootJSON.getString("completeFlag");
 
                 Button btn = findViewById(R.id.bt_FundRaising);
-                if(completeFlag.equals("0")) {
-                    btn.setOnClickListener(new ButtonClickListener());
-                } else {
+                if(cleaningFlag.equals("5")) {
+                    btn.setText(R.string.bt_comp_img);
                     btn.setOnClickListener(new ButtonClickOpenCleanImage());
+                } else if(cleaningFlag.equals("4")) {
+                    btn.setVisibility(View.INVISIBLE);
+                } else {
+                    btn.setOnClickListener(new ButtonClickListener());
                 }
 
                 SetProgresBarr();
