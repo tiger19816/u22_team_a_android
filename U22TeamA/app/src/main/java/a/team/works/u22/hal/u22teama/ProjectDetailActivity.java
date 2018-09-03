@@ -272,15 +272,14 @@ public class ProjectDetailActivity extends AppCompatActivity {
         public void onClick(View v) {
             TextView tvTargetMoney = findViewById(R.id.tv_FundRaisingInfo);
 
-            Intent intent = new Intent(ProjectDetailActivity.this, DonationActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Intent intent = new Intent(ProjectDetailActivity.this, MoveActivity.class);
             intent.putExtra("title", title);
             intent.putExtra("cleaningFlag",cleaningFlag);
             intent.putExtra("donationMoney", donationMoney );
             intent.putExtra("projectNo",projectNo);
             intent.putExtra("TargetMoney",prSecondMax);
+            intent.putExtra("page",3);
             startActivity(intent);
-            finish();
         }
     }
 

@@ -196,10 +196,11 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
 
     public void MovePage() {
 
-        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, TabLayoutCleanActivity.class);
+        Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, MoveActivity.class);
+        intent.putExtra("page", 2);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        finish();
+
     }
 
 

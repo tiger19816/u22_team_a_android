@@ -120,11 +120,10 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
         receiver.execute(DONATIONSET_URL, projectNo, memberNo, donationMoney);
 
         Toast.makeText(DonationActivity.this, "協賛ありがとうございました", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(DonationActivity.this, TabLayoutCleanActivity.class);
+        Intent intent = new Intent(DonationActivity.this, MoveActivity.class);
+        intent.putExtra("page",4);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("mood", 1);
         startActivity(intent);
-        finish();
     }
 
     /**

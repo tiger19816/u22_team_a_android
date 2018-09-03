@@ -164,7 +164,8 @@ public class MypageActivity extends AppCompatActivity implements NavigationView.
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (id == R.id.nav_project_contribution) {
-            intent = new Intent(MypageActivity.this,NewProjectPostsScreenActivity.class);
+            intent = new Intent(MypageActivity.this,MoveActivity.class);
+            intent.putExtra("page", 1);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (id == R.id.nav_contact) {
