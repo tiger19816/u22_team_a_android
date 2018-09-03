@@ -37,6 +37,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -67,6 +68,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
     private LinearLayout linearLayoutArea;
     private ArrayList<Marker> markers;
     private Intent intent;
+    private int searchFlag = -1;
 
     public ProgressDialog _pDialog;
     /**
@@ -354,7 +356,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
             HttpURLConnection con = null;
             InputStream is = null;
             String result = "";
-            String postData = "lat=" + lat + "&lng=" + lng;
+            String postData = "lat=" + lat + "&lng=" + lng + "&flag=" + searchFlag;
 
             try {
                 URL url = new URL(urlStr);
@@ -428,11 +430,11 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
             try {
                 JSONArray rootJson = new JSONArray(result);
                 if(rootJson.length() == 0) {
-                    //非同期処理を開始する。
-                    ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
-                    //大阪市役所34.693835, 135.501929
-                    //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-                    receiver.execute(GetUrl.projectMapUrl, "34.693835", "135.501929");
+                    Toast.makeText(ProjectSearchMapsActivity.this, "この地域に指定された条件のプロジェクトは在りません。", Toast.LENGTH_SHORT).show();
+                    // ロード画面を消す。
+                    if (_pDialog != null && _pDialog.isShowing()) {
+                        _pDialog.dismiss();
+                    }
                     return;
                 }
                 for(int i = 0; i < rootJson.length(); i++) {
@@ -462,7 +464,12 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
             for(Map<String, String> map : projectList) {
                 //マーカー表示
                 LatLng latLng = new LatLng(Float.parseFloat(map.get("latitude")), Float.parseFloat(map.get("longitude")));
-                markers.add(mMap.addMarker(new MarkerOptions().position(latLng).title(map.get("title"))));
+                if(map.get("cleaning_flag").equals("5")) {
+                    markers.add(mMap.addMarker(new MarkerOptions().position(latLng).title(map.get("title")).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))));
+                } else {
+                    markers.add(mMap.addMarker(new MarkerOptions().position(latLng).title(map.get("title"))));
+                }
+
                 markers.get(markers.size() - 1).setTag(map);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
             }

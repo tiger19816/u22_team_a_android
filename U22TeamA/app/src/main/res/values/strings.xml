@@ -31,7 +31,8 @@
     <string name="tv_mypage_post">MY投稿</string>
     <!--プロジェクト検索画面-->
     <string-array name="spinner_activity_project_search_DetailedDesignatedSearch">
-        <item>詳細検索</item>
+        <item>全てのプロジェクトを表示</item>
+        <item>完了プロジェクトを表示</item>
     </string-array>
     <string name="tv_activity_project_search_SearchInfo">検索</string>
     <string name="bt_surrounding_project">この周辺のプロジェクトを検索</string>
