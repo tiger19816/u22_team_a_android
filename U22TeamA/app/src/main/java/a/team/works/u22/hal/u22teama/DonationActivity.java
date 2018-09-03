@@ -123,6 +123,7 @@ public class DonationActivity extends AppCompatActivity implements TextWatcher {
         Intent intent = new Intent(DonationActivity.this, TabLayoutCleanActivity.class);
         intent.putExtra("mood", 1);
         startActivity(intent);
+        finish();
     }
 
     /**
