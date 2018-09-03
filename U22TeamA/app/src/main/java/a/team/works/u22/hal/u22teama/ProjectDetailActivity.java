@@ -273,6 +273,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
             TextView tvTargetMoney = findViewById(R.id.tv_FundRaisingInfo);
 
             Intent intent = new Intent(ProjectDetailActivity.this, DonationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("title", title);
             intent.putExtra("cleaningFlag",cleaningFlag);
             intent.putExtra("donationMoney", donationMoney );

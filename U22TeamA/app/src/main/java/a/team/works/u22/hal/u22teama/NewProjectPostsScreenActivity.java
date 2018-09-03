@@ -662,9 +662,9 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
      */
     public void MovePage(NewProjectPostsScreenActivityInfomation info) {
         Intent intent = new Intent(NewProjectPostsScreenActivity.this, NewProjectPostsConfirmationScreenActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("value", info);
         startActivity(intent);
-        finish();
     }
 
     /**
