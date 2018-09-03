@@ -664,6 +664,7 @@ public class NewProjectPostsScreenActivity extends AppCompatActivity implements 
         Intent intent = new Intent(NewProjectPostsScreenActivity.this, NewProjectPostsConfirmationScreenActivity.class);
         intent.putExtra("value", info);
         startActivity(intent);
+        finish();
     }
 
     /**

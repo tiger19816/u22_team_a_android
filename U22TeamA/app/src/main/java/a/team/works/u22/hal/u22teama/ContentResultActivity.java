@@ -203,10 +203,11 @@ public class ContentResultActivity  extends AppCompatActivity {
                 if (isLogin) {
                     Intent intent = new Intent(ContentResultActivity.this, ProjectSearchMapsActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    Toast.makeText(ContentResultActivity.this , "成功" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ContentResultActivity.this , "送信完了しました。" , Toast.LENGTH_SHORT).show();
                     startActivity(intent);
+
                 }else{
-                    Toast.makeText(ContentResultActivity.this , "失敗" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ContentResultActivity.this , "失敗に失敗しました。" , Toast.LENGTH_SHORT).show();
                 }
             }
 

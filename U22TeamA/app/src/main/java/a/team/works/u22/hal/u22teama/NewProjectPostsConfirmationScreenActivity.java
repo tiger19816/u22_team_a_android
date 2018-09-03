@@ -198,6 +198,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
 
         Intent intent = new Intent(NewProjectPostsConfirmationScreenActivity.this, TabLayoutCleanActivity.class);
         startActivity(intent);
+        finish();
 
     }
 
