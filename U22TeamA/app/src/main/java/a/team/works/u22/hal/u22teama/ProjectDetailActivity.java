@@ -279,6 +279,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
             intent.putExtra("projectNo",projectNo);
             intent.putExtra("TargetMoney",prSecondMax);
             startActivity(intent);
+            finish();
         }
     }
 
