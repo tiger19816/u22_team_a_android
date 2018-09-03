@@ -31,7 +31,9 @@
         android:text="@string/tv_activity_new_project_posts_title"
         app:layout_constraintBaseline_toBaselineOf="@+id/ed_Title"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 
     <EditText
         android:id="@+id/ed_Title"

@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,7 +61,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProjectSearchMapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+public class ProjectSearchMapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, AdapterView.OnItemSelectedListener {
 
     private GoogleMap mMap;
     private ListView lvProjectList;    // 内容エリア
@@ -127,6 +128,9 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
             TextView navTvUserName = headerView.findViewById(R.id.navTvUserName);
             navTvUserName.setText(pref.getString("name", "ユーザ名"));
         }
+
+        Spinner spinner = findViewById(R.id.spSelect);
+        spinner.setOnItemSelectedListener(this);
     }
 
     /**
@@ -315,6 +319,16 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
                 break;
         }
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        int posia = position;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
+
     /**
      * 非同期通信を行うAsyncTaskクラスを継承したメンバクラス.
      */
