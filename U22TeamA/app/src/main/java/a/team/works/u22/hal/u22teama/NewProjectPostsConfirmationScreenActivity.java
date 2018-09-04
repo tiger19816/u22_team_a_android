@@ -100,7 +100,7 @@ public class NewProjectPostsConfirmationScreenActivity extends AppCompatActivity
         tvCategory.setText(category[Integer.parseInt(NPPSAI.getSpinnerCate())   ]);
 
         tvContent.setText(NPPSAI.getEdSConte());
-        tvCheckInvestmentAmount.setText(NPPSAI.getEdInvestmentAmount());
+        tvCheckInvestmentAmount.setText(Tools.StrNumToStringCom(NPPSAI.getEdInvestmentAmount()));
 
 
     }
