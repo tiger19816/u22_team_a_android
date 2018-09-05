@@ -287,14 +287,14 @@ public class ProjectDetailActivity extends AppCompatActivity {
     private void SetProgresBarr(){
         ProgressBar prFirst = findViewById(R.id.pb_first);
         TextView tvFirst = findViewById(R.id.tvFirstPD);
-        tvFirst.setText(tvFirst.getText().toString() + " : "  + Tools.StrNumToStringCom(donationMoney) +"円 / " + Tools.intToStringCom(prFirstMax)+ "円");
+        tvFirst.setText(Tools.StrNumToStringCom(donationMoney) +"円 / " + Tools.intToStringCom(prFirstMax)+ "円");
         prFirst.setMax(prFirstMax);
         prFirst.setProgress(Integer.parseInt(donationMoney));
         if(Integer.parseInt(cleaningFlag) >= 2){
             ProgressBar prSecond = findViewById(R.id.pb_second);
             TextView tvSecond = findViewById(R.id.tvSecondPD);
-            tvSecond.setText(tvSecond.getText().toString() + " : " + Tools.StrNumToStringCom(donationMoney) + "円 / "  + Tools.StrNumToStringCom(prSecondMax) + "円");
-            tvFirst.setText("一段階目 : " + Tools.intToStringCom(prFirstMax) + "円 / " + Tools.intToStringCom(prFirstMax) +"円" );
+            tvSecond.setText( Tools.StrNumToStringCom(donationMoney) + "円 / "  + Tools.StrNumToStringCom(prSecondMax) + "円");
+            tvFirst.setText( Tools.intToStringCom(prFirstMax) + "円 / " + Tools.intToStringCom(prFirstMax) +"円" );
             prSecond.setMax(Integer.parseInt(prSecondMax));
             prSecond.setProgress(Integer.parseInt(donationMoney));
         }
