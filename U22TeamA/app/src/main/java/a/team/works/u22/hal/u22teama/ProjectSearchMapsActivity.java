@@ -173,7 +173,8 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //            startActivity(intent);
         } else if (id == R.id.nav_project_contribution) {
-            intent = new Intent(ProjectSearchMapsActivity.this,NewProjectPostsScreenActivity.class);
+            intent = new Intent(ProjectSearchMapsActivity.this,MoveActivity.class);
+            intent.putExtra("page", 1);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (id == R.id.nav_contact) {
