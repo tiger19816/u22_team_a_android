@@ -252,7 +252,7 @@ public class TabPagePostFragment extends Fragment{
                                 return true;
                             case R.id.tvPostMoney:
                                 TextView tvPostMoney = (TextView) view;
-                                tvPostMoney.setText("投稿金：" + strData + "円");
+                                tvPostMoney.setText("投稿金：" + Tools.StrNumToStringCom(strData) + "円");
                                 return true;
                             case R.id.tvPostDate:
                                 TextView tvPostDate = (TextView) view;
