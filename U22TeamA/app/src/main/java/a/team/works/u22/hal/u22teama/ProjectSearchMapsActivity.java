@@ -72,6 +72,10 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
     private int searchFlag = -1;
 
     public ProgressDialog _pDialog;
+
+    private Location location = null;
+    private boolean isFirst = true;
+
     /**
      * アニメーションにかける時間（ミリ秒）
      */
@@ -226,26 +230,7 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
             return;
         }
         // 最新の位置情報
-        Location location = locationManager.getLastKnownLocation(locationProvider);
-
-        if (location != null) {
-//            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker in Sydney"));
-//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
-
-            //非同期処理を開始する。
-            ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
-            //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-            receiver.execute(GetUrl.projectMapUrl, location.getLatitude() + "", location.getLongitude() + "");
-        } else {
-            Toast.makeText(ProjectSearchMapsActivity.this, "現在地情報の取得に失敗しました。", Toast.LENGTH_SHORT).show();
-            //非同期処理を開始する。
-            ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
-            //大阪市役所34.693835, 135.501929
-            //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
-            receiver.execute(GetUrl.projectMapUrl, "34.693835", "135.501929");
-        }
-
+        location = locationManager.getLastKnownLocation(locationProvider);
     }
 
     @Override
@@ -310,6 +295,9 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
                 for(Marker marker : markers) {
                     marker.remove();
                 }
+                List<Map<String, String>> projectList = new ArrayList<>();
+                SimpleAdapter adapter = new SimpleAdapter(ProjectSearchMapsActivity.this, projectList, R.layout.row_project_list, null, null);
+                lvProjectList.setAdapter(adapter);
                 //カメラの位置を取得する。
                 CameraPosition position = mMap.getCameraPosition();
                 //非同期処理を開始する。
@@ -322,7 +310,49 @@ public class ProjectSearchMapsActivity extends AppCompatActivity implements Navi
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        int posia = position;
+        switch (position) {
+            case 0:
+                searchFlag = -1;
+                break;
+            case 1:
+                searchFlag = 5;
+                break;
+        }
+        if (location != null) {
+//            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker in Sydney"));
+//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14));
+
+            //非同期処理を開始する。
+            ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
+            //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+            receiver.execute(GetUrl.projectMapUrl, location.getLatitude() + "", location.getLongitude() + "");
+
+            location = null;
+            isFirst = false;
+        } else if(isFirst) {
+            Toast.makeText(ProjectSearchMapsActivity.this, "現在地情報の取得に失敗しました。", Toast.LENGTH_SHORT).show();
+            //非同期処理を開始する。
+            ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
+            //大阪市役所34.693835, 135.501929
+            //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+            receiver.execute(GetUrl.projectMapUrl, "34.693835", "135.501929");
+
+            isFirst = false;
+        } else {
+            for(Marker marker : markers) {
+                marker.remove();
+            }
+            List<Map<String, String>> projectList = new ArrayList<>();
+            SimpleAdapter adapter = new SimpleAdapter(ProjectSearchMapsActivity.this, projectList, R.layout.row_project_list, null, null);
+            lvProjectList.setAdapter(adapter);
+            //カメラの位置を取得する。
+            CameraPosition cameraPosition = mMap.getCameraPosition();
+            //非同期処理を開始する。
+            ProjectMapTaskReceiver receiver = new ProjectMapTaskReceiver();
+            //ここで渡した引数はLoginTaskReceiverクラスのdoInBackground(String... params)で受け取れる。
+            receiver.execute(GetUrl.projectMapUrl, cameraPosition.target.latitude + "", cameraPosition.target.longitude + "");
+        }
     }
 
     @Override
